@@ -1,4 +1,15 @@
 #include <iostream>
+#include <vector>
+
+int main()
+{
+	std::vector<int> v;
+std::cout << std::vector<int>::value_type << std::endl;
+	//std::cout << v::value_type << std::endl;
+	return 0;
+}
+
+/*#include <iostream>
 #include <string>
 #include <deque>
 #if 1 //CREATE A REAL STL EXAMPLE
@@ -113,4 +124,4 @@ int main(int argc, char** argv) {
 	}
 	std::cout << std::endl;
 	return (0);
-}
+}*/
