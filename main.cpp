@@ -1,11 +1,16 @@
 #include <iostream>
-#include <vector>
+//#include <vector>
+#include "vector.hpp"
 
 int main()
 {
-	std::vector<int> v;
-std::cout << std::vector<int>::value_type << std::endl;
-	//std::cout << v::value_type << std::endl;
+	vector<int> v(3, 5);
+	vector<int> v2(v);
+	vector<int> v3;
+
+	v3 = v;
+
+
 	return 0;
 }
 
