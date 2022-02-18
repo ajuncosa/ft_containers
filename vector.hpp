@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 
-template <class T, class Alloc = std::allocator<T> >
+template <class T, class Alloc = std::allocator<T> > //TODO: catch exceptions from allocator
 class vector
 {
 	public:
@@ -20,6 +20,7 @@ class vector
 			this->_myAllocator = alloc;
 			this->_data = NULL;
 		};
+
 		explicit vector(size_type n, const value_type& val = value_type(),
                  const allocator_type& alloc = allocator_type())
 		{
@@ -29,12 +30,14 @@ class vector
 			for (size_type i = 0; i < this->_size; i++)
 				this->_myAllocator.construct(&this->_data[i], val);
 		};
+
 	/*	template <class InputIterator>
         vector (InputIterator first, InputIterator last,
                  const allocator_type& alloc = allocator_type())
 		{
 
 		};*/
+
 		vector(const vector& x)
 		{
 			this->_size = x._size;
@@ -79,6 +82,21 @@ class vector
 		allocator_type get_allocator() const
 		{
 			return this->_myAllocator;
+		};
+
+		size_type size() const
+		{
+			return this->_size;
+		};
+
+		size_type max_size() const
+		{
+			return this->_myAllocator.max_size();
+		};
+
+		bool empty() const
+		{
+			return this->_size == 0 ? true : false;
 		};
 
 	private:
