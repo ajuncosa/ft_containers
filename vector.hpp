@@ -17,6 +17,7 @@ class vector
 		explicit vector(const allocator_type& alloc = allocator_type())
 		{
 			this->_size = 0;
+			this->_capacity = 0;
 			this->_myAllocator = alloc;
 			this->_data = NULL;
 		};
@@ -25,8 +26,9 @@ class vector
                  const allocator_type& alloc = allocator_type())
 		{
 			this->_size = n;
+			this->_capacity = n;
 			this->_myAllocator = alloc;
-			this->_data = this->_myAllocator.allocate(this->_size);
+			this->_data = this->_myAllocator.allocate(this->_capacity);
 			for (size_type i = 0; i < this->_size; i++)
 				this->_myAllocator.construct(&this->_data[i], val);
 		};
@@ -40,9 +42,10 @@ class vector
 
 		vector(const vector& x)
 		{
-			this->_size = x._size;
+			this->_size = x.size();
+			this->_capacity = x.capacity();
 			this->_myAllocator = x.get_allocator();
-			this->_data = this->_myAllocator.allocate(this->_size);
+			this->_data = this->_myAllocator.allocate(this->_capacity);
 			for (size_type i = 0; i < this->_size; i++)
 				this->_myAllocator.construct(&this->_data[i], x._data[i]);
 		};
@@ -55,10 +58,11 @@ class vector
 				{
 					for (size_type i = 0; i < this->_size; i++)
 						this->_myAllocator.destroy(&this->_data[i]);
-					this->_myAllocator.deallocate(this->_data, this->_size);
+					this->_myAllocator.deallocate(this->_data, this->_capacity);
 				}
-				this->_size = x._size;
-				this->_data = this->_myAllocator.allocate(this->_size);
+				this->_size = x.size();
+				this->_capacity = x.capacity();
+				this->_data = this->_myAllocator.allocate(this->_capacity);
 				for (size_type i = 0; i < this->_size; i++)
 					this->_myAllocator.construct(&this->_data[i], x._data[i]);
 			}
@@ -75,7 +79,7 @@ class vector
 			{
 				for (size_type i = 0; i < this->_size; i++)
 					this->_myAllocator.destroy(&this->_data[i]);
-				this->_myAllocator.deallocate(this->_data, this->_size);
+				this->_myAllocator.deallocate(this->_data, this->_capacity);
 			}
 		};
 
@@ -94,13 +98,38 @@ class vector
 			return this->_myAllocator.max_size();
 		};
 
+		size_type capacity() const
+		{
+			return this->_capacity;
+		};
+
 		bool empty() const
 		{
 			return this->_size == 0 ? true : false;
 		};
 
+		void reserve(size_type n)
+		{
+			pointer	newData;
+
+			if (n <= this->_capacity)
+				return;
+			newData = this->_myAllocator.allocate(n);
+			for (size_type i = 0; i < this->_size; i++)
+				this->_myAllocator.construct(&newData[i], this->_data[i]);
+			if (this->_data)
+			{
+				for (size_type i = 0; i < this->_size; i++)
+					this->_myAllocator.destroy(&this->_data[i]);
+				this->_myAllocator.deallocate(this->_data, this->_capacity);
+			}
+			this->_capacity = n;
+			this->_data = newData;
+		};
+
 	private:
-		value_type		*_data;
+		pointer			_data;
 		size_type		_size;
+		size_type		_capacity;
 		allocator_type	_myAllocator;
 };

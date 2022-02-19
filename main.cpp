@@ -5,10 +5,15 @@
 int main()
 {
 	vector<int> v(3, 5);
-	vector<int> v2(v);
-	vector<int> v3;
+	//vector<int> v2(v);
+	//vector<int> v3;
 
-	v3 = v;
+
+	std::cout << v.capacity() << std::endl;
+	v.reserve(2);
+	std::cout << v.capacity() << std::endl;
+	v.reserve(5);
+	std::cout << v.capacity() << std::endl;
 
 
 	return 0;
