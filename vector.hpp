@@ -1,5 +1,7 @@
 #pragma once
 #include <memory>
+#include "iterator.hpp"
+#include "iteratorTraits.hpp"
 
 template <class T, class Alloc = std::allocator<T> > //TODO: catch exceptions from allocator
 class vector
@@ -11,8 +13,12 @@ class vector
 		typedef typename allocator_type::const_reference const_reference;
 		typedef typename allocator_type::pointer pointer;
 		typedef typename allocator_type::const_pointer const_pointer;
+		typedef randomAccessIterator<value_type> iterator;
+		typedef randomAccessIterator<const value_type> const_iterator;
+		typedef typename iterator_traits<iterator>::difference_type difference_type;
+		//typedef reverse_iterator;
+		//typedef const_reverse_iterator;
 		typedef size_t size_type;
-		//typedef
 
 		explicit vector(const allocator_type& alloc = allocator_type())
 		{
@@ -22,8 +28,7 @@ class vector
 			this->_data = NULL;
 		};
 
-		explicit vector(size_type n, const value_type& val = value_type(),
-                 const allocator_type& alloc = allocator_type())
+		explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
 		{
 			this->_size = n;
 			this->_capacity = n;
@@ -34,8 +39,7 @@ class vector
 		};
 
 	/*	template <class InputIterator>
-        vector (InputIterator first, InputIterator last,
-                 const allocator_type& alloc = allocator_type())
+        vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
 		{
 
 		};*/

@@ -5,16 +5,48 @@
 int main()
 {
 	vector<int> v(3, 5);
-	//vector<int> v2(v);
-	//vector<int> v3;
+	vector<int> v2(v);
+	vector<int> v3;
 
+	//std::vector<int> v(3, 5);
+	//std::vector<int> v2(v);
+	//std::vector<int> v3;
+
+	//v3.push_back(1);
+	//v3.push_back(2);
+	//v3.push_back(3);
+
+	int arr[] = {1, 2};
+	vector<int>::iterator it(&arr[0]);
+	vector<int>::iterator it2(&arr[1]);
+	std::cout << "== " << (it == it2) << std::endl;
+	std::cout << "!= " << (it != it2) << std::endl;
+	std::cout << "< " << (it < it2) << std::endl;
+	std::cout << ">= " << (it >= it2) << std::endl;
+	std::cout << *it << std::endl;
+	*it = 4;
+	std::cout << *it << std::endl;
+	*it++;
+	std::cout << *it << std::endl;
+	*it--;
+	std::cout << *it << std::endl;
+	(*it)--;
+	std::cout << *it << std::endl;
+
+/*	vector<int>::iterator it = v3.begin();
+	it++;
+	
+	std::cout << *it << std::endl;
+	it++;
+	vector<int>::iterator it2(it);
+	std::cout << *it2 << std::endl;
 
 	std::cout << v.capacity() << std::endl;
 	v.reserve(2);
 	std::cout << v.capacity() << std::endl;
-	v.reserve(5);
+	v.reserve(6);
 	std::cout << v.capacity() << std::endl;
-
+*/
 
 	return 0;
 }

@@ -1,5 +1,5 @@
 NAME		:= containers
-SRCS		:= main.cpp map.cpp stack.cpp vector.cpp
+SRCS		:= main.cpp
 OBJS		:= $(SRCS:.cpp=.o)
 RM			= rm -rf
 CC			= clang++
