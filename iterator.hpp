@@ -22,7 +22,7 @@ class randomAccessIterator : public iterator<std::random_access_iterator_tag, T,
 		typedef typename iterator::iterator_category	iterator_category;
 
 		randomAccessIterator() : _data(NULL) {};
-		randomAccessIterator(pointer data) : _data(data) {};
+		randomAccessIterator(pointer data) : _data(data) {}; //FIXME: este constructor ha de ser privado (? como funcionan los iteradores del vector original?)
 		randomAccessIterator(randomAccessIterator const &src) : _data(src.getPointer()) {};
 		randomAccessIterator& operator=(const randomAccessIterator& src)
 		{
@@ -64,6 +64,10 @@ class randomAccessIterator : public iterator<std::random_access_iterator_tag, T,
 		pointer operator->()
 		{
 			return this->_data;
+		}
+		reference operator[](size_t index) //FIXME: hace falta añadir versiones const?
+		{
+			return *(this->_data + index);
 		}
 	
 	private:

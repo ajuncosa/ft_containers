@@ -1,5 +1,5 @@
 #include <iostream>
-//#include <vector>
+#include <vector>
 #include "vector.hpp"
 
 int main()
@@ -7,14 +7,6 @@ int main()
 	vector<int> v(3, 5);
 	vector<int> v2(v);
 	vector<int> v3;
-
-	//std::vector<int> v(3, 5);
-	//std::vector<int> v2(v);
-	//std::vector<int> v3;
-
-	//v3.push_back(1);
-	//v3.push_back(2);
-	//v3.push_back(3);
 
 	int arr[] = {1, 2};
 	vector<int>::iterator it(&arr[0]);
@@ -32,15 +24,30 @@ int main()
 	std::cout << *it << std::endl;
 	(*it)--;
 	std::cout << *it << std::endl;
-
-/*	vector<int>::iterator it = v3.begin();
-	it++;
-	
+	*it++ = 6;
 	std::cout << *it << std::endl;
-	it++;
-	vector<int>::iterator it2(it);
-	std::cout << *it2 << std::endl;
+	it--;
+	std::cout << *it << std::endl;
+	std::cout << it[1] << std::endl;
 
+	std::cout << "______\n" << std::endl;
+
+	std::vector<int> ov(3, 5);
+	std::vector<int> ov2(ov);
+	std::vector<int> ov3;
+	ov3.push_back(9);
+	ov3.push_back(10);
+	ov3.push_back(11);
+	std::vector<int>::iterator oit = ov3.begin();
+	std::cout << oit[2] << std::endl;
+	std::cout << *(oit+2) << std::endl;
+	*oit++ = 6;
+	std::cout << *oit << std::endl;
+	oit--;
+	std::cout << *oit << std::endl;
+	
+
+/*
 	std::cout << v.capacity() << std::endl;
 	v.reserve(2);
 	std::cout << v.capacity() << std::endl;
