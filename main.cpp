@@ -4,13 +4,13 @@
 
 int main()
 {
-	vector<int> v(3, 5);
-	vector<int> v2(v);
-	vector<int> v3;
+	ft::vector<int> v(3, 5);
+	ft::vector<int> v2(v);
+	ft::vector<int> v3;
 
 	int arr[] = {1, 2};
-	vector<int>::iterator it(&arr[0]);
-	vector<int>::iterator it2(&arr[1]);
+	ft::vector<int>::iterator it(&arr[0]);
+	ft::vector<int>::iterator it2(&arr[1]);
 	std::cout << "== " << (it == it2) << std::endl;
 	std::cout << "!= " << (it != it2) << std::endl;
 	std::cout << "< " << (it < it2) << std::endl;
