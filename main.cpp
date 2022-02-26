@@ -34,7 +34,26 @@ int main()
 	it2 = it + 1;
 	std::cout << "it2 - it -> " << it2 - it << std::endl;
 
-	std::cout << "______\n" << std::endl;
+	//ft::vector<int>::const_iterator it3(it);
+	ft::vector<int>::const_iterator it3;
+	it3 = it;
+	std::cout << "*it -> " << *it << std::endl;
+	std::cout << "*it3 -> " << *it3 << std::endl;
+	//*it3 = 8;
+	std::cout << "it3[1] -> " << it3[1] << std::endl;
+	std::cout << "it == it3 -> " << (it3 == it) << std::endl;
+	std::cout << "it != it3 -> " << (it != it3) << std::endl;
+	std::cout << "it < it3 -> " << (it < it3) << std::endl;
+	std::cout << "it >= it3 ->" << (it >= it3) << std::endl;
+	std::cout << "*(it3 + 1) -> " << *(it3 + 1) << std::endl;
+	it3 = it + 1;
+	std::cout << "it3 - it -> " << it3 - it << std::endl;
+	it3 -= 1;
+	std::cout << "it3 - it -> " << it3 - it << std::endl;
+	it3 += 5;
+	std::cout << "oit3[1] -> " << it3[-5] << std::endl;	
+
+	std::cout << "\n____ORIGINALES____\n" << std::endl;
 
 	std::vector<int> ov(3, 5);
 	std::vector<int> ov2(ov);
@@ -53,9 +72,21 @@ int main()
 	std::cout << *oit2 << std::endl;
 	std::cout << oit2 - oit << std::endl;
 
-
+	std::vector<int>::const_iterator oit3;
+	oit3 = oit;
+	std::cout << "*oit -> " << *oit << std::endl;
+	std::cout << "*oit3 -> " << *oit3 << std::endl;
+	//*oit3 = 8;
+	//std::cout << "*oit3 -> " << *oit3 << std::endl;
+	std::cout << "oit3[1] -> " << oit3[1] << std::endl;	
+	std::cout << "oit == oit3 -> " << (oit == oit3) << std::endl;
+	std::cout  << *oit3 << std::endl;	
 	
-
+	oit3 += 5;
+	std::cout  << *oit3 << std::endl;	
+	std::cout << "oit3[1] -> " << oit3[1] << std::endl;
+	std::cout  << *(oit3 +5) << std::endl;	
+	std::cout << "oit3 == oit + 5 -> " << (*oit3 == *(oit3 + 5)) << std::endl;	
 /*
 	std::cout << v.capacity() << std::endl;
 	v.reserve(2);

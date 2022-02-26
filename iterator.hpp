@@ -25,7 +25,8 @@ namespace ft
 
 			randomAccessIterator() : _data(NULL) {}
 			randomAccessIterator(pointer data) : _data(data) {} //FIXME: este constructor ha de ser privado (? como funcionan los iteradores del vector original?)
-			randomAccessIterator(randomAccessIterator const &src) : _data(src.getPointer()) {}
+			template <class U>
+			randomAccessIterator(const randomAccessIterator<U> &src) : _data(src.getPointer()) {}
 			randomAccessIterator& operator=(const randomAccessIterator& src)
 			{
 				if (this != &src)
@@ -33,7 +34,7 @@ namespace ft
 				return *this;
 			}
 			~randomAccessIterator(){};
-			pointer getPointer() const
+			pointer getPointer() const //FIXME: borrar esto y poner friend
 			{
 				return this->_data;
 			}
@@ -59,7 +60,7 @@ namespace ft
 				this->_data--;
 				return tmp;
 			}
-			reference operator*()
+			reference operator*() const
 			{
 				return *this->_data;
 			}
@@ -67,7 +68,7 @@ namespace ft
 			{
 				return this->_data;
 			}
-			reference operator[](difference_type index) //FIXME: hace falta añadir versiones const?
+			reference operator[](difference_type index) const
 			{
 				return *(this->_data + index);
 			}
@@ -86,33 +87,33 @@ namespace ft
 			pointer	_data;
 	};
 
-	template <class T>
-	bool operator==(const randomAccessIterator<T>& lhs, const randomAccessIterator<T>& rhs)
+	template <class T, class U>
+	bool operator==(const randomAccessIterator<T>& lhs, const randomAccessIterator<U>& rhs) 
 	{
 		return lhs.getPointer() == rhs.getPointer();
 	}
-	template <class T>
-	bool operator!=(const randomAccessIterator<T>& lhs, const randomAccessIterator<T>& rhs)
+	template <class T, class U>
+	bool operator!=(const randomAccessIterator<T>& lhs, const randomAccessIterator<U>& rhs)
 	{
 		return !operator==(lhs,rhs);
 	}
-	template <class T>
-	bool operator<(const randomAccessIterator<T>& lhs, const randomAccessIterator<T>& rhs)
+	template <class T, class U>
+	bool operator<(const randomAccessIterator<T>& lhs, const randomAccessIterator<U>& rhs)
 	{
 		return lhs.getPointer() < rhs.getPointer();
 	}
-	template <class T>
-	bool operator>(const randomAccessIterator<T>& lhs, const randomAccessIterator<T>& rhs)
+	template <class T, class U>
+	bool operator>(const randomAccessIterator<T>& lhs, const randomAccessIterator<U>& rhs)
 	{
 		return operator<(rhs,lhs);
 	}
-	template <class T>
-	bool operator<=(const randomAccessIterator<T>& lhs, const randomAccessIterator<T>& rhs)
+	template <class T, class U>
+	bool operator<=(const randomAccessIterator<T>& lhs, const randomAccessIterator<U>& rhs)
 	{
 		return !operator>(lhs,rhs);
 	}
-	template <class T>
-	bool operator>=(const randomAccessIterator<T>& lhs, const randomAccessIterator<T>& rhs)
+	template <class T, class U>
+	bool operator>=(const randomAccessIterator<T>& lhs, const randomAccessIterator<U>& rhs)
 	{
 		return !operator<(lhs,rhs);
 	}
@@ -140,8 +141,8 @@ namespace ft
 		rhs -= lhs;
 		return rhs;
 	}
-	template <class T>
-	typename randomAccessIterator<T>::difference_type operator-(randomAccessIterator<T> lhs, randomAccessIterator<T> rhs)
+	template <class T, class U>
+	typename randomAccessIterator<T>::difference_type operator-(randomAccessIterator<U> lhs, randomAccessIterator<T> rhs)
 	{	
 		return lhs.getPointer() - rhs.getPointer();
 	}
