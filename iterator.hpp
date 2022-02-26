@@ -24,7 +24,7 @@ namespace ft
 			typedef typename iterator::iterator_category	iterator_category;
 
 			randomAccessIterator() : _data(NULL) {}
-			randomAccessIterator(pointer data) : _data(data) {} //FIXME: este constructor ha de ser privado (? como funcionan los iteradores del vector original?)
+			randomAccessIterator(pointer data) : _data(data) {}
 			template <class U>
 			randomAccessIterator(const randomAccessIterator<U> &src) : _data(src.getPointer()) {}
 			randomAccessIterator& operator=(const randomAccessIterator& src)
@@ -34,7 +34,7 @@ namespace ft
 				return *this;
 			}
 			~randomAccessIterator(){};
-			pointer getPointer() const //FIXME: borrar esto y poner friend
+			pointer getPointer() const //FIXME: hay alguna forma de eliminar esto o hacerlo privado?
 			{
 				return this->_data;
 			}
@@ -82,6 +82,12 @@ namespace ft
 				this->_data -= rhs;
 				return *this;
 			}
+			template<class U, class V>
+			friend bool operator==(const randomAccessIterator<U>& lhs, const randomAccessIterator<V>& rhs);
+			template <class U, class V>
+			friend bool operator<(const randomAccessIterator<U>& lhs, const randomAccessIterator<V>& rhs);
+			template <class U, class V>
+			friend typename randomAccessIterator<U>::difference_type operator-(randomAccessIterator<U> lhs, randomAccessIterator<V> rhs);
 			
 		private:
 			pointer	_data;
@@ -90,7 +96,7 @@ namespace ft
 	template <class T, class U>
 	bool operator==(const randomAccessIterator<T>& lhs, const randomAccessIterator<U>& rhs) 
 	{
-		return lhs.getPointer() == rhs.getPointer();
+		return lhs._data == rhs._data;
 	}
 	template <class T, class U>
 	bool operator!=(const randomAccessIterator<T>& lhs, const randomAccessIterator<U>& rhs)
@@ -100,7 +106,7 @@ namespace ft
 	template <class T, class U>
 	bool operator<(const randomAccessIterator<T>& lhs, const randomAccessIterator<U>& rhs)
 	{
-		return lhs.getPointer() < rhs.getPointer();
+		return lhs._data < rhs._data;
 	}
 	template <class T, class U>
 	bool operator>(const randomAccessIterator<T>& lhs, const randomAccessIterator<U>& rhs)
@@ -142,8 +148,8 @@ namespace ft
 		return rhs;
 	}
 	template <class T, class U>
-	typename randomAccessIterator<T>::difference_type operator-(randomAccessIterator<U> lhs, randomAccessIterator<T> rhs)
+	typename randomAccessIterator<T>::difference_type operator-(randomAccessIterator<T> lhs, randomAccessIterator<U> rhs)
 	{	
-		return lhs.getPointer() - rhs.getPointer();
+		return lhs._data - rhs._data;
 	}
 }

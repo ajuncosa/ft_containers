@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include "vector.hpp"
+#include <stdexcept>
 
 int main()
 {
@@ -81,12 +82,22 @@ int main()
 	std::cout << "oit3[1] -> " << oit3[1] << std::endl;	
 	std::cout << "oit == oit3 -> " << (oit == oit3) << std::endl;
 	std::cout  << *oit3 << std::endl;	
-	
 	oit3 += 5;
 	std::cout  << *oit3 << std::endl;	
 	std::cout << "oit3[1] -> " << oit3[1] << std::endl;
 	std::cout  << *(oit3 +5) << std::endl;	
 	std::cout << "oit3 == oit + 5 -> " << (*oit3 == *(oit3 + 5)) << std::endl;	
+	/*try
+	{
+		std::cout << v.capacity() << std::endl;
+		ov[100] = 8;
+		std::cout << "ov[100] -> " << ov[100] << std::endl;	
+	}
+	catch (const std::out_of_range &e)
+	{
+		std::cout << "exception!" << std::endl;
+	}*/
+
 /*
 	std::cout << v.capacity() << std::endl;
 	v.reserve(2);
