@@ -11,24 +11,28 @@ int main()
 	int arr[] = {1, 2};
 	ft::vector<int>::iterator it(&arr[0]);
 	ft::vector<int>::iterator it2(&arr[1]);
-	std::cout << "== " << (it == it2) << std::endl;
-	std::cout << "!= " << (it != it2) << std::endl;
-	std::cout << "< " << (it < it2) << std::endl;
-	std::cout << ">= " << (it >= it2) << std::endl;
-	std::cout << *it << std::endl;
+	std::cout << "it == it2 -> " << (it == it2) << std::endl;
+	std::cout << "it != it2 -> " << (it != it2) << std::endl;
+	std::cout << "it < it2 -> " << (it < it2) << std::endl;
+	std::cout << "it >= it2 ->" << (it >= it2) << std::endl;
+	std::cout << "*it -> " << *it << std::endl;
 	*it = 4;
-	std::cout << *it << std::endl;
+	std::cout << "*it = 4... *it -> " << *it << std::endl;
 	*it++;
-	std::cout << *it << std::endl;
+	std::cout << "*it++... *it -> " << *it << std::endl;
 	*it--;
-	std::cout << *it << std::endl;
+	std::cout << "*it--... *it -> " << *it << std::endl;
 	(*it)--;
-	std::cout << *it << std::endl;
+	std::cout << "(*it)--... *it -> " << *it << std::endl;
 	*it++ = 6;
-	std::cout << *it << std::endl;
+	std::cout << "*it++ = 6... *it -> " << *it << std::endl;
 	it--;
-	std::cout << *it << std::endl;
-	std::cout << it[1] << std::endl;
+	std::cout << "it--... *it -> " << *it << std::endl;
+	std::cout << "it[1] -> " << it[1] << std::endl;
+
+	std::cout << "*(it + 1) -> " << *(it + 1) << std::endl;
+	it2 = it + 1;
+	std::cout << "it2 - it -> " << it2 - it << std::endl;
 
 	std::cout << "______\n" << std::endl;
 
@@ -45,6 +49,11 @@ int main()
 	std::cout << *oit << std::endl;
 	oit--;
 	std::cout << *oit << std::endl;
+	std::vector<int>::iterator oit2 = oit + 1;
+	std::cout << *oit2 << std::endl;
+	std::cout << oit2 - oit << std::endl;
+
+
 	
 
 /*

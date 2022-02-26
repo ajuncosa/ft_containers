@@ -28,7 +28,7 @@ namespace ft
 				this->_capacity = 0;
 				this->_myAllocator = alloc;
 				this->_data = NULL;
-			};
+			}
 
 			explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
 			{
@@ -38,7 +38,7 @@ namespace ft
 				this->_data = this->_myAllocator.allocate(this->_capacity);
 				for (size_type i = 0; i < this->_size; i++)
 					this->_myAllocator.construct(&this->_data[i], val);
-			};
+			}
 
 		/*	template <class InputIterator>
 			vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
@@ -54,7 +54,7 @@ namespace ft
 				this->_data = this->_myAllocator.allocate(this->_capacity);
 				for (size_type i = 0; i < this->_size; i++)
 					this->_myAllocator.construct(&this->_data[i], x._data[i]);
-			};
+			}
 
 			vector& operator=(const vector& x)
 			{
@@ -73,7 +73,7 @@ namespace ft
 						this->_myAllocator.construct(&this->_data[i], x._data[i]);
 				}
 				return *this;
-			};
+			}
 
 			~vector()
 			{
@@ -87,32 +87,32 @@ namespace ft
 						this->_myAllocator.destroy(&this->_data[i]);
 					this->_myAllocator.deallocate(this->_data, this->_capacity);
 				}
-			};
+			}
 
 			allocator_type get_allocator() const
 			{
 				return this->_myAllocator;
-			};
+			}
 
 			size_type size() const
 			{
 				return this->_size;
-			};
+			}
 
 			size_type max_size() const
 			{
 				return this->_myAllocator.max_size();
-			};
+			}
 
 			size_type capacity() const
 			{
 				return this->_capacity;
-			};
+			}
 
 			bool empty() const
 			{
 				return this->_size == 0 ? true : false;
-			};
+			}
 
 			void reserve(size_type n)
 			{
@@ -131,7 +131,7 @@ namespace ft
 				}
 				this->_capacity = n;
 				this->_data = newData;
-			};
+			}
 
 		private:
 			pointer			_data;
