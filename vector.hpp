@@ -17,9 +17,9 @@ namespace ft
 			typedef typename allocator_type::const_pointer const_pointer;
 			typedef randomAccessIterator<value_type> iterator;
 			typedef randomAccessIterator<const value_type> const_iterator;
-			typedef typename iterator_traits<iterator>::difference_type difference_type;
 			//typedef reverse_iterator;
 			//typedef const_reverse_iterator;
+			typedef typename iterator_traits<iterator>::difference_type difference_type;
 			typedef size_t size_type;
 
 			explicit vector(const allocator_type& alloc = allocator_type())
@@ -39,13 +39,24 @@ namespace ft
 				for (size_type i = 0; i < this->_size; i++)
 					this->_myAllocator.construct(&this->_data[i], val);
 			}
-
-		/*	template <class InputIterator>
+/*
+			template <class InputIterator>
 			vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
 			{
-
-			};*/
-
+				this->_size = 0;
+				for (InputIterator it = first; it != last; it++)
+					this->_size++;
+				this->_capacity = this->_size;
+				this->_myAllocator = alloc;
+				this->_data = this->_myAllocator.allocate(this->_capacity);
+				size_type i = 0;
+				for (InputIterator it = first; it != last; it++)
+				{
+					this->_myAllocator.construct(&this->_data[i], *it);
+					i++;
+				}
+			};
+*/
 			vector(const vector& x)
 			{
 				this->_size = x.size();
@@ -77,10 +88,11 @@ namespace ft
 
 			~vector()
 			{
+				/*
 				for (size_type i = 0; i < this->_size; i++)
 					std::cout << this->_data[i];
 				std::cout << std::endl;
-
+				*/
 				if (this->_data)
 				{
 					for (size_type i = 0; i < this->_size; i++)
@@ -103,6 +115,11 @@ namespace ft
 			{
 				return this->_myAllocator.max_size();
 			}
+
+			/*void resize (size_type n, value_type val = value_type())
+			{
+
+			}*/
 
 			size_type capacity() const
 			{
@@ -132,6 +149,40 @@ namespace ft
 				this->_capacity = n;
 				this->_data = newData;
 			}
+
+			iterator begin()
+			{
+				iterator it(this->_data);
+				return it;
+			}
+
+			const_iterator begin() const
+			{
+				const_iterator it(this->_data);
+				return it;
+			}
+
+			iterator end()
+			{
+				if (this->empty())
+					return this->begin();
+				iterator it(&this->_data[this->size()]);
+				return it;
+			}
+
+			const_iterator end() const
+			{
+				if (this->empty())
+					return this->begin();
+				const_iterator it(&this->_data[this->size()]);
+				return it;
+			}
+			/*
+			reverse_iterator rbegin();
+			const_reverse_iterator rbegin() const;
+			reverse_iterator rend();
+			const_reverse_iterator rend() const;
+			*/
 
 		private:
 			pointer			_data;

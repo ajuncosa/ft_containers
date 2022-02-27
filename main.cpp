@@ -5,106 +5,44 @@
 
 int main()
 {
-	ft::vector<int> v(3, 5);
-	ft::vector<int> v2(v);
-	ft::vector<int> v3;
+	ft::vector<int> my_v(3, 5);
+	ft::vector<int> my_v2(my_v);
+	ft::vector<int> my_v3;
 
-	int arr[] = {1, 2};
-	ft::vector<int>::iterator it(&arr[0]);
-	ft::vector<int>::iterator it2(&arr[1]);
-	std::cout << "it == it2 -> " << (it == it2) << std::endl;
-	std::cout << "it != it2 -> " << (it != it2) << std::endl;
-	std::cout << "it < it2 -> " << (it < it2) << std::endl;
-	std::cout << "it >= it2 ->" << (it >= it2) << std::endl;
-	std::cout << "*it -> " << *it << std::endl;
-	*it = 4;
-	std::cout << "*it = 4... *it -> " << *it << std::endl;
-	*it++;
-	std::cout << "*it++... *it -> " << *it << std::endl;
-	*it--;
-	std::cout << "*it--... *it -> " << *it << std::endl;
-	(*it)--;
-	std::cout << "(*it)--... *it -> " << *it << std::endl;
-	*it++ = 6;
-	std::cout << "*it++ = 6... *it -> " << *it << std::endl;
-	it--;
-	std::cout << "it--... *it -> " << *it << std::endl;
-	std::cout << "it[1] -> " << it[1] << std::endl;
+	std::cout << "my vector contains:";
+  	for (ft::vector<int>::iterator it = my_v.begin() ; it != my_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
 
-	std::cout << "*(it + 1) -> " << *(it + 1) << std::endl;
-	it2 = it + 1;
-	std::cout << "it2 - it -> " << it2 - it << std::endl;
+	/*ft::vector<int> my_v4(my_v.begin(), my_v.end()); 
+	std::cout << "my_v4 contains:";
+  	for (ft::vector<int>::iterator it = my_v4.begin() ; it != my_v4.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';*/
 
-	//ft::vector<int>::const_iterator it3(it);
-	ft::vector<int>::const_iterator it3;
-	it3 = it;
-	std::cout << "*it -> " << *it << std::endl;
-	std::cout << "*it3 -> " << *it3 << std::endl;
-	//*it3 = 8;
-	std::cout << "it3[1] -> " << it3[1] << std::endl;
-	std::cout << "it == it3 -> " << (it3 == it) << std::endl;
-	std::cout << "it != it3 -> " << (it != it3) << std::endl;
-	std::cout << "it < it3 -> " << (it < it3) << std::endl;
-	std::cout << "it >= it3 ->" << (it >= it3) << std::endl;
-	std::cout << "*(it3 + 1) -> " << *(it3 + 1) << std::endl;
-	it3 = it + 1;
-	std::cout << "it3 - it -> " << it3 - it << std::endl;
-	it3 -= 1;
-	std::cout << "it3 - it -> " << it3 - it << std::endl;
-	it3 += 5;
-	std::cout << "oit3[1] -> " << it3[-5] << std::endl;	
 
-	std::cout << "\n____ORIGINALES____\n" << std::endl;
 
-	std::vector<int> ov(3, 5);
-	std::vector<int> ov2(ov);
-	std::vector<int> ov3;
-	ov3.push_back(9);
-	ov3.push_back(10);
-	ov3.push_back(11);
-	std::vector<int>::iterator oit = ov3.begin();
-	std::cout << oit[2] << std::endl;
-	std::cout << *(oit+2) << std::endl;
-	*oit++ = 6;
-	std::cout << *oit << std::endl;
-	oit--;
-	std::cout << *oit << std::endl;
-	std::vector<int>::iterator oit2 = oit + 1;
-	std::cout << *oit2 << std::endl;
-	std::cout << oit2 - oit << std::endl;
+	std::vector<int> std_v(3, 5);
+	std::vector<int> std_v2(std_v);
+	std::vector<int> std_v3;
 
-	std::vector<int>::const_iterator oit3;
-	oit3 = oit;
-	std::cout << "*oit -> " << *oit << std::endl;
-	std::cout << "*oit3 -> " << *oit3 << std::endl;
-	//*oit3 = 8;
-	//std::cout << "*oit3 -> " << *oit3 << std::endl;
-	std::cout << "oit3[1] -> " << oit3[1] << std::endl;	
-	std::cout << "oit == oit3 -> " << (oit == oit3) << std::endl;
-	std::cout  << *oit3 << std::endl;	
-	oit3 += 5;
-	std::cout  << *oit3 << std::endl;	
-	std::cout << "oit3[1] -> " << oit3[1] << std::endl;
-	std::cout  << *(oit3 +5) << std::endl;	
-	std::cout << "oit3 == oit + 5 -> " << (*oit3 == *(oit3 + 5)) << std::endl;	
-	/*try
-	{
-		std::cout << v.capacity() << std::endl;
-		ov[100] = 8;
-		std::cout << "ov[100] -> " << ov[100] << std::endl;	
-	}
-	catch (const std::out_of_range &e)
-	{
-		std::cout << "exception!" << std::endl;
-	}*/
+	std::cout << "standard vector contains:";
+  	for (std::vector<int>::iterator it = std_v.begin() ; it != std_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
 
-/*
-	std::cout << v.capacity() << std::endl;
-	v.reserve(2);
-	std::cout << v.capacity() << std::endl;
-	v.reserve(6);
-	std::cout << v.capacity() << std::endl;
-*/
+	std::cout << "std size: " << std_v.size() << ", std cap: " <<std_v.capacity() <<std::endl;
+	std::cout << "my_v size: " << my_v.size() << ", my_v cap: " <<my_v.capacity() <<std::endl;
+	/*std_v.resize(8);
+	std::cout << "std size: " << std_v.size() << ", std cap: " <<std_v.capacity() <<std::endl;
+	std::cout << "standard vector contains:";
+  	for (std::vector<int>::iterator it = std_v.begin() ; it != std_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';*/
+
+
+
+
 
 	return 0;
 }
