@@ -3,6 +3,7 @@
 #include "iterator.hpp"
 #include "iteratorTraits.hpp"
 #include "enable_if.hpp"
+#include "is_integral.hpp"
 
 namespace ft
 {
@@ -42,7 +43,7 @@ namespace ft
 			}
 
 			template <class InputIterator>
-			vector(typename ft::enable_if<!std::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last, const allocator_type& alloc = allocator_type())
+			vector(typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last, const allocator_type& alloc = allocator_type())
 			{
 				this->_size = 0;
 				for (InputIterator it = first; it != last; it++)

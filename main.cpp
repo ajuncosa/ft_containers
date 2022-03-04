@@ -14,7 +14,7 @@ int main()
     	std::cout << ' ' << *it;
   	std::cout << '\n';
 
-	ft::vector<int> my_v4(my_v.begin(), my_v.end()); 
+	ft::vector<int> my_v4(my_v.begin(), my_v.end() - 1); 
 	std::cout << "my_v4 contains:";
   	for (ft::vector<int>::iterator it = my_v4.begin() ; it != my_v4.end(); ++it)
     	std::cout << ' ' << *it;
