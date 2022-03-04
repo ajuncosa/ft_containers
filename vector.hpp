@@ -2,6 +2,7 @@
 #include <memory>
 #include "iterator.hpp"
 #include "iteratorTraits.hpp"
+#include "enable_if.hpp"
 
 namespace ft
 {
@@ -39,9 +40,9 @@ namespace ft
 				for (size_type i = 0; i < this->_size; i++)
 					this->_myAllocator.construct(&this->_data[i], val);
 			}
-/*
+
 			template <class InputIterator>
-			vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
+			vector(typename ft::enable_if<!std::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last, const allocator_type& alloc = allocator_type())
 			{
 				this->_size = 0;
 				for (InputIterator it = first; it != last; it++)
@@ -56,7 +57,7 @@ namespace ft
 					i++;
 				}
 			};
-*/
+
 			vector(const vector& x)
 			{
 				this->_size = x.size();
