@@ -2,179 +2,63 @@
 
 namespace ft
 {
+	template <class T, T v>
+	struct integral_constant
+	{
+		static const T value = v;
+		typedef T value_type;
+		typedef integral_constant<T, v> type;
+		operator T() { return v; }
+	};
+
+	typedef integral_constant<bool,true> true_type;
+	typedef integral_constant<bool,false> false_type;
+
 	template <class T>
-	struct is_integral
-	{
-		typedef bool value_type;
-		static const bool value = false;
-		operator value_type()
-		{
-			return (value);
-		}
-	};
+	struct is_integral : false_type {};
 
 	template <>
-	struct is_integral<bool>
-	{
-		typedef bool value_type;
-		static const bool value = true;
-		operator value_type()
-		{
-			return (value);
-		}
-	};
+	struct is_integral<bool> : true_type {};
 
 	template <>
-	struct is_integral<char>
-	{
-		typedef bool value_type;
-		static const bool value = true;
-		operator value_type()
-		{
-			return (value);
-		}
-	};
+	struct is_integral<char> : true_type {};
 
 	template <>
-	struct is_integral<char16_t>
-	{
-		typedef bool value_type;
-		static const bool value = true;
-		operator value_type()
-		{
-			return (value);
-		}
-	};
+	struct is_integral<char16_t> : true_type {};
 
 	template <>
-	struct is_integral<char32_t>
-	{
-		typedef bool value_type;
-		static const bool value = true;
-		operator value_type()
-		{
-			return (value);
-		}
-	};
+	struct is_integral<char32_t> : true_type {};
 
 	template <>
-	struct is_integral<wchar_t>
-	{
-		typedef bool value_type;
-		static const bool value = true;
-		operator value_type()
-		{
-			return (value);
-		}
-	};
+	struct is_integral<wchar_t> : true_type {};
 
 	template <>
-	struct is_integral<signed char>
-	{
-		typedef bool value_type;
-		static const bool value = true;
-		operator value_type()
-		{
-			return (value);
-		}
-	};
+	struct is_integral<signed char> : true_type {};
 
 	template <>
-	struct is_integral<short int>
-	{
-		typedef bool value_type;
-		static const bool value = true;
-		operator value_type()
-		{
-			return (value);
-		}
-	};
+	struct is_integral<short int> : true_type {};
 
 	template <>
-	struct is_integral<int>
-	{
-		typedef bool value_type;
-		static const bool value = true;
-		operator value_type()
-		{
-			return (value);
-		}
-	};
+	struct is_integral<int> : true_type {};
 
 	template <>
-	struct is_integral<long int>
-	{
-		typedef bool value_type;
-		static const bool value = true;
-		operator value_type()
-		{
-			return (value);
-		}
-	};
+	struct is_integral<long int> : true_type {};
 
 	template <>
-	struct is_integral<long long int>
-	{
-		typedef bool value_type;
-		static const bool value = true;
-		operator value_type()
-		{
-			return (value);
-		}
-	};
+	struct is_integral<long long int> : true_type {};
 
 	template <>
-	struct is_integral<unsigned char>
-	{
-		typedef bool value_type;
-		static const bool value = true;
-		operator value_type()
-		{
-			return (value);
-		}
-	};
+	struct is_integral<unsigned char> : true_type {};
 
 	template <>
-	struct is_integral<unsigned short int>
-	{
-		typedef bool value_type;
-		static const bool value = true;
-		operator value_type()
-		{
-			return (value);
-		}
-	};
+	struct is_integral<unsigned short int> : true_type {};
 
 	template <>
-	struct is_integral<unsigned int>
-	{
-		typedef bool value_type;
-		static const bool value = true;
-		operator value_type()
-		{
-			return (value);
-		}
-	};
+	struct is_integral<unsigned int> : true_type {};
 
 	template <>
-	struct is_integral<unsigned long int>
-	{
-		typedef bool value_type;
-		static const bool value = true;
-		operator value_type()
-		{
-			return (value);
-		}
-	};
+	struct is_integral<unsigned long int> : true_type {};
 
 	template <>
-	struct is_integral<unsigned long long int>
-	{
-		typedef bool value_type;
-		static const bool value = true;
-		operator value_type()
-		{
-			return (value);
-		}
-	};
+	struct is_integral<unsigned long long int> : true_type {};
 }

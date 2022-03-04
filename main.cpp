@@ -9,6 +9,10 @@ int main()
 	ft::vector<int> my_v2(my_v);
 	ft::vector<int> my_v3;
 
+	std::cout << ft::is_integral<ft::vector<int> >() << std::endl;
+	typedef int hola;
+	std::cout << ft::is_integral<hola >::value << std::endl;
+
 	std::cout << "my vector contains:";
   	for (ft::vector<int>::iterator it = my_v.begin() ; it != my_v.end(); ++it)
     	std::cout << ' ' << *it;
