@@ -90,11 +90,6 @@ namespace ft
 
 			~vector()
 			{
-				/*
-				for (size_type i = 0; i < this->_size; i++)
-					std::cout << this->_data[i];
-				std::cout << std::endl;
-				*/
 				if (this->_data)
 				{
 					for (size_type i = 0; i < this->_size; i++)

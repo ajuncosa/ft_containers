@@ -1,14 +1,24 @@
 NAME		:= containers
 SRCS		:= main.cpp
 OBJS		:= $(SRCS:.cpp=.o)
+HEADERFILES	:= enable_if.hpp is_integral.hpp iterator.hpp iteratorTraits.hpp vector.hpp stack.hpp map.hpp
 RM			= rm -rf
 CC			= clang++
-CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
+COMMON		=
+CXXFLAGS	?= -Wall -Werror -Wextra -std=c++98 $(COMMON)
+LDFLAGS		?= $(COMMON)
+SANITIZE	= -g3 -fsanitize=address
 
 $(NAME):	$(OBJS)
-	$(CC) $^ -o $@
+	$(CC) $(LDFLAGS) $^ -o $@
+
+%.o:	%.cpp $(HEADERFILES)
+	$(CC) -c $(CXXFLAGS) $< -o $@
 
 all:	$(NAME)
+
+debug:	COMMON += $(SANITIZE)
+debug:	re
 
 clean:
 	$(RM) $(OBJS)
@@ -18,4 +28,4 @@ fclean:	clean
 
 re:	fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re debug
