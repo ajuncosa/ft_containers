@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <stdexcept>
 #include "iterator.hpp"
 #include "iteratorTraits.hpp"
 #include "enable_if.hpp"
@@ -7,7 +8,7 @@
 
 namespace ft
 {
-	template <class T, class Alloc = std::allocator<T> > //TODO: catch exceptions from allocator
+	template <class T, class Alloc = std::allocator<T> >
 	class vector
 	{
 		public:
@@ -113,11 +114,6 @@ namespace ft
 				return this->_myAllocator.max_size();
 			}
 
-			/*void resize (size_type n, value_type val = value_type())
-			{
-
-			}*/
-
 			size_type capacity() const
 			{
 				return this->_capacity;
@@ -134,17 +130,31 @@ namespace ft
 
 				if (n <= this->_capacity)
 					return;
+				if (n > this->max_size())
+					throw std::length_error("std::length_error");
 				newData = this->_myAllocator.allocate(n);
-				for (size_type i = 0; i < this->_size; i++)
-					this->_myAllocator.construct(&newData[i], this->_data[i]);
 				if (this->_data)
 				{
 					for (size_type i = 0; i < this->_size; i++)
+					{
+						this->_myAllocator.construct(&newData[i], this->_data[i]);
 						this->_myAllocator.destroy(&this->_data[i]);
+					}	
 					this->_myAllocator.deallocate(this->_data, this->_capacity);
 				}
 				this->_capacity = n;
 				this->_data = newData;
+			}
+
+			void resize (size_type n, value_type val = value_type())
+			{
+				for (size_type i = n; i < this->_size; i++)
+					this->_myAllocator.destroy(&this->_data[i]);
+				if (n > this->_capacity)
+					this->reserve(n);
+				for (size_type i = this->_size; i < n; i++)
+					this->_myAllocator.construct(&this->_data[i], val);
+				this->_size = n;
 			}
 
 			iterator begin()

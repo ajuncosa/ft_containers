@@ -9,10 +9,6 @@ int main()
 	ft::vector<int> my_v2(my_v);
 	ft::vector<int> my_v3;
 
-	std::cout << ft::is_integral<ft::vector<int> >() << std::endl;
-	typedef int hola;
-	std::cout << ft::is_integral<hola >::value << std::endl;
-
 	std::cout << "my vector contains:";
   	for (ft::vector<int>::iterator it = my_v.begin() ; it != my_v.end(); ++it)
     	std::cout << ' ' << *it;
@@ -37,15 +33,45 @@ int main()
 
 	std::cout << "std size: " << std_v.size() << ", std cap: " <<std_v.capacity() <<std::endl;
 	std::cout << "my_v size: " << my_v.size() << ", my_v cap: " <<my_v.capacity() <<std::endl;
-	/*std_v.resize(8);
+	try
+	{
+		std_v.resize(std_v.max_size());
+	}
+	catch (std::exception &e)
+	{
+		std::cout << e.what() << std::endl;
+	}
 	std::cout << "std size: " << std_v.size() << ", std cap: " <<std_v.capacity() <<std::endl;
 	std::cout << "standard vector contains:";
   	for (std::vector<int>::iterator it = std_v.begin() ; it != std_v.end(); ++it)
     	std::cout << ' ' << *it;
-  	std::cout << '\n';*/
+  	std::cout << '\n';
+	try
+	{
+		my_v.resize(std_v.max_size());
+	}
+	catch (std::exception &e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+	std::cout << "my size: " << my_v.size() << ", my cap: " <<my_v.capacity() <<std::endl;
+	std::cout << "my vector contains:";
+  	for (ft::vector<int>::iterator it = my_v.begin() ; it != my_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
 
-
-
+	std_v.resize(8);
+	std::cout << "std size: " << std_v.size() << ", std cap: " <<std_v.capacity() <<std::endl;
+	std::cout << "standard vector contains:";
+  	for (std::vector<int>::iterator it = std_v.begin() ; it != std_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+	my_v.resize(8);
+	std::cout << "my size: " << my_v.size() << ", my cap: " <<my_v.capacity() <<std::endl;
+	std::cout << "my vector contains:";
+  	for (ft::vector<int>::iterator it = my_v.begin() ; it != my_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
 
 
 	return 0;
