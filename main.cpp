@@ -5,10 +5,26 @@
 
 int main()
 {
+	std::vector<int> std_v(3, 5);
+	std::vector<int> std_v2(std_v);
+	std::vector<int> std_v3;
+
 	ft::vector<int> my_v(3, 5);
 	ft::vector<int> my_v2(my_v);
 	ft::vector<int> my_v3;
 
+	std::cout << "-----STD VECTOR CONSTRUCTORS-----" << std::endl;
+	std::cout << "standard vector contains:";
+  	for (std::vector<int>::iterator it = std_v.begin() ; it != std_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+	std::vector<int> std_v4(std_v.begin(), std_v.end() - 1); 
+	std::cout << "std_v4 contains:";
+  	for (std::vector<int>::iterator it = std_v4.begin() ; it != std_v4.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+
+	std::cout << "\n-----MY VECTOR CONSTRUCTORS-----" << std::endl;
 	std::cout << "my vector contains:";
   	for (ft::vector<int>::iterator it = my_v.begin() ; it != my_v.end(); ++it)
     	std::cout << ' ' << *it;
@@ -20,19 +36,11 @@ int main()
     	std::cout << ' ' << *it;
   	std::cout << '\n';
 
-
-
-	std::vector<int> std_v(3, 5);
-	std::vector<int> std_v2(std_v);
-	std::vector<int> std_v3;
-
-	std::cout << "standard vector contains:";
-  	for (std::vector<int>::iterator it = std_v.begin() ; it != std_v.end(); ++it)
-    	std::cout << ' ' << *it;
-  	std::cout << '\n';
-
+	std::cout << "\n-----SIZE AND CAPACITY-----" << std::endl;
 	std::cout << "std size: " << std_v.size() << ", std cap: " <<std_v.capacity() <<std::endl;
 	std::cout << "my_v size: " << my_v.size() << ", my_v cap: " <<my_v.capacity() <<std::endl;
+	
+	std::cout << "\n-----TRY TO RESIZE WITH MAX_SIZE-----" << std::endl;
 	try
 	{
 		std_v.resize(std_v.max_size());
@@ -60,6 +68,7 @@ int main()
     	std::cout << ' ' << *it;
   	std::cout << '\n';
 
+	std::cout << "\n-----RESIZE TO 8-----" << std::endl;
 	std_v.resize(8);
 	std::cout << "std size: " << std_v.size() << ", std cap: " <<std_v.capacity() <<std::endl;
 	std::cout << "standard vector contains:";
@@ -72,7 +81,117 @@ int main()
   	for (ft::vector<int>::iterator it = my_v.begin() ; it != my_v.end(); ++it)
     	std::cout << ' ' << *it;
   	std::cout << '\n';
+	
+	std::cout << "\n-----TRY TO RESIZE TO -1 (LENGTH ERROR)-----" << std::endl;
+	try
+	{std_v.resize(-1);}
+	catch (std::exception &e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+	std::cout << "std size: " << std_v.size() << ", std cap: " <<std_v.capacity() <<std::endl;
+	std::cout << "standard vector contains:";
+  	for (std::vector<int>::iterator it = std_v.begin() ; it != std_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+	try
+	{my_v.resize(-1);}
+	catch (std::exception &e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+	std::cout << "my size: " << my_v.size() << ", my cap: " <<my_v.capacity() <<std::endl;
+	std::cout << "my vector contains:";
+  	for (ft::vector<int>::iterator it = my_v.begin() ; it != my_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
 
+	std::cout << "\n-----RESIZE TO 4-----" << std::endl;
+	std_v.resize(4);
+	std::cout << "std size: " << std_v.size() << ", std cap: " <<std_v.capacity() <<std::endl;
+	std::cout << "standard vector contains:";
+  	for (std::vector<int>::iterator it = std_v.begin() ; it != std_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+	my_v.resize(4);
+	std::cout << "my size: " << my_v.size() << ", my cap: " <<my_v.capacity() <<std::endl;
+	std::cout << "my vector contains:";
+  	for (ft::vector<int>::iterator it = my_v.begin() ; it != my_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+
+	std::cout << "\n-----ASSIGN-----" << std::endl;
+	int arr[] = {9, 8, 7, 6, 5, 4, 3, 2, 1};
+	std_v.assign(arr, arr+9);
+	std::cout << "std size: " << std_v.size() << ", std cap: " <<std_v.capacity() <<std::endl;
+	std::cout << "standard vector contains:";
+  	for (std::vector<int>::iterator it = std_v.begin() ; it != std_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+
+	my_v.assign(arr, arr+9);
+	std::cout << "my size: " << my_v.size() << ", my cap: " <<my_v.capacity() <<std::endl;
+	std::cout << "my vector contains:";
+  	for (ft::vector<int>::iterator it = my_v.begin() ; it != my_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+
+	std_v.assign(4, 5);
+	std::cout << "std size: " << std_v.size() << ", std cap: " <<std_v.capacity() <<std::endl;
+	std::cout << "standard vector contains:";
+  	for (std::vector<int>::iterator it = std_v.begin() ; it != std_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+
+	my_v.assign(4, 5);
+	std::cout << "my size: " << my_v.size() << ", my cap: " <<my_v.capacity() <<std::endl;
+	std::cout << "standard vector contains:";
+  	for (ft::vector<int>::iterator it = my_v.begin() ; it != my_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+	
+	std::cout << "\n-----PUSH_BACK-----" << std::endl;
+	std_v.push_back(10);
+	std::cout << "std size: " << std_v.size() << ", std cap: " <<std_v.capacity() <<std::endl;
+	std::cout << "standard vector contains:";
+  	for (std::vector<int>::iterator it = std_v.begin() ; it != std_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+	my_v.push_back(10);
+	std::cout << "my size: " << my_v.size() << ", my cap: " <<my_v.capacity() <<std::endl;
+	std::cout << "my vector contains:";
+  	for (ft::vector<int>::iterator it = my_v.begin() ; it != my_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+	std::cout << "\n-----RESIZE TO CAPACITY + PUSH_BACK-----" << std::endl;
+	std_v.resize(9,11);
+	my_v.resize(9,11);
+	std_v.push_back(15);
+	std::cout << "std size: " << std_v.size() << ", std cap: " <<std_v.capacity() <<std::endl;
+	std::cout << "standard vector contains:";
+  	for (std::vector<int>::iterator it = std_v.begin() ; it != std_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+	my_v.push_back(15);
+	std::cout << "my size: " << my_v.size() << ", my cap: " <<my_v.capacity() <<std::endl;
+	std::cout << "my vector contains:";
+  	for (ft::vector<int>::iterator it = my_v.begin() ; it != my_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+
+	std::cout << "\n-----POP_BACK-----" << std::endl;
+	std_v.pop_back();
+	std::cout << "std size: " << std_v.size() << ", std cap: " <<std_v.capacity() <<std::endl;
+	std::cout << "standard vector contains:";
+  	for (std::vector<int>::iterator it = std_v.begin() ; it != std_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+	my_v.pop_back();
+	std::cout << "my size: " << my_v.size() << ", my cap: " <<my_v.capacity() <<std::endl;
+	std::cout << "my vector contains:";
+  	for (ft::vector<int>::iterator it = my_v.begin() ; it != my_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
 
 	return 0;
 }

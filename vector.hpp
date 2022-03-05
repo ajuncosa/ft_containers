@@ -131,7 +131,7 @@ namespace ft
 				if (n <= this->_capacity)
 					return;
 				if (n > this->max_size())
-					throw std::length_error("std::length_error");
+					throw std::length_error("vector");
 				newData = this->_myAllocator.allocate(n);
 				if (this->_data)
 				{
@@ -184,12 +184,58 @@ namespace ft
 				const_iterator it(&this->_data[this->size()]);
 				return it;
 			}
+
 			/*
 			reverse_iterator rbegin();
 			const_reverse_iterator rbegin() const;
 			reverse_iterator rend();
 			const_reverse_iterator rend() const;
 			*/
+
+			template <class InputIterator>
+  			void assign(typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last)
+			{
+				size_type	newSize = 0;
+
+				for (InputIterator it = first; it != last; it++)
+					newSize++;
+				for (size_type i = 0; i < this->_size; i++)
+					this->_myAllocator.destroy(&this->_data[i]);
+				if (newSize > this->_capacity)
+					this->reserve(newSize);
+				size_type	i = 0;
+				for (InputIterator it = first; it != last; it++)
+				{
+					this->_myAllocator.construct(&this->_data[i], *it);
+					i++;
+				}
+				this->_size = newSize;
+			}
+
+			void assign(size_type n, const value_type& val)
+			{
+				for (size_type i = 0; i < this->_size; i++)
+					this->_myAllocator.destroy(&this->_data[i]);
+				if (n > this->_capacity)
+					this->reserve(n);
+				for (size_type i = 0; i < n; i++)
+					this->_myAllocator.construct(&this->_data[i], val);
+				this->_size = n;
+			}
+
+			void push_back(const value_type& val)
+			{
+				if (this->_size == this->_capacity)
+					this->reserve(this->_capacity * 2);
+				this->_myAllocator.construct(&this->_data[this->_size], val);
+				this->_size++;
+			}
+
+			void pop_back()
+			{
+				this->_myAllocator.destroy(&this->_data[this->_size - 1]);
+				this->_size--;
+			}
 
 		private:
 			pointer			_data;
