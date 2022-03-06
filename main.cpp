@@ -265,7 +265,7 @@ int main()
   	std::cout << '\n';
 
 	std::cout << "\n-----ERASE RANGE-----" << std::endl;
-	ret = std_v.erase(std_v.begin() + 2, std_v.end());
+	ret = std_v.erase(std_v.begin() + 3, std_v.end());
 	if (ret == std_v.end())
 		std::cout << "ret es end()" <<std::endl;
 	std::cout << "std erase ret: " << *ret << std::endl;
@@ -274,7 +274,7 @@ int main()
   	for (std::vector<int>::iterator it = std_v.begin() ; it != std_v.end(); ++it)
     	std::cout << ' ' << *it;
   	std::cout << '\n';
-	myret = my_v.erase(my_v.begin() + 2, my_v.end());
+	myret = my_v.erase(my_v.begin() + 3, my_v.end());
 	if (myret == my_v.end())
 		std::cout << "myret es end()" <<std::endl;
 	std::cout << "ft erase ret: " << *myret << std::endl;
@@ -283,7 +283,69 @@ int main()
   	for (ft::vector<int>::iterator it = my_v.begin() ; it != my_v.end(); ++it)
     	std::cout << ' ' << *it;
   	std::cout << '\n';
-	  
+	
+	std::cout << "\n-----SWAP-----" << std::endl;
+	std_v.swap(std_v4);
+	std::cout << "std size: " << std_v.size() << ", std cap: " <<std_v.capacity() <<std::endl;
+	std::cout << "standard vector contains:";
+  	for (std::vector<int>::iterator it = std_v.begin() ; it != std_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+	std::cout << "v4 size: " << std_v4.size() << ", v4 cap: " <<std_v4.capacity() <<std::endl;
+	std::cout << "standard vector v4 contains:";
+  	for (std::vector<int>::iterator it = std_v4.begin() ; it != std_v4.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+	my_v.swap(my_v4);
+	std::cout << "my size: " << my_v.size() << ", my cap: " <<my_v.capacity() <<std::endl;
+	std::cout << "my vector contains:";
+  	for (ft::vector<int>::iterator it = my_v.begin() ; it != my_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+	std::cout << "my v4 size: " << my_v4.size() << ", my v4 cap: " <<my_v4.capacity() <<std::endl;
+	std::cout << "my vector v4 contains:";
+  	for (ft::vector<int>::iterator it = my_v4.begin() ; it != my_v4.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+
+/*	std::cout << "\n-----BOOL SWAP-----" << std::endl;
+	std::vector<bool> foo;
+  	std::vector<bool> bar;
+	foo.push_back(false);
+	foo.push_back(true);
+	foo.push_back(false);
+	bar.push_back(true);
+	bar.push_back(false);
+	foo.swap(foo[0], foo[1]);
+	bar.swap(bar.front(), bar.back());
+	foo.swap(bar);
+	std::cout << "foo vector contains:";
+  	for (std::vector<bool>::iterator it = foo.begin() ; it != foo.end(); ++it)
+		std::cout << ' ' << *it;
+	std::cout << '\n';
+	std::cout << "bar vector contains:";
+  	for (std::vector<bool>::iterator it = bar.begin() ; it != bar.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+
+	ft::vector<bool> myfoo;
+  	ft::vector<bool> mybar;
+	myfoo.push_back(false);
+	myfoo.push_back(true);
+	myfoo.push_back(false);
+	mybar.push_back(true);
+	mybar.push_back(false);
+	myfoo.swap(myfoo[0], myfoo[1]);
+	mybar.swap(mybar.front(), mybar.back());
+	myfoo.swap(mybar);
+	std::cout << "myfoo vector contains:";
+  	for (ft::vector<bool>::iterator it = myfoo.begin() ; it != myfoo.end(); ++it)
+		std::cout << ' ' << *it;
+	std::cout << '\n';
+	std::cout << "mybar vector contains:";
+  	for (ft::vector<bool>::iterator it = mybar.begin() ; it != mybar.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';*/
 
 	return 0;
 }

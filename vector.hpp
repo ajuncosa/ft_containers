@@ -99,6 +99,50 @@ namespace ft
 				}
 			}
 
+			reference operator[](size_type n)
+			{
+				return this->_data[n];
+			}
+
+			const_reference operator[](size_type n) const
+			{
+				return this->_data[n];
+			}
+
+			reference at(size_type n)
+			{
+				if (n >= this->_size)
+					throw std::out_of_range("out_of_range"); //TODO: check
+				return this->_data[n];
+			}
+
+			const_reference at(size_type n) const
+			{
+				if (n >= this->_size)
+					throw std::out_of_range("out_of_range");
+				return this->_data[n];
+			}
+
+			reference front()
+			{
+				return this->_data[0];
+			}
+
+			const_reference front() const
+			{
+				return this->_data[0];
+			}
+
+			reference back()
+			{
+				return this->_data[this->_size - 1];
+			}
+			
+			const_reference back() const
+			{
+				return this->_data[this->_size - 1];
+			}
+
 			allocator_type get_allocator() const
 			{
 				return this->_myAllocator;
@@ -225,7 +269,9 @@ namespace ft
 
 			void push_back(const value_type& val)
 			{
-				if (this->_size == this->_capacity)
+				if (this->_capacity == 0)
+					this->reserve(1);
+				else if (this->_size == this->_capacity)
 					this->reserve(this->_capacity * 2);
 				this->_myAllocator.construct(&this->_data[this->_size], val);
 				this->_size++;
@@ -519,10 +565,38 @@ namespace ft
 				return first;
 			}
 
+			void swap(vector& x)
+			{
+				vector	tmp(*this);
+
+				*this = x;
+				x = tmp;
+			}
+
 		private:
 			pointer			_data;
 			size_type		_size;
 			size_type		_capacity;
 			allocator_type	_myAllocator;
 	};
+
+	/*template <class Alloc>
+	class vector<bool,Alloc>
+	{
+		void swap(vector& x)
+		{
+			vector	tmp(*this);
+
+			*this = x;
+			x = tmp;
+		}
+
+		static void swap(reference ref1, reference ref2)
+		{
+			value_type tmp = ref1;
+
+			ref1 = ref2;
+			ref2 = tmp;
+		}
+	};*/
 }
