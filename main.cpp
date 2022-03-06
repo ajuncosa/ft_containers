@@ -193,6 +193,62 @@ int main()
     	std::cout << ' ' << *it;
   	std::cout << '\n';
 
+	std::cout << "\n-----INSERT SINGLE VALUE-----" << std::endl;	
+	std_v.insert(std_v.begin() + 2, 97);
+	std::cout << "std size: " << std_v.size() << ", std cap: " <<std_v.capacity() <<std::endl;
+	std::cout << "standard vector contains:";
+  	for (std::vector<int>::iterator it = std_v.begin() ; it != std_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+	my_v.insert(my_v.begin() + 2, 97);
+	std::cout << "my size: " << my_v.size() << ", my cap: " <<my_v.capacity() <<std::endl;
+	std::cout << "my vector contains:";
+  	for (ft::vector<int>::iterator it = my_v.begin() ; it != my_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+	
+	std_v.insert(std_v.end(), 50);
+	std::cout << "std size: " << std_v.size() << ", std cap: " <<std_v.capacity() <<std::endl;
+	std::cout << "standard vector contains:";
+  	for (std::vector<int>::iterator it = std_v.begin() ; it != std_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+	my_v.insert(my_v.end(), 50);
+	std::cout << "my size: " << my_v.size() << ", my cap: " <<my_v.capacity() <<std::endl;
+	std::cout << "my vector contains:";
+  	for (ft::vector<int>::iterator it = my_v.begin() ; it != my_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+
+	std::cout << "\n-----INSERT SEVERAL VALUES-----" << std::endl;
+	std_v.insert(std_v.begin() + 3, 5, 1);
+	std::cout << "std size: " << std_v.size() << ", std cap: " <<std_v.capacity() <<std::endl;
+	std::cout << "standard vector contains:";
+  	for (std::vector<int>::iterator it = std_v.begin() ; it != std_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+	my_v.insert(my_v.begin() + 3, 5, 1);
+	std::cout << "my size: " << my_v.size() << ", my cap: " <<my_v.capacity() <<std::endl;
+	std::cout << "my vector contains:";
+  	for (ft::vector<int>::iterator it = my_v.begin() ; it != my_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+
+	std::cout << "\n-----INSERT ITERATOR RANGE-----" << std::endl;
+	std_v.insert(std_v.end() - 1, arr+6, arr+9);
+	std::cout << "std size: " << std_v.size() << ", std cap: " <<std_v.capacity() <<std::endl;
+	std::cout << "standard vector contains:";
+  	for (std::vector<int>::iterator it = std_v.begin() ; it != std_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+	my_v.insert(my_v.end() - 1, arr+6, arr+9);
+	std::cout << "my size: " << my_v.size() << ", my cap: " <<my_v.capacity() <<std::endl;
+	std::cout << "my vector contains:";
+  	for (ft::vector<int>::iterator it = my_v.begin() ; it != my_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+	  
+
 	return 0;
 }
 

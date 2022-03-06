@@ -237,6 +237,214 @@ namespace ft
 				this->_size--;
 			}
 
+			iterator insert(iterator position, const value_type& val)
+			{
+				pointer		tmp;
+				size_type	tmpSize = 0;
+				size_type	i;
+				pointer		newData;
+				size_type	newCapacity;
+
+				if (position == this->end())
+					this->push_back(val);
+				else
+				{
+					for (iterator it = position; it != this->end(); it++)
+						tmpSize++;
+					tmp = this->_myAllocator.allocate(tmpSize);
+					i = 0;
+					for (iterator it = position; it != this->end(); it++)
+					{
+						this->_myAllocator.construct(&tmp[i], *it);
+						this->_myAllocator.destroy(&*it);
+						i++;
+					}
+					// reallocation:
+					if (this->_size == this->_capacity)
+					{
+						newCapacity = this->_capacity * 2;
+						if (newCapacity > this->max_size())
+							throw std::length_error("vector");
+						newData = this->_myAllocator.allocate(newCapacity);
+						if (this->_data)
+						{
+							i = 0;
+							for (iterator it = this->begin(); it != position; it++)
+							{
+								this->_myAllocator.construct(&newData[i], *it);
+								this->_myAllocator.destroy(&*it);
+								i++;
+							}	
+							this->_myAllocator.deallocate(this->_data, this->_capacity);
+						}
+						this->_capacity = newCapacity;
+						this->_data = newData;
+						position = iterator(&this->_data[i]);
+					}
+					// insert:
+					this->_myAllocator.construct(&*position, val);
+					this->_size++;
+					// copy the after-insert part:
+					i = 0;
+					for (iterator it = position + 1; it != this->end(); it++)
+					{
+						this->_myAllocator.construct(&*it, tmp[i]);
+						i++;
+					}
+					// free tmp:
+					for (i = 0; i < tmpSize; i++)
+						this->_myAllocator.destroy(&tmp[i]);
+					this->_myAllocator.deallocate(tmp, tmpSize);
+				}
+				return position;
+			}
+
+			void insert(iterator position, size_type n, const value_type& val)
+			{
+				pointer		tmp;
+				size_type	tmpSize = 0;
+				size_type	i;
+				iterator	it;
+				size_type	newCapacity;
+				pointer		newData;
+
+				if (position == this->end())
+				{
+					for (size_type i = 0; i < n; i++)
+						this->push_back(val);
+					return;
+				}
+				for (iterator it = position; it != this->end(); it++)
+					tmpSize++;
+				tmp = this->_myAllocator.allocate(tmpSize);
+				i = 0;
+				for (iterator it = position; it != this->end(); it++)
+				{
+					this->_myAllocator.construct(&tmp[i], *it);
+					this->_myAllocator.destroy(&*it);
+					i++;
+				}
+				// reallocation:
+				if ((this->_size + n) > this->_capacity)
+				{
+					if ((this->_size + n) > (this->_capacity * 2))
+						newCapacity = this->_size + n;
+					else
+						newCapacity = this->_capacity * 2;
+					if (newCapacity > this->max_size())
+						throw std::length_error("vector");
+					newData = this->_myAllocator.allocate(newCapacity);
+					if (this->_data)
+					{
+						i = 0;
+						for (iterator it = this->begin(); it != position; it++)
+						{
+							this->_myAllocator.construct(&newData[i], *it);
+							this->_myAllocator.destroy(&*it);
+							i++;
+						}
+						this->_myAllocator.deallocate(this->_data, this->_capacity);
+					}
+					this->_capacity = newCapacity;
+					this->_data = newData;
+					position = iterator(&this->_data[i]);
+				}
+				// insert:
+				it = position;
+				for (i = 0; i < n; i++)
+				{
+					this->_myAllocator.construct(&*it, val);
+					this->_size++;
+					it++;
+				}
+				// copy the after-insert part:
+				i = 0;
+				for (it = position + n; it != this->end(); it++)
+				{
+					this->_myAllocator.construct(&*it, tmp[i]);
+					i++;
+				}
+				// free tmp:
+				for (i = 0; i < tmpSize; i++)
+					this->_myAllocator.destroy(&tmp[i]);
+				this->_myAllocator.deallocate(tmp, tmpSize);
+			}
+
+			template <class InputIterator>
+    		void insert(iterator position, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last)
+			{
+				pointer		tmp;
+				size_type	tmpSize = 0;
+				size_type	rangeSize = 0;
+				size_type	i;
+				iterator	it;
+				size_type	newCapacity;
+				pointer		newData;
+
+				if (position == this->end())
+				{
+					for (InputIterator it = first; it != last; it++)
+						this->push_back(*it);
+					return;
+				}
+				for (InputIterator it = first; it != last; it++)
+					rangeSize++;
+				for (iterator it = position; it != this->end(); it++)
+					tmpSize++;
+				tmp = this->_myAllocator.allocate(tmpSize);
+				i = 0;
+				for (iterator it = position; it != this->end(); it++)
+				{
+					this->_myAllocator.construct(&tmp[i], *it);
+					this->_myAllocator.destroy(&*it);
+					i++;
+				}
+				// reallocation:
+				if ((this->_size + rangeSize) > this->_capacity)
+				{
+					if ((this->_size + rangeSize) > (this->_capacity * 2))
+						newCapacity = this->_size + rangeSize;
+					else
+						newCapacity = this->_capacity * 2;
+					if (newCapacity > this->max_size())
+						throw std::length_error("vector");
+					newData = this->_myAllocator.allocate(newCapacity);
+					if (this->_data)
+					{
+						i = 0;
+						for (iterator it = this->begin(); it != position; it++)
+						{
+							this->_myAllocator.construct(&newData[i], *it);
+							this->_myAllocator.destroy(&*it);
+							i++;
+						}
+						this->_myAllocator.deallocate(this->_data, this->_capacity);
+					}
+					this->_capacity = newCapacity;
+					this->_data = newData;
+					position = iterator(&this->_data[i]);
+				}
+				// insert:
+				it = position;
+				for (InputIterator range = first; range != last; range++)
+				{
+					this->_myAllocator.construct(&*it, *range);
+					this->_size++;
+					it++;
+				}
+				// copy the after-insert part:
+				i = 0;
+				for (it = position + rangeSize; it != this->end(); it++)
+				{
+					this->_myAllocator.construct(&*it, tmp[i]);
+					i++;
+				}
+				// free tmp:
+				for (i = 0; i < tmpSize; i++)
+					this->_myAllocator.destroy(&tmp[i]);
+				this->_myAllocator.deallocate(tmp, tmpSize);
+			}
+
 		private:
 			pointer			_data;
 			size_type		_size;
