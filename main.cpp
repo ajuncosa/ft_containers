@@ -247,6 +247,42 @@ int main()
   	for (ft::vector<int>::iterator it = my_v.begin() ; it != my_v.end(); ++it)
     	std::cout << ' ' << *it;
   	std::cout << '\n';
+
+	std::cout << "\n-----ERASE SINGLE VALUE-----" << std::endl;
+	std::vector<int>::iterator ret = std_v.erase(std_v.begin() + 1);
+	std::cout << "std erase ret: " << *ret << std::endl;
+	std::cout << "std size: " << std_v.size() << ", std cap: " <<std_v.capacity() <<std::endl;
+	std::cout << "standard vector contains:";
+  	for (std::vector<int>::iterator it = std_v.begin() ; it != std_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+	ft::vector<int>::iterator myret = my_v.erase(my_v.begin() + 1);
+	std::cout << "ft erase ret: " << *myret << std::endl;
+	std::cout << "my size: " << my_v.size() << ", my cap: " <<my_v.capacity() <<std::endl;
+	std::cout << "my vector contains:";
+  	for (ft::vector<int>::iterator it = my_v.begin() ; it != my_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+
+	std::cout << "\n-----ERASE RANGE-----" << std::endl;
+	ret = std_v.erase(std_v.begin() + 2, std_v.end());
+	if (ret == std_v.end())
+		std::cout << "ret es end()" <<std::endl;
+	std::cout << "std erase ret: " << *ret << std::endl;
+	std::cout << "std size: " << std_v.size() << ", std cap: " <<std_v.capacity() <<std::endl;
+	std::cout << "standard vector contains:";
+  	for (std::vector<int>::iterator it = std_v.begin() ; it != std_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+	myret = my_v.erase(my_v.begin() + 2, my_v.end());
+	if (myret == my_v.end())
+		std::cout << "myret es end()" <<std::endl;
+	std::cout << "ft erase ret: " << *myret << std::endl;
+	std::cout << "my size: " << my_v.size() << ", my cap: " <<my_v.capacity() <<std::endl;
+	std::cout << "my vector contains:";
+  	for (ft::vector<int>::iterator it = my_v.begin() ; it != my_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
 	  
 
 	return 0;

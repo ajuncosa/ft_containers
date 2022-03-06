@@ -237,7 +237,7 @@ namespace ft
 				this->_size--;
 			}
 
-			iterator insert(iterator position, const value_type& val)
+			iterator insert(iterator position, const value_type& val) //TODO: hacer clean code de los inserts (tal vez pueden compartir funciones con otros metodos como reserve y tal, e.g. reallocate un rango o algo asi)
 			{
 				pointer		tmp;
 				size_type	tmpSize = 0;
@@ -299,7 +299,7 @@ namespace ft
 				return position;
 			}
 
-			void insert(iterator position, size_type n, const value_type& val)
+			void insert(iterator position, size_type n, const value_type& val) //TODO: clean code
 			{
 				pointer		tmp;
 				size_type	tmpSize = 0;
@@ -370,7 +370,7 @@ namespace ft
 				this->_myAllocator.deallocate(tmp, tmpSize);
 			}
 
-			template <class InputIterator>
+			template <class InputIterator> //TODO: clean code
     		void insert(iterator position, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last)
 			{
 				pointer		tmp;
@@ -443,6 +443,80 @@ namespace ft
 				for (i = 0; i < tmpSize; i++)
 					this->_myAllocator.destroy(&tmp[i]);
 				this->_myAllocator.deallocate(tmp, tmpSize);
+			}
+
+			iterator erase(iterator position) //TODO: clean code
+			{
+				size_type	tmpSize = 0;
+				size_type	i;
+				pointer		tmp;
+
+				if (position == (this->end() - 1))
+				{
+					this->pop_back();
+					return position;
+				}
+				for (iterator it = position + 1; it != this->end(); it++)
+					tmpSize++;
+				tmp = this->_myAllocator.allocate(tmpSize);
+				i = 0;
+				for (iterator it = position + 1; it != this->end(); it++)
+				{
+					this->_myAllocator.construct(&tmp[i], *it);
+					this->_myAllocator.destroy(&*it);
+					i++;
+				}
+				//erase:
+				this->_myAllocator.destroy(&*position);
+				this->_size--;
+				// copy the after-insert part:
+				i = 0;
+				for (iterator it = position; it != this->end(); it++)
+				{
+					this->_myAllocator.construct(&*it, tmp[i]);
+					i++;
+				}
+				//free tmp:
+				for (i = 0; i < tmpSize; i++)
+					this->_myAllocator.destroy(&tmp[i]);
+				this->_myAllocator.deallocate(tmp, tmpSize);
+				return position;
+			}
+
+			iterator erase(iterator first, iterator last) //TODO: clean code
+			{
+				size_type	tmpSize = 0;
+				size_type	i;
+				pointer		tmp;
+
+				for (iterator it = last; it != this->end(); it++)
+					tmpSize++;
+				tmp = this->_myAllocator.allocate(tmpSize);
+				i = 0;
+				for (iterator it = last; it != this->end(); it++)
+				{
+					this->_myAllocator.construct(&tmp[i], *it);
+					this->_myAllocator.destroy(&*it);
+					i++;
+				}
+				//erase:
+				for (iterator it = first; it != last; it++)
+				{
+					this->_myAllocator.destroy(&*it);
+					this->_size--;
+				}
+				// copy the after-insert part:
+				i = 0;
+				for (iterator it = first; it != this->end(); it++)
+				{
+					this->_myAllocator.construct(&*it, tmp[i]);
+					i++;
+				}
+				//free tmp:
+				for (i = 0; i < tmpSize; i++)
+					this->_myAllocator.destroy(&tmp[i]);
+				this->_myAllocator.deallocate(tmp, tmpSize);
+				return first;
 			}
 
 		private:
