@@ -321,7 +321,53 @@ int main()
   	for (ft::vector<int>::iterator it = my_v4.begin() ; it != my_v4.end(); ++it)
     	std::cout << ' ' << *it;
   	std::cout << '\n';
+
+	std::cout << "\n-----SWAP (non-member overload)-----" << std::endl;
+	swap(std_v4, std_v);
+	std::cout << "std size: " << std_v.size() << ", std cap: " <<std_v.capacity() <<std::endl;
+	std::cout << "standard vector contains:";
+  	for (std::vector<int>::iterator it = std_v.begin() ; it != std_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+	std::cout << "v4 size: " << std_v4.size() << ", v4 cap: " <<std_v4.capacity() <<std::endl;
+	std::cout << "standard vector v4 contains:";
+  	for (std::vector<int>::iterator it = std_v4.begin() ; it != std_v4.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+	swap(my_v4, my_v);
+	std::cout << "my size: " << my_v.size() << ", my cap: " <<my_v.capacity() <<std::endl;
+	std::cout << "my vector contains:";
+  	for (ft::vector<int>::iterator it = my_v.begin() ; it != my_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+	std::cout << "my v4 size: " << my_v4.size() << ", my v4 cap: " <<my_v4.capacity() <<std::endl;
+	std::cout << "my vector v4 contains:";
+  	for (ft::vector<int>::iterator it = my_v4.begin() ; it != my_v4.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
 	
+	std::cout << "\n-----RELATIONAL OPERATORS-----" << std::endl;
+	std::cout << "std_v == std_v4? " << (std_v == std_v4) << std::endl;
+	std::cout << "my_v == my_v4? " << (my_v == my_v4) << std::endl;
+	std::cout << "std_v == std::vector()? " << (std_v == std::vector<int>()) << std::endl;
+	std::cout << "my_v == ft::vector()? " << (my_v == ft::vector<int>()) << std::endl;
+	std_v.push_back(5);
+	std_v.push_back(5);
+	my_v.push_back(5);
+	my_v.push_back(5);
+	std::cout << "std_v == std_v4? " << (std_v == std_v4) << std::endl;
+	std::cout << "my_v == my_v4? " << (my_v == my_v4) << std::endl;
+	std::cout << "std_v != std_v4? " << (std_v != std_v4) << std::endl;
+	std::cout << "my_v != my_v4? " << (my_v != my_v4) << std::endl;
+	std::cout << "std_v < std_v4? " << (std_v < std_v4) << std::endl;
+	std::cout << "my_v < my_v4? " << (my_v < my_v4) << std::endl;
+	std::cout << "std_v <= std_v4? " << (std_v <= std_v4) << std::endl;
+	std::cout << "my_v <= my_v4? " << (my_v <= my_v4) << std::endl;
+	std::cout << "std_v > std_v4? " << (std_v > std_v4) << std::endl;
+	std::cout << "my_v > my_v4? " << (my_v > my_v4) << std::endl;
+	std::cout << "std_v >= std_v4? " << (std_v >= std_v4) << std::endl;
+	std::cout << "my_v >= my_v4? " << (my_v >= my_v4) << std::endl;
+
 	return 0;
 }
 

@@ -588,4 +588,72 @@ namespace ft
 			size_type		_capacity;
 			allocator_type	_myAllocator;
 	};
+
+	template <class T, class Alloc>
+	void swap(vector<T,Alloc>& x, vector<T,Alloc>& y)
+	{
+		x.swap(y);
+	}
+
+	template <class T, class Alloc>
+	bool operator==(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+	{
+		typedef			typename vector<T>::const_iterator const_iterator;
+		const_iterator	lit = lhs.begin();
+		const_iterator	rit = rhs.begin();
+
+		if (!(lhs.size() == rhs.size()))
+			return false;
+		while (lit != lhs.end() && rit != rhs.end())
+		{
+			if (!(*lit == *rit))
+				return false;
+			lit++;
+			rit++;
+		}
+		return true;
+	}
+
+	template <class T, class Alloc>
+	bool operator!=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+	{
+		return !(lhs == rhs);
+	}
+
+	template <class T, class Alloc>
+	bool operator<(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+	{
+		typedef			typename vector<T>::const_iterator const_iterator;
+		const_iterator	lit = lhs.begin();
+		const_iterator	rit = rhs.begin();
+
+		while (lit != lhs.end())
+		{
+			if (rit == rhs.end() || *rit < *lit)
+				return false;
+			else if (*lit < *rit)
+				return true;
+			lit++;
+			rit++;
+		}
+		return rit != rhs.end();
+	}
+
+	template <class T, class Alloc>
+	bool operator<=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+	{
+		return !(rhs < lhs);
+	}
+
+	template <class T, class Alloc>
+	bool operator>(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+	{
+		return rhs < lhs;
+	}
+
+	template <class T, class Alloc>
+	bool operator>=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+	{
+		return !(lhs < rhs);
+	}
 }
