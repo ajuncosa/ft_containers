@@ -308,45 +308,20 @@ int main()
     	std::cout << ' ' << *it;
   	std::cout << '\n';
 
-/*	std::cout << "\n-----BOOL SWAP-----" << std::endl;
-	std::vector<bool> foo;
-  	std::vector<bool> bar;
-	foo.push_back(false);
-	foo.push_back(true);
-	foo.push_back(false);
-	bar.push_back(true);
-	bar.push_back(false);
-	foo.swap(foo[0], foo[1]);
-	bar.swap(bar.front(), bar.back());
-	foo.swap(bar);
-	std::cout << "foo vector contains:";
-  	for (std::vector<bool>::iterator it = foo.begin() ; it != foo.end(); ++it)
-		std::cout << ' ' << *it;
-	std::cout << '\n';
-	std::cout << "bar vector contains:";
-  	for (std::vector<bool>::iterator it = bar.begin() ; it != bar.end(); ++it)
+	std::cout << "\n-----CLEAR-----" << std::endl;
+	std_v4.clear();
+	std::cout << "v4 size: " << std_v4.size() << ", v4 cap: " <<std_v4.capacity() <<std::endl;
+	std::cout << "standard vector v4 contains:";
+  	for (std::vector<int>::iterator it = std_v4.begin() ; it != std_v4.end(); ++it)
     	std::cout << ' ' << *it;
   	std::cout << '\n';
-
-	ft::vector<bool> myfoo;
-  	ft::vector<bool> mybar;
-	myfoo.push_back(false);
-	myfoo.push_back(true);
-	myfoo.push_back(false);
-	mybar.push_back(true);
-	mybar.push_back(false);
-	myfoo.swap(myfoo[0], myfoo[1]);
-	mybar.swap(mybar.front(), mybar.back());
-	myfoo.swap(mybar);
-	std::cout << "myfoo vector contains:";
-  	for (ft::vector<bool>::iterator it = myfoo.begin() ; it != myfoo.end(); ++it)
-		std::cout << ' ' << *it;
-	std::cout << '\n';
-	std::cout << "mybar vector contains:";
-  	for (ft::vector<bool>::iterator it = mybar.begin() ; it != mybar.end(); ++it)
+	my_v4.clear();
+	std::cout << "my v4 size: " << my_v4.size() << ", my v4 cap: " <<my_v4.capacity() <<std::endl;
+	std::cout << "my vector v4 contains:";
+  	for (ft::vector<int>::iterator it = my_v4.begin() ; it != my_v4.end(); ++it)
     	std::cout << ' ' << *it;
-  	std::cout << '\n';*/
-
+  	std::cout << '\n';
+	
 	return 0;
 }
 

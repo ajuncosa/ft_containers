@@ -573,30 +573,19 @@ namespace ft
 				x = tmp;
 			}
 
+			void clear()
+			{
+				while (this->_size != 0)
+				{
+					this->_myAllocator.destroy(&this->_data[this->_size - 1]);
+					this->_size--;
+				}
+			}
+
 		private:
 			pointer			_data;
 			size_type		_size;
 			size_type		_capacity;
 			allocator_type	_myAllocator;
 	};
-
-	/*template <class Alloc>
-	class vector<bool,Alloc>
-	{
-		void swap(vector& x)
-		{
-			vector	tmp(*this);
-
-			*this = x;
-			x = tmp;
-		}
-
-		static void swap(reference ref1, reference ref2)
-		{
-			value_type tmp = ref1;
-
-			ref1 = ref2;
-			ref2 = tmp;
-		}
-	};*/
 }
