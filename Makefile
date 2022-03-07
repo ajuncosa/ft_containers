@@ -1,7 +1,7 @@
 NAME		:= containers
 SRCS		:= main.cpp
 OBJS		:= $(SRCS:.cpp=.o)
-HEADERFILES	:= enable_if.hpp is_integral.hpp iterator.hpp iteratorTraits.hpp vector.hpp stack.hpp map.hpp
+HEADERFILES	:= enable_if.hpp is_integral.hpp iterator.hpp iteratorTraits.hpp equal.hpp lexicographical_compare.hpp vector.hpp stack.hpp map.hpp
 RM			= rm -rf
 CC			= clang++
 COMMON		=
