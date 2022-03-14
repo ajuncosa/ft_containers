@@ -409,6 +409,48 @@ int main()
 	std::cout << "std_v4 < std_v? (comp) " << std::lexicographical_compare(std_v4.begin(), std_v4.end(), std_v.begin(), std_v.end(), mycomp) << std::endl;
 	std::cout << "my_v4 < my_v? (comp) " << ft::lexicographical_compare(my_v4.begin(),my_v4.end(), my_v.begin(), my_v.end(), mycomp) << std::endl;
 
+	std::cout << "\n-----REVERSE ITERATOR-----" << std::endl;
+	std_v.push_back(10);
+	std_v.push_back(15);
+	std_v.push_back(20);
+	std::cout << "standard vector contains:";
+  	for (std::vector<int>::iterator it = std_v.begin() ; it != std_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+	std::cout << "standard vector contains (rev order):";
+	for (std::vector<int>::reverse_iterator it = std_v.rbegin() ; it != std_v.rend(); ++it)
+		std::cout << ' ' << *it;
+  	std::cout << '\n';
+	std::vector<int>::iterator it = std_v.end();
+	std::vector<int>::reverse_iterator rev_it(it);
+	std::vector<int>::reverse_iterator rev_it2 = rev_it;
+	std::cout << *rev_it << std::endl;
+	*rev_it = 19;
+	std::cout << *rev_it2 << std::endl;
+	rev_it2++;
+	std::cout << *rev_it << std::endl;
+	std::cout << *rev_it2 << std::endl;
+
+	my_v.push_back(10);
+	my_v.push_back(15);
+	my_v.push_back(20);
+	std::cout << "my vector contains:";
+  	for (ft::vector<int>::iterator it = my_v.begin() ; it != my_v.end(); ++it)
+    	std::cout << ' ' << *it;
+  	std::cout << '\n';
+	std::cout << "my vector contains (rev order):";
+	for (ft::vector<int>::reverse_iterator it = my_v.rbegin() ; it != my_v.rend(); ++it)
+		std::cout << ' ' << *it;
+  	std::cout << '\n';
+	ft::vector<int>::iterator myit = my_v.end();
+	ft::vector<int>::reverse_iterator myrev_it(myit);
+	ft::vector<int>::reverse_iterator myrev_it2 = myrev_it;
+	std::cout << *myrev_it << std::endl;
+	*myrev_it = 19;
+	std::cout << *myrev_it2 << std::endl;
+	myrev_it2++;
+	std::cout << *myrev_it << std::endl;
+	std::cout << *myrev_it2 << std::endl;
 
 	return 0;
 }

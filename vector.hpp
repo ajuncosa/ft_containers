@@ -5,6 +5,7 @@
 #include "iteratorTraits.hpp"
 #include "enable_if.hpp"
 #include "is_integral.hpp"
+#include "reverse_iterator.hpp"
 
 namespace ft
 {
@@ -20,8 +21,8 @@ namespace ft
 			typedef typename allocator_type::const_pointer const_pointer;
 			typedef randomAccessIterator<value_type> iterator;
 			typedef randomAccessIterator<const value_type> const_iterator;
-			//typedef reverse_iterator;
-			//typedef const_reverse_iterator;
+			typedef reverse_iterator<iterator> reverse_iterator;
+			//typedef reverse_iterator<const_iterator> const_reverse_iterator;
 			typedef typename iterator_traits<iterator>::difference_type difference_type;
 			typedef size_t size_type;
 
@@ -229,12 +230,29 @@ namespace ft
 				return it;
 			}
 
-			/*
-			reverse_iterator rbegin();
-			const_reverse_iterator rbegin() const;
-			reverse_iterator rend();
-			const_reverse_iterator rend() const;
-			*/
+			reverse_iterator rbegin()
+			{
+				reverse_iterator it(this->end());
+				return it;
+			}
+
+			/*const_reverse_iterator rbegin() const
+			{
+				const_reverse_iterator it(this->end() - 1);
+				return it;
+			}*/
+
+			reverse_iterator rend()
+			{
+				reverse_iterator it(this->begin());
+				return it;
+			}
+
+			/*const_reverse_iterator rend() const
+			{
+				const_reverse_iterator it(this->begin() - 1);
+				return it;
+			}*/
 
 			template <class InputIterator>
   			void assign(typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last)
