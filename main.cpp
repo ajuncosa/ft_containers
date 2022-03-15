@@ -409,6 +409,32 @@ int main()
 	std::cout << "std_v4 < std_v? (comp) " << std::lexicographical_compare(std_v4.begin(), std_v4.end(), std_v.begin(), std_v.end(), mycomp) << std::endl;
 	std::cout << "my_v4 < my_v? (comp) " << ft::lexicographical_compare(my_v4.begin(),my_v4.end(), my_v.begin(), my_v.end(), mycomp) << std::endl;
 
+	std::cout << "\n-----ELEMENT ACCESS-----" << std::endl;
+	std::cout << "std_v[1]: " << std_v[1] << std::endl;
+	std::cout << "my_v[1]: " << my_v[1] << std::endl;
+	std::cout << "std_v.at(1): " << std_v.at(1) << std::endl;
+	std::cout << "my_v.at(1): " << my_v.at(1) << std::endl;
+	std::cout << "std_v.front(): " << std_v.front() << std::endl;
+	std::cout << "my_v.front(): " << my_v.front() << std::endl;
+	std::cout << "std_v.back(): " << std_v.back() << std::endl;
+	std::cout << "my_v.back(): " << my_v.back() << std::endl;
+	try
+	{
+		std::cout << "std_v.at(2): " << std_v.at(2) << std::endl;
+	}
+	catch (std::exception &e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+	try
+	{
+		std::cout << "my_v.at(2): " << my_v.at(2) << std::endl;
+	}
+	catch (std::exception &e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+
 	std::cout << "\n-----REVERSE ITERATOR-----" << std::endl;
 	std_v.push_back(10);
 	std_v.push_back(15);
