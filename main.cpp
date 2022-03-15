@@ -421,15 +421,6 @@ int main()
 	for (std::vector<int>::reverse_iterator it = std_v.rbegin() ; it != std_v.rend(); ++it)
 		std::cout << ' ' << *it;
   	std::cout << '\n';
-	std::vector<int>::iterator it = std_v.end();
-	std::vector<int>::reverse_iterator rev_it(it);
-	std::vector<int>::reverse_iterator rev_it2 = rev_it;
-	std::cout << *rev_it << std::endl;
-	*rev_it = 19;
-	std::cout << *rev_it2 << std::endl;
-	rev_it2++;
-	std::cout << *rev_it << std::endl;
-	std::cout << *rev_it2 << std::endl;
 
 	my_v.push_back(10);
 	my_v.push_back(15);
@@ -442,15 +433,87 @@ int main()
 	for (ft::vector<int>::reverse_iterator it = my_v.rbegin() ; it != my_v.rend(); ++it)
 		std::cout << ' ' << *it;
   	std::cout << '\n';
+
+	std::vector<int>::iterator it = std_v.end();
+	std::vector<int>::reverse_iterator rev_it(it);
+	std::vector<int>::reverse_iterator rev_it2(rev_it);
+	std::cout << "*rev_it: " << *rev_it << std::endl;
+
 	ft::vector<int>::iterator myit = my_v.end();
 	ft::vector<int>::reverse_iterator myrev_it(myit);
-	ft::vector<int>::reverse_iterator myrev_it2 = myrev_it;
-	std::cout << *myrev_it << std::endl;
+	ft::vector<int>::reverse_iterator myrev_it2(myrev_it);
+	std::cout << "*myrev_it: " << *myrev_it << std::endl;
+
+	*rev_it = 19;
+	std::cout << "*rev_it2: " << *rev_it2 << std::endl;
+
 	*myrev_it = 19;
-	std::cout << *myrev_it2 << std::endl;
+	std::cout << "*myrev_it2: " << *myrev_it2 << std::endl;
+
+	rev_it2++;
+	std::cout << "*rev_it: " << *rev_it << std::endl;
+
 	myrev_it2++;
-	std::cout << *myrev_it << std::endl;
-	std::cout << *myrev_it2 << std::endl;
+	std::cout << "*myrev_it: " << *myrev_it << std::endl;
+
+	std::cout << "*rev_it2: " <<  *rev_it2 << std::endl;
+	std::cout << "*myrev_it2: " << *myrev_it2 << std::endl;
+
+	std::cout << "std vector contains (rev order, iterating from rev_it2): ";
+	for (std::vector<int>::reverse_iterator it = rev_it2 ; it != std_v.rend(); ++it)
+		std::cout << ' ' << *it;
+  	std::cout << '\n';
+
+	std::cout << "my vector contains (rev order, iterating from myrev_it2): ";
+	for (ft::vector<int>::reverse_iterator it = myrev_it2 ; it != my_v.rend(); ++it)
+		std::cout << ' ' << *it;
+  	std::cout << '\n';
+
+	std::vector<int>::const_reverse_iterator const_it = std_v.rbegin();
+	ft::vector<int>::const_reverse_iterator my_const_it = my_v.rbegin();
+	std::vector<int>::const_reverse_iterator std_crend = std_v.rend();
+	ft::vector<int>::const_reverse_iterator my_crend = my_v.rend(); // necesario porque en c++98 el template de los comparadores solo admite un parametro, por lo que const y no-const no son comparables
+
+	std::cout << "std vector contains (rev order, iterating with const_it): ";
+	for (std::vector<int>::const_reverse_iterator it = const_it ; it != std_crend; ++it)
+		std::cout << ' ' << *it;
+  	std::cout << '\n';
+
+	std::cout << "my vector contains (rev order, iterating with my_const_it): ";
+	for (ft::vector<int>::const_reverse_iterator it = my_const_it ; it != my_crend; ++it)
+		std::cout << ' ' << *it;
+  	std::cout << '\n';
+
+	std::cout << "*(rev_it + 2): " << *(rev_it + 2) << std::endl;
+	std::cout << "*(myrev_it + 2): " << *(myrev_it + 2) << std::endl;
+	std::cout << "*rev_it++: " << *rev_it++ << std::endl;
+	std::cout << "*myrev_it++: " << *myrev_it++ << std::endl;
+	std::cout << "*rev_it: " << *rev_it << std::endl;
+	std::cout << "*myrev_it: " << *myrev_it << std::endl;
+	std::cout << "*++rev_it: " << *++rev_it << std::endl;
+	std::cout << "*++myrev_it: " << *++myrev_it << std::endl;
+	std::cout << "*(rev_it - 2): " << *(rev_it - 2) << std::endl;
+	std::cout << "*(myrev_it - 2): " << *(myrev_it - 2) << std::endl;
+	std::cout << "*--rev_it: " << *--rev_it << std::endl;
+	std::cout << "*--myrev_it: " << *--myrev_it << std::endl;
+	std::cout << "*(rev_it -= 1): " << *(rev_it -= 1) << std::endl;
+	std::cout << "*(myrev_it -= 1): " << *(myrev_it -= 1) << std::endl;
+	std::cout << "rev_it[2]: " << rev_it[2] << std::endl;
+	std::cout << "myrev_it[2]: " << myrev_it[2] << std::endl;
+	std::cout << "*(4 + rev_it): " << *(4 + rev_it) << std::endl;
+	std::cout << "*(4 + myrev_it): " << *(4 + myrev_it) << std::endl;
+	std::cout << "rev_it - (rev_it2 + 3): " << rev_it - (rev_it2 + 3) << std::endl;
+	std::cout << "myrev_it - (myrev_it2 + 3): " << myrev_it - (myrev_it2 + 3) << std::endl;
+	std::cout << "(rev_it2 + 3) - rev_it: " << (rev_it2 + 3) - rev_it << std::endl;
+	std::cout << "(myrev_it2 + 3) - myrev_it: " << (myrev_it2 + 3) - myrev_it << std::endl;
+	std::cout << "rev_it == rev_it2? " << (rev_it == rev_it2) << std::endl;
+	std::cout << "myrev_it == myrev_it2? " << (myrev_it == myrev_it2) << std::endl;
+	std::cout << "rev_it <= rev_it2? " << (rev_it <= rev_it2) << std::endl;
+	std::cout << "myrev_it <= myrev_it2? " << (myrev_it <= myrev_it2) << std::endl;
+	std::cout << "rev_it >= rev_it2? " << (rev_it >= rev_it2) << std::endl;
+	std::cout << "myrev_it >= myrev_it2? " << (myrev_it >= myrev_it2) << std::endl;
+	std::cout << "rev_it2 > rev_it? " << (rev_it2 > rev_it) << std::endl;
+	std::cout << "myrev_it2 > myrev_it? " << (myrev_it2 > myrev_it) << std::endl;
 
 	return 0;
 }

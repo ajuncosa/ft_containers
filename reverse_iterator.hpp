@@ -1,9 +1,6 @@
 #pragma once
-#include "iteratorTraits.hpp" // TODO: necesario?
+#include "iteratorTraits.hpp"
 
-
-//TODO: assignment?
-//TODO: testing
 namespace ft
 {
 	template <class Iterator>
@@ -105,7 +102,7 @@ namespace ft
 	template <class Iterator>
   	typename reverse_iterator<Iterator>::difference_type operator-(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs)
 	{
-		return lhs.base() - rhs.base();
+		return rhs.base() - lhs.base();
 	}
 
 	template <class Iterator>

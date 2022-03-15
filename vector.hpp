@@ -21,8 +21,8 @@ namespace ft
 			typedef typename allocator_type::const_pointer const_pointer;
 			typedef randomAccessIterator<value_type> iterator;
 			typedef randomAccessIterator<const value_type> const_iterator;
+			typedef reverse_iterator<const_iterator> const_reverse_iterator;
 			typedef reverse_iterator<iterator> reverse_iterator;
-			//typedef reverse_iterator<const_iterator> const_reverse_iterator;
 			typedef typename iterator_traits<iterator>::difference_type difference_type;
 			typedef size_t size_type;
 
@@ -236,11 +236,11 @@ namespace ft
 				return it;
 			}
 
-			/*const_reverse_iterator rbegin() const
+			const_reverse_iterator rbegin() const
 			{
-				const_reverse_iterator it(this->end() - 1);
+				const_reverse_iterator it(this->end());
 				return it;
-			}*/
+			}
 
 			reverse_iterator rend()
 			{
@@ -248,11 +248,11 @@ namespace ft
 				return it;
 			}
 
-			/*const_reverse_iterator rend() const
+			const_reverse_iterator rend() const
 			{
-				const_reverse_iterator it(this->begin() - 1);
+				const_reverse_iterator it(this->begin());
 				return it;
-			}*/
+			}
 
 			template <class InputIterator>
   			void assign(typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last)
