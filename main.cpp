@@ -573,10 +573,23 @@ int main()
 	std::cout << "ft_s top: " << ft_s.top() << std::endl;
 	std::cout << "std_s size: " << std_s.size() << std::endl;
 	std::cout << "ft_s size: " << ft_s.size() << std::endl;
+	std::stack<int, std::vector<int> > std_s1;
+	std_s1.push(2);
+	ft::stack<int> ft_s1;
+	ft_s1.push(2);
+	std::cout << "std_s == std_s1? " << (std_s == std_s1) << std::endl;
+	std::cout << "ft_s == ft_s1? " << (ft_s == ft_s1) << std::endl;
+	std::cout << "std_s != std_s1? " << (std_s != std_s1) << std::endl;
+	std::cout << "ft_s != ft_s1? " << (ft_s != ft_s1) << std::endl;
+	std::cout << "std_s < std_s1? " << (std_s < std_s1) << std::endl;
+	std::cout << "ft_s < ft_s1? " << (ft_s < ft_s1) << std::endl;
+	std::cout << "std_s <= std_s1? " << (std_s <= std_s1) << std::endl;
+	std::cout << "ft_s <= ft_s1? " << (ft_s <= ft_s1) << std::endl;
+	std::cout << "std_s > std_s1? " << (std_s > std_s1) << std::endl;
+	std::cout << "ft_s > ft_s1? " << (ft_s > ft_s1) << std::endl;
+	std::cout << "std_s >= std_s1? " << (std_s >= std_s1) << std::endl;
+	std::cout << "ft_s >= ft_s1? " << (ft_s >= ft_s1) << std::endl;
 	
-	
-	std::cout << "" << std::endl;
-		
 
 	return 0;
 }

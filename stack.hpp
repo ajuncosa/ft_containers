@@ -44,5 +44,59 @@ namespace ft
 
 		private:
 			container_type	_data;
+
+			template <class U, class Cntr>
+			friend bool operator==(const stack<U, Cntr>& lhs, const stack<U, Cntr>& rhs);
+
+			template <class U, class Cntr>
+			friend bool operator!=(const stack<U, Cntr>& lhs, const stack<U, Cntr>& rhs);
+
+			template <class U, class Cntr>
+			friend bool operator<(const stack<U, Cntr>& lhs, const stack<U, Cntr>& rhs);
+
+			template <class U, class Cntr>
+			friend bool operator<=(const stack<U, Cntr>& lhs, const stack<U, Cntr>& rhs);
+
+			template <class U, class Cntr>
+			friend bool operator>(const stack<U, Cntr>& lhs, const stack<U, Cntr>& rhs);
+
+			template <class U, class Cntr>
+			friend bool operator>=(const stack<U, Cntr>& lhs, const stack<U, Cntr>& rhs);
 	};
+
+	template <class T, class Container>
+  	bool operator==(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
+	{
+		return lhs._data == rhs._data;
+	}
+
+	template <class T, class Container>
+	bool operator!=(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
+	{
+		return lhs._data != rhs._data;
+	}
+
+	template <class T, class Container>
+	bool operator<(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
+	{
+		return lhs._data < rhs._data;
+	}
+
+	template <class T, class Container>
+	bool operator<=(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
+	{
+		return lhs._data <= rhs._data;
+	}
+
+	template <class T, class Container>
+	bool operator>(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
+	{
+		return lhs._data > rhs._data;
+	}
+
+	template <class T, class Container>
+	bool operator>=(const stack<T, Container>& lhs, const stack<T, Container>& rhs)
+	{
+		return lhs._data >= rhs._data;
+	}
 }
