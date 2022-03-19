@@ -301,12 +301,12 @@ namespace ft
 				this->_size--;
 			}
 
-			iterator insert(iterator position, const value_type& val) //TODO: hacer clean code de los inserts (tal vez pueden compartir funciones con otros metodos como reserve y tal, e.g. reallocate un rango o algo asi)
+			iterator insert(iterator position, const value_type& val)
 			{
+				pointer		newData;
 				pointer		tmp;
 				size_type	tmpSize = 0;
 				size_type	i;
-				pointer		newData;
 				size_type	newCapacity;
 
 				if (position == this->end())
@@ -363,14 +363,14 @@ namespace ft
 				return position;
 			}
 
-			void insert(iterator position, size_type n, const value_type& val) //TODO: clean code
+			void insert(iterator position, size_type n, const value_type& val)
 			{
+				pointer		newData;
 				pointer		tmp;
+				iterator	it;
 				size_type	tmpSize = 0;
 				size_type	i;
-				iterator	it;
 				size_type	newCapacity;
-				pointer		newData;
 
 				if (position == this->end())
 				{
@@ -434,16 +434,16 @@ namespace ft
 				this->_myAllocator.deallocate(tmp, tmpSize);
 			}
 
-			template <class InputIterator> //TODO: clean code
+			template <class InputIterator>
     		void insert(iterator position, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last)
 			{
+				pointer		newData;
 				pointer		tmp;
+				iterator	it;
 				size_type	tmpSize = 0;
 				size_type	rangeSize = 0;
 				size_type	i;
-				iterator	it;
 				size_type	newCapacity;
-				pointer		newData;
 
 				if (position == this->end())
 				{
@@ -509,7 +509,7 @@ namespace ft
 				this->_myAllocator.deallocate(tmp, tmpSize);
 			}
 
-			iterator erase(iterator position) //TODO: clean code
+			iterator erase(iterator position)
 			{
 				size_type	tmpSize = 0;
 				size_type	i;
@@ -547,7 +547,7 @@ namespace ft
 				return position;
 			}
 
-			iterator erase(iterator first, iterator last) //TODO: clean code
+			iterator erase(iterator first, iterator last)
 			{
 				size_type	tmpSize = 0;
 				size_type	i;

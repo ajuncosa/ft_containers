@@ -1,7 +1,9 @@
 #include <iostream>
 #include <vector>
+#include <stack>
 #include <stdexcept>
 #include "vector.hpp"
+#include "stack.hpp"
 #include "equal.hpp"
 #include "lexicographical_compare.hpp"
 
@@ -540,6 +542,41 @@ int main()
 	std::cout << "myrev_it >= myrev_it2? " << (myrev_it >= myrev_it2) << std::endl;
 	std::cout << "rev_it2 > rev_it? " << (rev_it2 > rev_it) << std::endl;
 	std::cout << "myrev_it2 > myrev_it? " << (myrev_it2 > myrev_it) << std::endl;
+
+	std::cout << "\n-----STACK-----" << std::endl;
+	std::stack<int, std::vector<int> > std_s;
+	ft::stack<int, ft::vector<int> > ft_s;
+	//std::cout << "std_s top" << std_s.top() << std::endl;
+	//std::cout << "ft_s top" << ft_s.top() << std::endl;
+	std::cout << "std_s empty: " << std_s.empty() << std::endl;
+	std::cout << "ft_s empty: " << ft_s.empty() << std::endl;
+	std::cout << "std_s size: " << std_s.size() << std::endl;
+	std::cout << "ft_s size: " << ft_s.size() << std::endl;
+	std::cout <<"pushing..." <<std::endl;
+	std_s.push(2);
+	ft_s.push(2);
+	std::cout << "std_s empty: " << std_s.empty() << std::endl;
+	std::cout << "ft_s empty: " << ft_s.empty() << std::endl;
+	std::cout << "std_s top: " << std_s.top() << std::endl;
+	std::cout << "ft_s top: " << ft_s.top() << std::endl;
+	std::cout <<"pushing..." <<std::endl;
+	std_s.push(4);
+	ft_s.push(4);
+	std::cout << "std_s top: " << std_s.top() << std::endl;
+	std::cout << "ft_s top: " << ft_s.top() << std::endl;
+	std::cout << "std_s size: " << std_s.size() << std::endl;
+	std::cout << "ft_s size: " << ft_s.size() << std::endl;
+	std::cout <<"popping..." <<std::endl;
+	std_s.pop();
+	ft_s.pop();
+	std::cout << "std_s top: " << std_s.top() << std::endl;
+	std::cout << "ft_s top: " << ft_s.top() << std::endl;
+	std::cout << "std_s size: " << std_s.size() << std::endl;
+	std::cout << "ft_s size: " << ft_s.size() << std::endl;
+	
+	
+	std::cout << "" << std::endl;
+		
 
 	return 0;
 }
