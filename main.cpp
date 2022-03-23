@@ -6,6 +6,7 @@
 #include "stack.hpp"
 #include "equal.hpp"
 #include "lexicographical_compare.hpp"
+#include "pair.hpp"
 
 bool mycomp(int a, int b)
 {
@@ -590,7 +591,12 @@ int main()
 	std::cout << "std_s >= std_s1? " << (std_s >= std_s1) << std::endl;
 	std::cout << "ft_s >= ft_s1? " << (ft_s >= ft_s1) << std::endl;
 	
-
+	std::cout << "\n-----PAIR-----" << std::endl;
+	std::pair<int,std::string> std_pair = std::make_pair(1, "hola");
+	std::cout << "std_pair.first, std_pair.second: " << std_pair.first << ", " << std_pair.second <<std::endl;
+	ft::pair<int,std::string> ft_pair = ft::make_pair(1, "hola");
+	std::cout << "ft_pair.first, ft_pair.second: " << ft_pair.first << ", " << ft_pair.second <<std::endl;
+	
 	return 0;
 }
 

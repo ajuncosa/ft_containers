@@ -39,7 +39,7 @@ namespace ft
 			
 			~randomAccessIterator(){};
 			
-			pointer getPointer() const // FIXME: tal vez podria poner friend a todos los non members
+			pointer getPointer() const
 			{
 				return this->_data;
 			}
