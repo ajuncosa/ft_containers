@@ -1,12 +1,14 @@
 #include <iostream>
 #include <vector>
 #include <stack>
+#include <map>
 #include <stdexcept>
 #include "vector.hpp"
 #include "stack.hpp"
 #include "equal.hpp"
 #include "lexicographical_compare.hpp"
 #include "pair.hpp"
+#include "map.hpp"
 
 bool mycomp(int a, int b)
 {
@@ -597,6 +599,37 @@ int main()
 	ft::pair<int,std::string> ft_pair = ft::make_pair(1, "hola");
 	std::cout << "ft_pair.first, ft_pair.second: " << ft_pair.first << ", " << ft_pair.second <<std::endl;
 	
+	std::cout << "\n-----MAP-----" << std::endl;
+	std::map<int, std::string> std_map;
+	std_map.insert(std_pair);
+	std_map.insert(std::pair<int, std::string>(2, "que"));
+	std_map.insert(std::pair<int, std::string>(3, "tal"));
+	std_map.insert(std::pair<int, std::string>(4, "bien"));
+
+ 	std::map<int, std::string>::iterator itr;
+    std::cout << "The map std_map is : \n";
+    std::cout << "\tKEY\tELEMENT\n";
+    for (itr = std_map.begin(); itr != std_map.end(); ++itr) {
+    	std::cout << '\t' << itr->first << '\t' << itr->second << '\n';
+    }
+	std::cout << "std_map[2]: " << std_map[2] << std::endl;
+
+	ft::map<int, std::string> ft_map;
+	ft_map.fake_insert(ft_pair);
+	ft_map.fake_insert(ft::pair<int, std::string>(2, "que"));
+	ft_map.fake_insert(ft::pair<int, std::string>(3, "tal"));
+	ft_map.fake_insert(ft::pair<int, std::string>(4, "bien"));
+
+	/*ft::map<int, std::string>::iterator itr;
+    std::cout << "The map std_map is : \n";
+    std::cout << "\tKEY\tELEMENT\n";
+    for (itr = std_map.begin(); itr != std_map.end(); ++itr) {
+    	std::cout << '\t' << itr->first << '\t' << itr->second
+             << '\n';
+    }
+	std::cout << "std_map[2]: " << std_map[2] << std::endl;
+*/
+
 	return 0;
 }
 
