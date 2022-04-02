@@ -191,7 +191,7 @@ namespace ft
 				this->_data = newData;
 			}
 
-			void resize (size_type n, value_type val = value_type())
+			void resize(size_type n, value_type val = value_type())
 			{
 				for (size_type i = n; i < this->_size; i++)
 					this->_myAllocator.destroy(&this->_data[i]);

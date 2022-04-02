@@ -1,3 +1,4 @@
 *.o
 containers
 .vscode
+a.out
