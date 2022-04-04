@@ -1,12 +1,16 @@
 #pragma once
 #include <memory>
 #include "pair.hpp"
+#include "bstIterator.hpp"
 
 namespace ft
 {
 	template <class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<pair<const Key,T> > >
 	class binarySearchTree
 	{
+		private:
+			struct Node;
+
 		public:
 			typedef Key key_type;
 			typedef T mapped_type;
@@ -14,6 +18,7 @@ namespace ft
 			typedef Compare key_compare;
 			typedef Alloc allocator_type;
 			typedef size_t size_type;
+			typedef bstIterator<Node> iterator;
 
 			binarySearchTree(const key_compare& comp = key_compare(),
 				const allocator_type& alloc = allocator_type())
@@ -44,6 +49,21 @@ namespace ft
 				this->_nodeAlloc.deallocate(it, 1);
 			}
 
+			Node *find(const key_type &k)
+			{
+				Node *finder = this->_root;
+				while (finder->sentinel == false)
+				{
+					if (!this->_comp(k, finder->value.first) && !this->_comp(finder->value.first, k))
+						return finder;
+					else if (this->_comp(k, finder->value.first) == true)
+						finder = finder->left;
+					else
+						finder = finder->right;
+				}
+				return finder;
+			}
+
 			void insert(const value_type &newData)
 			{
 				Node *tmp;
@@ -64,16 +84,9 @@ namespace ft
 				}
 				else
 				{
-					Node *finder = this->_root;
-					while (finder->sentinel == false)
-					{
-						if (!this->_comp(newData.first, finder->value.first) && !this->_comp(finder->value.first, newData.first))
-							return ;
-						else if (this->_comp(newData.first, finder->value.first) == true)
-							finder = finder->left;
-						else
-							finder = finder->right;
-					}
+					Node *finder = find(newData.first);
+					if (finder->sentinel == false)
+						return ;
 					tmp = this->_nodeAlloc.allocate(1);
 					sentinelOne->parent = tmp;
 					sentinelTwo->parent = tmp;
@@ -92,6 +105,7 @@ namespace ft
 					}
 					this->_nodeAlloc.construct(tmp, Node(finder, sentinelOne, sentinelTwo, newData));
 				}
+				this->_size++;
 			}
 
 		private:
