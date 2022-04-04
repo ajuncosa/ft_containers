@@ -16,24 +16,17 @@ namespace ft
 
 			randomAccessIterator() : _data(NULL) {}
 
-			randomAccessIterator(pointer data) : _data(data) {} // TODO: comprobar si puedo hacer este constructor privado (el original no lo tiene?)
-
 			template <class U>
-			randomAccessIterator(const randomAccessIterator<U> &src) : _data(src.getPointer()) {}
+			randomAccessIterator(const randomAccessIterator<U> &src) : _data(src._data) {}
 			
 			randomAccessIterator& operator=(const randomAccessIterator& src)
 			{
 				if (this != &src)
-					this->_data = src.getPointer();
+					this->_data = src._data;
 				return *this;
 			}
 			
 			~randomAccessIterator(){};
-			
-			pointer getPointer() const
-			{
-				return this->_data;
-			}
 
 			randomAccessIterator& operator++()
 			{
@@ -98,6 +91,14 @@ namespace ft
 			friend typename randomAccessIterator<U>::difference_type operator-(randomAccessIterator<U> lhs, randomAccessIterator<V> rhs);
 			
 		private:
+			template <class U, class V, class W, class X>
+			friend class randomAccessIterator;
+
+			template <class U, class V>
+			friend class vector;
+
+			randomAccessIterator(pointer data) : _data(data) {}
+
 			pointer	_data;
 	};
 

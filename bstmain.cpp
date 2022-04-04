@@ -7,4 +7,6 @@ int main()
 	bst.insert(ft::pair<std::string, int>("edad", 10));
 	bst.insert(ft::pair<std::string, int>("amigos", 2));
 	bst.insert(ft::pair<std::string, int>("novios", 4));
+	ft::binarySearchTree<std::string, int>::iterator it = bst.begin();
+	ft::binarySearchTree<std::string, int>::iterator it2(it);
 }

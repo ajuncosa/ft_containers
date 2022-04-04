@@ -16,7 +16,24 @@ namespace ft
 
 			bstIterator() : _data(NULL) {}
 
+			template <class U>
+			bstIterator(const bstIterator<U> &src) : _data(src._data) {}
+			
+			bstIterator &operator=(const bstIterator &src)
+			{
+				if (this != &src)
+					this->_data = src._data;
+				return *this;
+			}
+			
+			~bstIterator() {};
+
 		private:
+			template <class U, class V, class W, class X> //TODO: revisar que esto funcione
+			friend class binarySearchTree;
+
 			pointer	_data;
+			bstIterator(pointer node) : _data(node) {}
+			//friend class bstIterator;
 	};
 }

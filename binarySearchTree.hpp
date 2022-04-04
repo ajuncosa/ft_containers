@@ -54,12 +54,12 @@ namespace ft
 				Node *finder = this->_root;
 				while (finder->sentinel == false)
 				{
-					if (!this->_comp(k, finder->value.first) && !this->_comp(finder->value.first, k))
-						return finder;
-					else if (this->_comp(k, finder->value.first) == true)
+					if (this->_comp(k, finder->value.first) == true)
 						finder = finder->left;
-					else
+					else if (this->_comp(finder->value.first, k) == true)
 						finder = finder->right;
+					else
+						break;
 				}
 				return finder;
 			}
@@ -106,6 +106,22 @@ namespace ft
 					this->_nodeAlloc.construct(tmp, Node(finder, sentinelOne, sentinelTwo, newData));
 				}
 				this->_size++;
+			}
+
+			iterator begin()
+			{
+				Node *finder = this->_root;
+				while (finder->sentinel == false && finder->left->sentinel == false)
+					finder = finder->left;
+				return iterator(finder);
+			}
+
+			iterator end()
+			{
+				Node *finder = this->_root;
+				while (finder->sentinel == false)
+					finder = finder->right;
+				return iterator(finder);
 			}
 
 		private:
