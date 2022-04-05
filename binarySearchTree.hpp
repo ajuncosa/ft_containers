@@ -30,23 +30,14 @@ namespace ft
 
 			//TODO: add copy constructor, assignment op
 
-			~binarySearchTree() // TODO: destruir con el iterador para eliminarlo todo
+			~binarySearchTree()
 			{
-				std::cout << "THIS TREE CONTAINS: " << std::endl;
-				Node *it;
 				if (this->_root->sentinel == false)
 				{
 					this->_nodeAlloc.destroy(this->_root->parent);
 					this->_nodeAlloc.deallocate(this->_root->parent, 1);
 				}
-				for (it = this->_root; it->sentinel == false; it = it->right)
-				{
-					std::cout << "value: " << it->value.first << ", " << it->value.second << std::endl;
-					this->_nodeAlloc.destroy(it);
-					this->_nodeAlloc.deallocate(it, 1);
-				}
-				this->_nodeAlloc.destroy(it);
-				this->_nodeAlloc.deallocate(it, 1);
+				// TODO: no se puede liberar con iteradores, buscar otra forma
 			}
 
 			Node *find(const key_type &k)

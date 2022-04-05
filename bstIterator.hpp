@@ -28,12 +28,87 @@ namespace ft
 			
 			~bstIterator() {};
 
+			reference operator*() const
+			{
+				return *this->_data;
+			}
+
+			pointer operator->()
+			{
+				return this->_data;
+			}
+
+			bstIterator& operator++()
+			{
+				if (this->_data->sentinel == true)
+					std::cout << "what" << std::endl;
+				if (this->_data->right->sentinel == false)
+				{
+					this->_data = this->_data->right;
+					while (this->_data->left->sentinel == false)
+						this->_data = this->_data->left;
+				}
+				else
+				{
+					pointer tmp = this->_data->right;
+					while (this->_data->parent->sentinel == false && this->_data != this->_data->parent->left)
+						this->_data = this->_data->parent;
+					this->_data = this->_data->parent;
+					if (this->_data->sentinel == true)
+						this->_data = tmp;
+				}
+				return *this;
+			}
+
+			bstIterator operator++(int)
+			{
+				bstIterator tmp(*this);
+				if (this->_data->sentinel == true)
+				{
+					std::cout << "what" << std::endl; // FIXME: add empty map and error management
+				}
+				if (this->_data->right->sentinel == false)
+				{
+					this->_data = this->_data->right;
+					while (this->_data->left->sentinel == false)
+						this->_data = this->_data->left;
+				}
+				else
+				{
+					pointer tmp = this->_data->right;
+					while (this->_data->parent->sentinel == false && this->_data != this->_data->parent->left)
+						this->_data = this->_data->parent;
+					this->_data = this->_data->parent;
+					if (this->_data->sentinel == true)
+						this->_data = tmp;
+				}
+				return tmp;
+			}
+
 		private:
-			template <class U, class V, class W, class X> //TODO: revisar que esto funcione
+			template <class U, class V, class W, class X>
 			friend class binarySearchTree;
 
-			pointer	_data;
-			bstIterator(pointer node) : _data(node) {}
+			//template <class U, class V, class W, class X>
 			//friend class bstIterator;
+
+			template <class U, class V>
+			friend bool operator==(const bstIterator<U> &lhs, const bstIterator<V> &rhs); 
+
+			pointer	_data;
+
+			bstIterator(pointer node) : _data(node) {}
 	};
+
+	template <class T, class U>
+	bool operator==(const bstIterator<T> &lhs, const bstIterator<U> &rhs) 
+	{
+		return lhs._data == rhs._data;
+	}
+
+	template <class T, class U>
+	bool operator!=(const bstIterator<T>& lhs, const bstIterator<U>& rhs)
+	{
+		return !operator==(lhs, rhs);
+	}
 }
