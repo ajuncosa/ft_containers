@@ -17,9 +17,9 @@ int main()
 	ft::binarySearchTree<std::string, int>::iterator it2(it);
 	std::cout << "begin: " << it->value.first << std::endl;
 	std::cout << "it == it2? " << (it == it2) << std::endl;*/
-	for (ft::binarySearchTree<std::string, int>::iterator it = bst.begin(); it != bst.end(); ++it)
+	for (ft::binarySearchTree<std::string, int>::iterator it = bst.begin(); it != bst.end(); it++)
 	{
-		std::cout << "value: " << (*it).value.first << ", " << (*it).value.second << std::endl;
+		std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
 	}
 
 	/*std::map<std::string, int> map;

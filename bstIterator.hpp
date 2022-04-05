@@ -28,20 +28,22 @@ namespace ft
 			
 			~bstIterator() {};
 
-			reference operator*() const
+			typename value_type::value_type &operator*() const
 			{
-				return *this->_data;
+				return this->_data->value;
 			}
 
-			pointer operator->()
+			typename value_type::value_type *operator->()
 			{
-				return this->_data;
+				return &this->_data->value;
 			}
 
 			bstIterator& operator++()
 			{
 				if (this->_data->sentinel == true)
-					std::cout << "what" << std::endl;
+				{
+					std::cout << "what" << std::endl; // FIXME: add empty map and error management
+				}
 				if (this->_data->right->sentinel == false)
 				{
 					this->_data = this->_data->right;

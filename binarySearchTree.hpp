@@ -2,15 +2,13 @@
 #include <memory>
 #include "pair.hpp"
 #include "bstIterator.hpp"
+#include "node.hpp"
 
 namespace ft
 {
 	template <class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<pair<const Key,T> > >
 	class binarySearchTree
 	{
-		private:
-			struct Node;
-
 		public:
 			typedef Key key_type;
 			typedef T mapped_type;
@@ -18,14 +16,17 @@ namespace ft
 			typedef Compare key_compare;
 			typedef Alloc allocator_type;
 			typedef size_t size_type;
-			typedef bstIterator<Node> iterator;
+			typedef	Node<value_type> node_type;
+			typedef Node<const value_type> const_node_type;
+			typedef bstIterator<node_type> iterator;
+			typedef bstIterator<const_node_type> const_iterator;
 
 			binarySearchTree(const key_compare& comp = key_compare(),
 				const allocator_type& alloc = allocator_type())
 				: _size(0), _comp(comp), _alloc(alloc), _nodeAlloc(node_alloc_type())
 			{
 				this->_root = this->_nodeAlloc.allocate(1);
-				this->_nodeAlloc.construct(this->_root, Node());
+				this->_nodeAlloc.construct(this->_root, node_type());
 			}
 
 			//TODO: add copy constructor, assignment op
@@ -40,9 +41,9 @@ namespace ft
 				// TODO: no se puede liberar con iteradores, buscar otra forma
 			}
 
-			Node *find(const key_type &k)
+			node_type *find(const key_type &k)
 			{
-				Node *finder = this->_root;
+				node_type *finder = this->_root;
 				while (finder->sentinel == false)
 				{
 					if (this->_comp(k, finder->value.first) == true)
@@ -57,25 +58,25 @@ namespace ft
 
 			void insert(const value_type &newData)
 			{
-				Node *tmp;
-				Node *sentinelOne;
-				Node *sentinelTwo;
+				node_type *tmp;
+				node_type *sentinelOne;
+				node_type *sentinelTwo;
 
 				sentinelOne = this->_nodeAlloc.allocate(1);
 				sentinelTwo = this->_nodeAlloc.allocate(1);
-				this->_nodeAlloc.construct(sentinelOne, Node());
-				this->_nodeAlloc.construct(sentinelTwo, Node());
+				this->_nodeAlloc.construct(sentinelOne, node_type());
+				this->_nodeAlloc.construct(sentinelTwo, node_type());
 				if (this->_root->sentinel == true)
 				{
 					tmp = this->_root;
 					this->_root = this->_nodeAlloc.allocate(1);
 					sentinelOne->parent = this->_root;
 					sentinelTwo->parent = this->_root;
-					this->_nodeAlloc.construct(this->_root, Node(tmp, sentinelOne, sentinelTwo, newData));
+					this->_nodeAlloc.construct(this->_root, node_type(tmp, sentinelOne, sentinelTwo, newData));
 				}
 				else
 				{
-					Node *finder = find(newData.first);
+					node_type *finder = find(newData.first);
 					if (finder->sentinel == false)
 						return ;
 					tmp = this->_nodeAlloc.allocate(1);
@@ -94,14 +95,14 @@ namespace ft
 						this->_nodeAlloc.deallocate(finder->right, 1);
 						finder->right = tmp;
 					}
-					this->_nodeAlloc.construct(tmp, Node(finder, sentinelOne, sentinelTwo, newData));
+					this->_nodeAlloc.construct(tmp, node_type(finder, sentinelOne, sentinelTwo, newData));
 				}
 				this->_size++;
 			}
 
 			iterator begin()
 			{
-				Node *finder = this->_root;
+				node_type *finder = this->_root;
 				while (finder->sentinel == false && finder->left->sentinel == false)
 					finder = finder->left;
 				return iterator(finder);
@@ -109,42 +110,16 @@ namespace ft
 
 			iterator end()
 			{
-				Node *finder = this->_root;
+				node_type *finder = this->_root;
 				while (finder->sentinel == false)
 					finder = finder->right;
 				return iterator(finder);
 			}
 
 		private:
-			struct Node
-			{
-				bool		sentinel;
-				Node		*left;
-				Node		*right;
-				Node		*parent;
-				value_type	value;
+			typedef	typename allocator_type::template rebind<node_type>::other node_alloc_type;
 
-				Node() : sentinel(true), parent(NULL), left(NULL), right(NULL), value() {}
-				Node(Node *parent, Node *left, Node *right, value_type value) : sentinel(false), parent(parent), left(left), right(right), value(value) {}
-				Node(const Node &src) : sentinel(src.sentinel), parent(src.parent), left(src.left), right(src.right), value(src.value) {}
-				/*Node &operator=(const Node &src)
-				{
-					if (this != &src)
-					{
-						this->sentinel = src.sentinel;
-						this->left = src.left;
-						this->right = src.right;
-						this->parent = src.parent;
-						this->value = src.value;
-					}
-					return *this;
-				}*/
-				~Node() {}
-			};
-
-			typedef	typename allocator_type::template rebind<Node>::other node_alloc_type;
-
-			Node 			*_root;
+			node_type		*_root;
 			size_type		_size;
 			allocator_type	_alloc;
 			node_alloc_type	_nodeAlloc;
