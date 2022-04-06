@@ -16,11 +16,14 @@ namespace ft
 
 			bstIterator() : _data(NULL) {}
 
-			template <class U>
-			bstIterator(const bstIterator<U> &src) : _data(src._data) {}
+		//	template <class U>
+		//	bstIterator(const bstIterator<U> &src) : _data(src._data) {}
 			
+			bstIterator(const bstIterator &src) : _data(src._data) {}
+
 			bstIterator &operator=(const bstIterator &src)
 			{
+				std::cout << "EHHH" << std::endl;
 				if (this != &src)
 					this->_data = src._data;
 				return *this;
@@ -91,8 +94,8 @@ namespace ft
 			template <class U, class V, class W, class X>
 			friend class binarySearchTree;
 
-			//template <class U, class V, class W, class X>
-			//friend class bstIterator;
+			template <class U, class V, class W, class X>
+			friend class bstIterator;
 
 			template <class U, class V>
 			friend bool operator==(const bstIterator<U> &lhs, const bstIterator<V> &rhs); 

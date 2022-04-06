@@ -100,12 +100,31 @@ namespace ft
 				this->_size++;
 			}
 
+			void erase_element(node_type *node)
+			{
+				if (node == node->parent->left)
+					node->parent->left = node->left;
+				else if (node == node->parent->right)
+					node->parent->right = node->right;
+				this->_nodeAlloc.destroy(node);
+				this->_nodeAlloc.deallocate(node, 1);
+				this->_size--;
+			}
+
 			iterator begin()
 			{
 				node_type *finder = this->_root;
 				while (finder->sentinel == false && finder->left->sentinel == false)
 					finder = finder->left;
 				return iterator(finder);
+			}
+
+			const_iterator begin() const
+			{
+				const_node_type *finder = this->_root;
+				while (finder->sentinel == false && finder->left->sentinel == false)
+					finder = finder->left;
+				return const_iterator(finder);
 			}
 
 			iterator end()
@@ -115,6 +134,14 @@ namespace ft
 					finder = finder->right;
 				return iterator(finder);
 			}
+
+			/*const_iterator end() const
+			{
+				const_node_type *finder = this->_root;
+				while (finder->sentinel == false)
+					finder = finder->right;
+				return const_iterator(finder);
+			}*/
 
 		private:
 			typedef	typename allocator_type::template rebind<node_type>::other node_alloc_type;

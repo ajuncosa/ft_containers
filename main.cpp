@@ -599,6 +599,11 @@ int main()
 	ft::pair<int,std::string> ft_pair = ft::make_pair(1, "hola");
 	std::cout << "ft_pair.first, ft_pair.second: " << ft_pair.first << ", " << ft_pair.second <<std::endl;
 	
+
+	ft::vector<int> const vect;
+	ft::vector<int>::const_iterator iter = vect.begin();
+	//ft::vector<int>::iterator iter2(iter);
+
 	/*std::cout << "\n-----MAP-----" << std::endl;
 	std::map<int, std::string> std_map;
 	std_map.insert(std_pair);
