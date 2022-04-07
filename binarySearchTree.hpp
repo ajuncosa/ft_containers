@@ -17,9 +17,8 @@ namespace ft
 			typedef Alloc allocator_type;
 			typedef size_t size_type;
 			typedef	Node<value_type> node_type;
-			typedef Node<const value_type> const_node_type;
-			typedef bstIterator<node_type> iterator;
-			typedef bstIterator<const_node_type> const_iterator;
+			typedef bstIterator<node_type, value_type> iterator;
+			typedef bstIterator<node_type, const value_type> const_iterator;
 
 			binarySearchTree(const key_compare& comp = key_compare(),
 				const allocator_type& alloc = allocator_type())
@@ -121,7 +120,7 @@ namespace ft
 
 			const_iterator begin() const
 			{
-				const_node_type *finder = this->_root;
+				node_type *finder = this->_root;
 				while (finder->sentinel == false && finder->left->sentinel == false)
 					finder = finder->left;
 				return const_iterator(finder);
@@ -135,13 +134,13 @@ namespace ft
 				return iterator(finder);
 			}
 
-			/*const_iterator end() const
+			const_iterator end() const
 			{
-				const_node_type *finder = this->_root;
+				node_type *finder = this->_root;
 				while (finder->sentinel == false)
 					finder = finder->right;
 				return const_iterator(finder);
-			}*/
+			}
 
 		private:
 			typedef	typename allocator_type::template rebind<node_type>::other node_alloc_type;

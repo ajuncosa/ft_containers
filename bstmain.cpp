@@ -23,19 +23,26 @@ int main()
 	//for (ft::binarySearchTree<std::string, int>::iterator it = bst.begin(); it != bst.end(); it++)
 	//	std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
 
-/*	ft::binarySearchTree<std::string, int>::iterator it = bst.begin();
-	//FIXME: por que esto no entra en el copy constructor >:(
+	ft::binarySearchTree<std::string, int>::const_iterator it = bst.begin();
 	ft::binarySearchTree<std::string, int>::iterator it2(it);
-	//FIXME: por que esto no entra en el assignment operator??? >:(
-	//ft::binarySearchTree<std::string, int>::iterator it2 = it;
 	while (it2 != bst.end())
 	{
 		std::cout << "value: " << it2->first << ", " << (*it2).second << std::endl;
-		it2++;
-	}*/
-ft::binarySearchTree<std::string, int>::const_iterator it = bst.begin(); 
-//	for (ft::binarySearchTree<std::string, int>::const_iterator it = bst.begin(); it != bst.end(); it++)
-//		std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
+		++it2;
+	}
+
+	ft::Node<int> nod;
+	ft::Node<int> nod2;
+	nod2 = nod;
+
+/*	for (ft::binarySearchTree<std::string, int>::const_iterator it = bst.begin(); it != bst.end(); it++)
+		std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
+	
+	ft::binarySearchTree<std::string, int>::iterator it = bst.begin();
+	std::cout << "cambiando: " << it->first << ", " << (*it).second << std::endl;
+	(*it).second = 8;
+	std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
+*/
 
 
 	/*std::map<std::string, int> map;
@@ -51,5 +58,12 @@ ft::binarySearchTree<std::string, int>::const_iterator it = bst.begin();
 	std::cout << "sit3 " << sit3->first <<std::endl;
 
 	std::cout << "sit == sit2? " << (sit == sit2) << std::endl;
-	std::cout << "sit == sit3? " << (sit == sit3) << std::endl;*/
+	std::cout << "sit == sit3? " << (sit == sit3) << std::endl;
+	
+	std::map<std::string, int>::const_iterator cit = map.begin();
+	std::cout << "cambiando " << cit->first <<std::endl;
+	cit->second = 8;
+	for (std::map<std::string, int>::const_iterator it = map.begin(); it != map.end(); it++)
+		std::cout << "value: " << it->first << ", " << (*it).second << std::endl;*/
+	
 }
