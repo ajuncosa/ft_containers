@@ -15,17 +15,20 @@ namespace ft
 			typedef typename iterator::iterator_category	iterator_category;
 			typedef T value_type;
 
-			bstIterator() : _data(NULL) {}
+			bstIterator() : _data(NULL), _sentinel(NULL) {}
 
 			template <class U, class V>
-			bstIterator(const bstIterator<U, V> &src) : _data(src._data) {}
+			bstIterator(const bstIterator<U, V> &src) : _data(src._data), _sentinel(src._sentinel) {}
 			
-			bstIterator(const bstIterator &src) : _data(src._data) {}
+			bstIterator(const bstIterator &src) : _data(src._data), _sentinel(src._sentinel) {}
 
 			bstIterator &operator=(const bstIterator &src)
 			{
 				if (this != &src)
+				{
 					this->_data = src._data;
+					this->_sentinel = src._sentinel;
+				}
 				return *this;
 			}
 			
@@ -43,24 +46,21 @@ namespace ft
 
 			bstIterator& operator++()
 			{
-				if (this->_data->sentinel == true)
+				if (this->_data == this->_sentinel)
 				{
 					std::cout << "what" << std::endl; // FIXME: add empty map and error management
 				}
-				if (this->_data->right->sentinel == false)
+				if (this->_data->right != this->_sentinel)
 				{
 					this->_data = this->_data->right;
-					while (this->_data->left->sentinel == false)
+					while (this->_data->left != this->_sentinel)
 						this->_data = this->_data->left;
 				}
 				else
 				{
-					pointer tmp = this->_data->right;
-					while (this->_data->parent->sentinel == false && this->_data != this->_data->parent->left)
+					while (this->_data->parent != this->_sentinel && this->_data != this->_data->parent->left)
 						this->_data = this->_data->parent;
 					this->_data = this->_data->parent;
-					if (this->_data->sentinel == true)
-						this->_data = tmp;
 				}
 				return *this;
 			}
@@ -68,24 +68,21 @@ namespace ft
 			bstIterator operator++(int)
 			{
 				bstIterator tmp(*this);
-				if (this->_data->sentinel == true)
+				if (this->_data == this->_sentinel)
 				{
 					std::cout << "what" << std::endl; // FIXME: add empty map and error management
 				}
-				if (this->_data->right->sentinel == false)
+				if (this->_data->right != this->_sentinel)
 				{
 					this->_data = this->_data->right;
-					while (this->_data->left->sentinel == false)
+					while (this->_data->left != this->_sentinel)
 						this->_data = this->_data->left;
 				}
 				else
 				{
-					pointer tmp = this->_data->right;
-					while (this->_data->parent->sentinel == false && this->_data != this->_data->parent->left)
+					while (this->_data->parent != this->_sentinel && this->_data != this->_data->parent->left)
 						this->_data = this->_data->parent;
 					this->_data = this->_data->parent;
-					if (this->_data->sentinel == true)
-						this->_data = tmp;
 				}
 				return tmp;
 			}
@@ -101,8 +98,9 @@ namespace ft
 			friend bool operator==(const bstIterator<U, V> &lhs, const bstIterator<W, X> &rhs); 
 
 			pointer	_data;
+			pointer	_sentinel;
 
-			bstIterator(pointer node) : _data(node) {}
+			bstIterator(pointer node, pointer sentinel) : _data(node), _sentinel(sentinel) {}
 	};
 
 	template <class T, class U, class V, class W>
