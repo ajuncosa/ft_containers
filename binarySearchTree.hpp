@@ -109,7 +109,7 @@ namespace ft
 						finder->right = tmp;
 					this->_nodeAlloc.construct(tmp, node_type(finder, this->_sentinel, this->_sentinel, newData));
 					if (tmp == this->max(this->_root))
-						this->_sentinel->parent = tmp; // TODO: comprobar si esto funciona para el --
+						this->_sentinel->left = tmp;
 				}
 				this->_size++;
 			}

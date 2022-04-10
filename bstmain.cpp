@@ -22,22 +22,43 @@ int main()
 	*it++;
 	it2++;
 	std::cout << "it == it2? " << (it == it2) << std::endl;
-	while (it2 != bst.end())
+	/*while (it2 != bst.end())
 	{
 		std::cout << "value: " << it2->first << ", " << (*it2).second << std::endl;
 		++it2;
-	}
-	it++;
+	}*/
 	std::cout << "FULL TREE:" << std::endl;
 	for (ft::binarySearchTree<std::string, int>::const_iterator iter = bst.begin(); iter != bst.end(); iter++)
 		std::cout << "value: " << iter->first << ", " << iter->second << std::endl;
-	bst.eraseNode(it.getData());
+	std::cout << "----" << std::endl;
+	it = bst.begin();
+	std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
 	it++;
-	bst.eraseNode(it.getData());
-
+	std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
+	it--;
+	std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
+	it = bst.end();
+	std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
+	it--;
+	std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
+	it--;
+	std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
+	it = bst.begin();
+	std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
+	it--;
+	std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
+	//TODO: que tiene que pasar si incrementas o decrementas el iterador que esta pasando begin y que apunta a sentinel?
+//	it--;
+//	std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
+	
+//	it++;
+//	std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
+	
+	/*bst.eraseNode(it.getData());
 	std::cout << "FULL TREE AFTER ERASING:" << std::endl;
 	for (ft::binarySearchTree<std::string, int>::const_iterator iter = bst.begin(); iter != bst.end(); iter++)
 		std::cout << "value: " << iter->first << ", " << iter->second << std::endl;
+*/
 
 /*	for (ft::binarySearchTree<std::string, int>::const_iterator it = bst.begin(); it != bst.end(); it++)
 		std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
@@ -49,7 +70,7 @@ int main()
 */
 
 
-	/*std::map<std::string, int> map;
+/*	std::map<std::string, int> map;
 
 	map.insert(std::pair<std::string, int>("edad", 10));
 	map.insert(std::pair<std::string, int>("amigos", 2));
@@ -63,11 +84,21 @@ int main()
 
 	std::cout << "sit == sit2? " << (sit == sit2) << std::endl;
 	std::cout << "sit == sit3? " << (sit == sit3) << std::endl;
-	
-	std::map<std::string, int>::const_iterator cit = map.begin();
+	sit = map.end();
+	std::cout << "sit " << sit->first << ", " << sit->second <<std::endl;
+	sit--;
+	std::cout << "sit " << sit->first << ", " << sit->second<<std::endl;
+	sit = map.begin();
+	std::cout << "sit " << sit->first << ", " << sit->second<<std::endl;
+	sit--;
+	std::cout << "sit " << sit->first << ", " << sit->second<<std::endl;
+	//sit--;
+	//std::cout << "sit " << sit->first << ", " << sit->second<<std::endl;
+*/
+/*	std::map<std::string, int>::const_iterator cit = map.begin();
 	std::cout << "cambiando " << cit->first <<std::endl;
 	cit->second = 8;
 	for (std::map<std::string, int>::const_iterator it = map.begin(); it != map.end(); it++)
-		std::cout << "value: " << it->first << ", " << (*it).second << std::endl;*/
-	
+		std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
+	*/
 }

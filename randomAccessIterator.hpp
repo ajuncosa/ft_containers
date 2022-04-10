@@ -3,7 +3,6 @@
 
 namespace ft
 {
-	//FIXME: volver a poner un getter y quitar friends y constructor publico
 	template <class T, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
 	class randomAccessIterator : public iterator<std::random_access_iterator_tag, T, Distance, Pointer, Reference>
 	{

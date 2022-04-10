@@ -48,21 +48,20 @@ namespace ft
 
 			bstIterator& operator++()
 			{
-				if (this->_data == this->_sentinel)
+				if (this->_data != this->_sentinel)
 				{
-					std::cout << "what" << std::endl; // FIXME: add empty map and error management
-				}
-				if (this->_data->right != this->_sentinel)
-				{
-					this->_data = this->_data->right;
-					while (this->_data->left != this->_sentinel)
-						this->_data = this->_data->left;
-				}
-				else
-				{
-					while (this->_data->parent != this->_sentinel && this->_data != this->_data->parent->left)
+					if (this->_data->right != this->_sentinel)
+					{
+						this->_data = this->_data->right;
+						while (this->_data->left != this->_sentinel)
+							this->_data = this->_data->left;
+					}
+					else
+					{
+						while (this->_data->parent != this->_sentinel && this->_data != this->_data->parent->left)
+							this->_data = this->_data->parent;
 						this->_data = this->_data->parent;
-					this->_data = this->_data->parent;
+					}
 				}
 				return *this;
 			}
@@ -70,19 +69,53 @@ namespace ft
 			bstIterator operator++(int)
 			{
 				bstIterator tmp(*this);
-				if (this->_data == this->_sentinel)
+				if (this->_data != this->_sentinel)
 				{
-					std::cout << "what" << std::endl; // FIXME: add empty map and error management
+					if (this->_data->right != this->_sentinel)
+					{
+						this->_data = this->_data->right;
+						while (this->_data->left != this->_sentinel)
+							this->_data = this->_data->left;
+					}
+					else
+					{
+						while (this->_data->parent != this->_sentinel && this->_data != this->_data->parent->left)
+							this->_data = this->_data->parent;
+						this->_data = this->_data->parent;
+					}
 				}
-				if (this->_data->right != this->_sentinel)
+				return tmp;
+			}
+
+			bstIterator& operator--()
+			{
+				if (this->_data->left != this->_sentinel)
 				{
-					this->_data = this->_data->right;
-					while (this->_data->left != this->_sentinel)
-						this->_data = this->_data->left;
+					this->_data = this->_data->left;
+					while (this->_data->right != this->_sentinel)
+						this->_data = this->_data->right;
 				}
 				else
 				{
-					while (this->_data->parent != this->_sentinel && this->_data != this->_data->parent->left)
+					while (this->_data->parent != this->_sentinel && this->_data != this->_data->parent->right)
+						this->_data = this->_data->parent;
+					this->_data = this->_data->parent;
+				}
+				return *this;
+			}
+
+			bstIterator operator--(int)
+			{
+				bstIterator tmp(*this);
+				if (this->_data->left != this->_sentinel)
+				{
+					this->_data = this->_data->left;
+					while (this->_data->right != this->_sentinel)
+						this->_data = this->_data->right;
+				}
+				else
+				{
+					while (this->_data->parent != this->_sentinel && this->_data != this->_data->parent->right)
 						this->_data = this->_data->parent;
 					this->_data = this->_data->parent;
 				}
