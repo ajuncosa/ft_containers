@@ -18,14 +18,16 @@ namespace ft
 			randomAccessIterator() : _data(NULL) {}
 
 			template <class U>
-			randomAccessIterator(const randomAccessIterator<U> &src) : _data(src._data) {}
+			randomAccessIterator(const randomAccessIterator<U> &src) : _data(src.getData()) {}
 			
-			randomAccessIterator(const randomAccessIterator &src) : _data(src._data) {}
+			randomAccessIterator(const randomAccessIterator &src) : _data(src.getData()) {}
 			
+			randomAccessIterator(pointer data) : _data(data) {}
+
 			randomAccessIterator& operator=(const randomAccessIterator& src)
 			{
 				if (this != &src)
-					this->_data = src._data;
+					this->_data = src.getData();
 				return *this;
 			}
 			
@@ -83,14 +85,13 @@ namespace ft
 				this->_data -= rhs;
 				return *this;
 			}
+
+			pointer getData() const
+			{
+				return this->_data;
+			}
 			
 		private:
-			template <class U, class V, class W, class X>
-			friend class randomAccessIterator;
-
-			template <class U, class V>
-			friend class vector;
-
 			template <class U, class V>
 			friend bool operator==(const randomAccessIterator<U>& lhs, const randomAccessIterator<V>& rhs);
 			
@@ -99,8 +100,6 @@ namespace ft
 			
 			template <class U, class V>
 			friend typename randomAccessIterator<U>::difference_type operator-(randomAccessIterator<U> lhs, randomAccessIterator<V> rhs);
-
-			randomAccessIterator(pointer data) : _data(data) {}
 
 			pointer	_data;
 	};

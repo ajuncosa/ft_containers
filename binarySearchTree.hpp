@@ -114,77 +114,33 @@ namespace ft
 				this->_size++;
 			}
 
-		/*	void eraseNode(node_type *node)
+			void eraseNode(node_type *node)
 			{
-				node_type* current = node;
-				if (current->sentinel)
-					return;
-				if (current->left->sentinel && current->right->sentinel)
+				if (node == this->_sentinel)
+					return ;
+				// case where node has no children || only a right child:
+				if (node->left == this->_sentinel)
+					this->_nodeTransplant(node, node->right);
+				// case where node has only a left child:
+				else if (node->right == this->_sentinel)
+					this->_nodeTransplant(node, node->left);
+				// case where node has two children:
+				else
 				{
-					if (current != this->_root)
+					node_type *inOrderSuccessor = this->min(node->right);
+					if (inOrderSuccessor->parent != node)
 					{
-						if (current->parent->left == current) {
-							current->parent->left->s;
-						}
-						else {
-							current->parent->right = nullptr;
-						}
+						this->_nodeTransplant(inOrderSuccessor, inOrderSuccessor->right);
+						inOrderSuccessor->right = node->right;
+						node->right->parent = inOrderSuccessor;
 					}
-					// if the tree has only a root node, set it to null
-					else {
-						root = nullptr;
-					}
-			
-					// deallocate the memory
-					free(current);        // or delete current;
+					this->_nodeTransplant(node, inOrderSuccessor);
+					inOrderSuccessor->left = node->left;
+					node->left->parent = inOrderSuccessor;
 				}
-			
-				// Case 2: node to be deleted has two children
-				else if (current->left && current->right)
-				{
-					// find its inorder successor node
-					Node* successor = getMinimumKey(current->right);
-			
-					// store successor value
-					int val = successor->data;
-			
-					// recursively delete the successor. Note that the successor
-					// will have at most one child (right child)
-					_deleteNode(root, successor->data);
-			
-					// copy value of the successor to the current node
-					current->data = val;
-				}
-			
-				// Case 3: node to be deleted has only one child
-				else {
-					// choose a child node
-					Node* child = (current->left)? current->left: current->right;
-			
-					// if the node to be deleted is not a root node, set its parent
-					// to its child
-					if (current != root)
-					{
-						if (current == parent->left) {
-							parent->left = child;
-						}
-						else {
-							parent->right = child;
-						}
-					}
-			
-					// if the node to be deleted is a root node, then set the root to the child
-					else {
-						root = child;
-					}
-			
-					// deallocate the memory
-					free(current);
-				}
-				
-				
+				this->_deleteNode(node);
 				this->_size--;
-			}*/
+			}
 
 			iterator begin()
 			{
@@ -214,7 +170,7 @@ namespace ft
 				return const_iterator(finder, this->_sentinel);
 			}
 
-		private:
+		protected:
 			typedef	typename allocator_type::template rebind<node_type>::other node_alloc_type;
 
 			node_type		*_root;
@@ -237,6 +193,18 @@ namespace ft
 				_deallocateTree(root->left);
 				_deallocateTree(root->right);
 				_deleteNode(root);
+			}
+
+			void _nodeTransplant(node_type *oldNode, node_type *newNode)
+			{
+				if (oldNode->parent == this->_sentinel)
+					this->_root = newNode;
+				else if (oldNode == oldNode->parent->left)
+					oldNode->parent->left = newNode;
+				else
+					oldNode->parent->right = newNode;
+				if (newNode != this->_sentinel)
+					newNode->parent = oldNode->parent;
 			}
 	};
 }

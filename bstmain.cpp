@@ -27,6 +27,17 @@ int main()
 		std::cout << "value: " << it2->first << ", " << (*it2).second << std::endl;
 		++it2;
 	}
+	it++;
+	std::cout << "FULL TREE:" << std::endl;
+	for (ft::binarySearchTree<std::string, int>::const_iterator iter = bst.begin(); iter != bst.end(); iter++)
+		std::cout << "value: " << iter->first << ", " << iter->second << std::endl;
+	bst.eraseNode(it.getData());
+	it++;
+	bst.eraseNode(it.getData());
+
+	std::cout << "FULL TREE AFTER ERASING:" << std::endl;
+	for (ft::binarySearchTree<std::string, int>::const_iterator iter = bst.begin(); iter != bst.end(); iter++)
+		std::cout << "value: " << iter->first << ", " << iter->second << std::endl;
 
 /*	for (ft::binarySearchTree<std::string, int>::const_iterator it = bst.begin(); it != bst.end(); it++)
 		std::cout << "value: " << it->first << ", " << (*it).second << std::endl;

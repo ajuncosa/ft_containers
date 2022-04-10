@@ -18,16 +18,18 @@ namespace ft
 			bstIterator() : _data(NULL), _sentinel(NULL) {}
 
 			template <class U, class V>
-			bstIterator(const bstIterator<U, V> &src) : _data(src._data), _sentinel(src._sentinel) {}
+			bstIterator(const bstIterator<U, V> &src) : _data(src.getData()), _sentinel(src.getSentinel()) {}
 			
-			bstIterator(const bstIterator &src) : _data(src._data), _sentinel(src._sentinel) {}
+			bstIterator(const bstIterator &src) : _data(src.getData()), _sentinel(src.getSentinel()) {}
+
+			bstIterator(pointer node, pointer sentinel) : _data(node), _sentinel(sentinel) {}
 
 			bstIterator &operator=(const bstIterator &src)
 			{
 				if (this != &src)
 				{
-					this->_data = src._data;
-					this->_sentinel = src._sentinel;
+					this->_data = src.getData();
+					this->_sentinel = src.getSentinel();
 				}
 				return *this;
 			}
@@ -87,20 +89,22 @@ namespace ft
 				return tmp;
 			}
 
+			pointer getData() const
+			{
+				return this->_data;
+			}
+
+			pointer getSentinel() const
+			{
+				return this->_sentinel;
+			}
+
 		private:
-			template <class U, class V, class W, class X>
-			friend class binarySearchTree;
-
-			template <class U, class V, class W, class X, class Y>
-			friend class bstIterator;
-
 			template <class U, class V, class W, class X>
 			friend bool operator==(const bstIterator<U, V> &lhs, const bstIterator<W, X> &rhs); 
 
 			pointer	_data;
 			pointer	_sentinel;
-
-			bstIterator(pointer node, pointer sentinel) : _data(node), _sentinel(sentinel) {}
 	};
 
 	template <class T, class U, class V, class W>
