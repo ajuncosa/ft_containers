@@ -42,7 +42,8 @@ namespace ft
 
 			~binarySearchTree()
 			{
-				// TODO: no se puede liberar con iteradores, buscar otra forma
+				this->_deallocateTree(this->_root);
+				this->_deleteNode(this->_sentinel);
 			}
 
 			/*node_type *find(const key_type &k)
@@ -149,7 +150,7 @@ namespace ft
 			
 					// recursively delete the successor. Note that the successor
 					// will have at most one child (right child)
-					deleteNode(root, successor->data);
+					_deleteNode(root, successor->data);
 			
 					// copy value of the successor to the current node
 					current->data = val;
@@ -223,10 +224,19 @@ namespace ft
 			node_alloc_type	_nodeAlloc;
 			key_compare		_comp;
 
-			void deleteNode(node_type *node)
+			void _deleteNode(node_type *node)
 			{
 				this->_nodeAlloc.destroy(node);
 				this->_nodeAlloc.deallocate(node, 1);
+			}
+
+			void _deallocateTree(node_type *root)
+			{
+				if (root == this->_sentinel)
+					return ;
+				_deallocateTree(root->left);
+				_deallocateTree(root->right);
+				_deleteNode(root);
 			}
 	};
 }
