@@ -7,16 +7,16 @@
 
 int main()
 {
-	ft::binarySearchTree<std::string, int> bst;
-	bst.insert(ft::pair<std::string, int>("edad", 10));
-	bst.insert(ft::pair<std::string, int>("amigos", 2));
-	bst.insert(ft::pair<std::string, int>("novios", 4));
-	bst.insert(ft::pair<std::string, int>("osos", 5));
-	bst.insert(ft::pair<std::string, int>("cacas", 1));
-	bst.insert(ft::pair<std::string, int>("enemigos", 70));
+	ft::binarySearchTree<int, std::string> bst;
+	bst.insert(ft::pair<int, std::string>(0, "edad"));
+	bst.insert(ft::pair<int, std::string>(2, "amigos"));
+	bst.insert(ft::pair<int, std::string>(4, "novios"));
+	bst.insert(ft::pair<int, std::string>(5, "osos"));
+	bst.insert(ft::pair<int, std::string>(1, "cacas"));
+	bst.insert(ft::pair<int, std::string>(70, "enemigos"));
 	
-	ft::binarySearchTree<std::string, int>::const_iterator it = bst.begin();
-	ft::binarySearchTree<std::string, int>::iterator it2(it);
+	ft::binarySearchTree<int, std::string>::const_iterator it = bst.begin();
+	ft::binarySearchTree<int, std::string>::iterator it2(it);
 	std::cout << "bst begin: " << it->first << ", " << it->second << std::endl;
 	std::cout << "it == it2? " << (it == it2) << std::endl;
 	*it++;
@@ -28,9 +28,9 @@ int main()
 		++it2;
 	}*/
 	std::cout << "FULL TREE:" << std::endl;
-	for (ft::binarySearchTree<std::string, int>::const_iterator iter = bst.begin(); iter != bst.end(); iter++)
+	for (ft::binarySearchTree<int, std::string>::const_iterator iter = bst.begin(); iter != bst.end(); iter++)
 		std::cout << "value: " << iter->first << ", " << iter->second << std::endl;
-	std::cout << "----" << std::endl;
+/*	std::cout << "----" << std::endl;
 	it = bst.begin();
 	std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
 	it++;
@@ -38,23 +38,13 @@ int main()
 	it--;
 	std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
 	it = bst.end();
-	std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
+	//std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
 	it--;
 	std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
 	it--;
 	std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
-	it = bst.begin();
-	std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
-	it--;
-	std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
-	//TODO: que tiene que pasar si incrementas o decrementas el iterador que esta pasando begin y que apunta a sentinel?
-//	it--;
-//	std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
-	
-//	it++;
-//	std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
-	
-	/*bst.eraseNode(it.getData());
+
+	bst.eraseNode(it.getData());
 	std::cout << "FULL TREE AFTER ERASING:" << std::endl;
 	for (ft::binarySearchTree<std::string, int>::const_iterator iter = bst.begin(); iter != bst.end(); iter++)
 		std::cout << "value: " << iter->first << ", " << iter->second << std::endl;

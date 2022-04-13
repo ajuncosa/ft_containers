@@ -93,7 +93,8 @@ namespace ft
 				else
 				{
 					finder = this->_root;
-					while (finder->left != this->_sentinel && finder->right != this->_sentinel)
+					while ((this->_comp(newData.first, finder->value.first) && finder->left != this->_sentinel)
+						|| (this->_comp(finder->value.first, newData.first) && finder->right != this->_sentinel))
 					{
 						if (this->_comp(newData.first, finder->value.first) == true)
 							finder = finder->left;
