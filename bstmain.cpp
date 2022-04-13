@@ -14,6 +14,8 @@ int main()
 	bst.insert(ft::pair<int, std::string>(5, "osos"));
 	bst.insert(ft::pair<int, std::string>(1, "cacas"));
 	bst.insert(ft::pair<int, std::string>(70, "enemigos"));
+		bst.insert(ft::pair<int, std::string>(0, "vvv"));
+
 	
 	ft::binarySearchTree<int, std::string>::const_iterator it = bst.begin();
 	ft::binarySearchTree<int, std::string>::iterator it2(it);

@@ -46,11 +46,10 @@ namespace ft
 				this->_deleteNode(this->_sentinel);
 			}
 
-			/*node_type *find(const key_type &k)
+			node_type *find(const key_type &k)
 			{
 				node_type *finder = this->_root;
 
-				//this->_sentinel->key = k;
 				while (finder != this->_sentinel && finder->value.first != k)
 				{
 					if (this->_comp(k, finder->value.first) == true)
@@ -58,10 +57,8 @@ namespace ft
 					else
 						finder = finder->right;
 				}
-				//this->_sentinel->value = value_type();
 				return finder;
 			}
-			*/
 
 			node_type *min(node_type *root)
 			{
@@ -92,19 +89,20 @@ namespace ft
 				}
 				else
 				{
+					if (find(newData.first) != this->_sentinel)
+						return ;
 					finder = this->_root;
-					while ((this->_comp(newData.first, finder->value.first) && finder->left != this->_sentinel)
-						|| (this->_comp(finder->value.first, newData.first) && finder->right != this->_sentinel))
+					while (finder->left != this->_sentinel || finder->right != this->_sentinel)
 					{
-						if (this->_comp(newData.first, finder->value.first) == true)
+						if (this->_comp(newData.first, finder->value.first) && finder->left != this->_sentinel)
 							finder = finder->left;
-						else if (this->_comp(finder->value.first, newData.first) == true)
+						else if (this->_comp(finder->value.first, newData.first) && finder->right != this->_sentinel)
 							finder = finder->right;
 						else
-							return;
+							break;
 					}
 					tmp = this->_nodeAlloc.allocate(1);
-					if (this->_comp(newData.first, finder->value.first) == true)
+					if (this->_comp(newData.first, finder->value.first))
 						finder->left = tmp;
 					else
 						finder->right = tmp;
