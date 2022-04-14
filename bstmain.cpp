@@ -66,6 +66,11 @@ int main()
 	std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
 */
 
+	ft::binarySearchTree<int, std::string> bstcopy(bst);
+	std::cout << "COPIED TREE:" << std::endl;
+	for (ft::binarySearchTree<int, std::string>::const_iterator iter = bstcopy.begin(); iter != bstcopy.end(); iter++)
+		std::cout << "value: " << iter->first << ", " << iter->second << std::endl;
+	std::cout << "bstcopy size: " << bstcopy.getSize() << std::endl;
 
 /*	std::map<std::string, int> map;
 

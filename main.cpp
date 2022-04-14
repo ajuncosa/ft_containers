@@ -625,6 +625,38 @@ int main()
     for (ft::map<int, std::string>::iterator itr = ft_map.begin(); itr != ft_map.end(); ++itr)
     	std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
 
+	std::pair<int, std::string> pair_arr[] = {std::make_pair(1, "a"), std::make_pair(2, "b"), std::make_pair(3, "c")};
+	//std::map<int, std::string>::iterator sb = std_map.begin();
+	//std::map<int, std::string>::iterator se = std_map.end();
+	std::map<int, std::string> smap(&pair_arr[0], &pair_arr[3]);
+
+	ft::pair<int, std::string> ftpair_arr[] = {ft::make_pair(1, "a"), ft::make_pair(2, "b"), ft::make_pair(3, "c")};
+//	ft::map<int, std::string>::iterator ftb = ft_map.begin();
+//	ft::map<int, std::string>::iterator fte = ftb++;//ft_map.end();
+	ft::map<int, std::string> ftmap(&ftpair_arr[0], &ftpair_arr[3]);
+
+	std::cout << "The map smap is : \n";
+    std::cout << "\tKEY\tELEMENT\n";
+    for (std::map<int, std::string>::iterator itr = smap.begin(); itr != smap.end(); ++itr)
+    	std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+	std::cout << "The map ftmap is : \n";
+    std::cout << "\tKEY\tELEMENT\n";
+    for (ft::map<int, std::string>::iterator itr = ftmap.begin(); itr != ftmap.end(); ++itr)
+    	std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+	
+	std::map<int, std::string> scopy(std_map);
+	std::cout << "The map scopy is : \n";
+	std::cout << "\tKEY\tELEMENT\n";
+	for (std::map<int, std::string>::iterator itr = scopy.begin(); itr != scopy.end(); ++itr)
+		std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;		//ft::map<int, std::string> ftcopy(ft_map);
+	
+	ft::map<int, std::string> ftcopy(ft_map);
+	std::cout << "The map ftcopy is : \n";
+	std::cout << "\tKEY\tELEMENT\n";
+	for (ft::map<int, std::string>::iterator itr = ftcopy.begin(); itr != ftcopy.end(); ++itr)
+		std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+	
+
 	//std::cout << "std_map[2]: " << std_map[2] << std::endl;
 
 	//std::cout << "std_map[2]: " << std_map[2] << std::endl;

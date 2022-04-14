@@ -30,41 +30,30 @@ namespace ft
 			typedef typename iterator_traits<iterator>::difference_type difference_type;
 			typedef size_t size_type;
 
-			explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _tree(tree_type(comp, alloc)) {}
+			explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _tree(comp, alloc) {}
 
-		/*	template <class InputIterator>
-			map(InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
+			template <class InputIterator>
+			map(InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _tree(comp, alloc)
 			{
-				size_type count = 0;
-				this->_comp = comp;
-				this->_alloc = alloc;
-				this->_sentinel = this->_nodeAlloc.allocate(sizeof(Node));
-				this->_nodeAlloc.construct(this->_sentinel, Node());
-				this->_root = _sentinel;
 				for (InputIterator it = first; it != last; it++)
-				{
-					count++;
-				}
-			}*/
+					this->_tree.insert(*it);
+			}
 
-			/*map(const map& x)
-			{
-
-			}*/
+			map(const map &x) : _tree(x._tree) {}
 
 			~map() {}
 
-			iterator find(const key_type& k)
+			iterator find(const key_type &k)
 			{
 				return this->_tree.find(k);
 			}
 
-			const_iterator find(const key_type& k) const
+			const_iterator find(const key_type &k) const
 			{
 				return this->_tree.find(k);
 			}
 
-			pair<iterator, bool> insert(const value_type& val)
+			pair<iterator, bool> insert(const value_type &val)
 			{
 				return this->_tree.insert(val);
 			}

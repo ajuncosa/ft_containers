@@ -38,7 +38,16 @@ namespace ft
 				this->_root = this->_sentinel;
 			}
 
-			//TODO: add copy constructor, assignment op
+			binarySearchTree(const binarySearchTree &src) : _size(0), _comp(src.getComp()), _alloc(src.getAlloc()), _nodeAlloc(node_alloc_type())
+			{
+				this->_sentinel = this->_nodeAlloc.allocate(1);
+				this->_nodeAlloc.construct(this->_sentinel, node_type());
+				this->_root = this->_sentinel;
+				for (iterator it = src.begin(); it != src.end(); it++)
+					this->insert(*it);
+			}
+
+			//TODO: add assignment op
 
 			~binarySearchTree()
 			{
@@ -74,7 +83,7 @@ namespace ft
 				return const_iterator(finder, this->_sentinel);
 			}
 
-			node_type *min(node_type *root)
+			node_type *min(node_type *root) const
 			{
 				node_type *finder = root;
 				while (finder != this->_sentinel && finder->left != this->_sentinel)
@@ -185,6 +194,26 @@ namespace ft
 			size_type getSize() const
 			{
 				return this->_size;
+			}
+
+			key_compare getComp() const
+			{
+				return this->_comp;
+			}
+
+			allocator_type getAlloc() const
+			{
+				return this->_alloc;
+			}
+
+			node_type *getRoot() const
+			{
+				return this->_root;
+			}
+
+			node_type *getSentinel() const
+			{
+				return this->_sentinel;
 			}
 
 		protected:
