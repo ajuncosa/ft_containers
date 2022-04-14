@@ -1,7 +1,10 @@
 #pragma once
 #include <memory>
 #include "iterator.hpp"
+#include "bstIterator.hpp"
 #include "iteratorTraits.hpp"
+#include "pair.hpp"
+#include "binarySearchTree.hpp"
 
 namespace ft
 {
@@ -19,22 +22,15 @@ namespace ft
 			typedef typename allocator_type::const_reference const_reference;
 			typedef typename allocator_type::pointer pointer;
 			typedef typename allocator_type::const_pointer const_pointer;
-			//typedef iterator;
-			//typedef const_iterator;
+			typedef	binarySearchTree<key_type, mapped_type, key_compare, allocator_type> tree_type;
+			typedef typename tree_type::iterator iterator;
+			typedef typename tree_type::const_iterator const_iterator;
 			//typedef reverse_iterator;
 			//typedef const_reverse_iterator;
-			//typedef iterator_traits<iterator>::difference_type difference_type
+			typedef typename iterator_traits<iterator>::difference_type difference_type;
 			typedef size_t size_type;
 
-			explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
-			{
-				this->_comp = comp;
-				this->_alloc = alloc;
-			//	this->_size = 0;
-			//	this->_nodeAlloc = node_alloc_type();
-			//	this->_root = this->_nodeAlloc.allocate(1);
-			//	this->_nodeAlloc.construct(this->_root, Node());
-			}
+			explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _tree(tree_type(comp, alloc)) {}
 
 		/*	template <class InputIterator>
 			map(InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
@@ -56,16 +52,44 @@ namespace ft
 
 			}*/
 
-			/*~map()
+			~map() {}
+
+			iterator find(const key_type& k)
 			{
-			}*/
+				return this->_tree.find(k);
+			}
+
+			const_iterator find(const key_type& k) const
+			{
+				return this->_tree.find(k);
+			}
+
+			pair<iterator, bool> insert(const value_type& val)
+			{
+				return this->_tree.insert(val);
+			}
+
+			iterator begin()
+			{
+				return this->_tree.begin();
+			}
+
+			const_iterator begin() const
+			{
+				return this->_tree.begin();
+			}
+
+			iterator end()
+			{
+				return this->_tree.end();
+			}
+
+			const_iterator end() const
+			{
+				return this->_tree.end();
+			}
 
 		private:
-		/*
-			size_type		_size;
-			allocator_type	_alloc;
-			node_alloc_type	_nodeAlloc;
-			key_compare		_comp;
-			Node			*_root;*/
+			tree_type _tree;
 	};
 }

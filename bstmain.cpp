@@ -8,13 +8,17 @@
 int main()
 {
 	ft::binarySearchTree<int, std::string> bst;
+	std::cout << "bst size: " << bst.getSize() << std::endl;
 	bst.insert(ft::pair<int, std::string>(0, "edad"));
 	bst.insert(ft::pair<int, std::string>(2, "amigos"));
 	bst.insert(ft::pair<int, std::string>(4, "novios"));
 	bst.insert(ft::pair<int, std::string>(5, "osos"));
 	bst.insert(ft::pair<int, std::string>(1, "cacas"));
 	bst.insert(ft::pair<int, std::string>(70, "enemigos"));
-		bst.insert(ft::pair<int, std::string>(0, "vvv"));
+	bst.insert(ft::pair<int, std::string>(30, "cucu"));
+	bst.insert(ft::pair<int, std::string>(4, "repe"));
+
+	std::cout << "bst size: " << bst.getSize() << std::endl;
 
 	
 	ft::binarySearchTree<int, std::string>::const_iterator it = bst.begin();
@@ -45,12 +49,13 @@ int main()
 	std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
 	it--;
 	std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
-
+*/
 	bst.eraseNode(it.getData());
 	std::cout << "FULL TREE AFTER ERASING:" << std::endl;
-	for (ft::binarySearchTree<std::string, int>::const_iterator iter = bst.begin(); iter != bst.end(); iter++)
+	for (ft::binarySearchTree<int, std::string>::const_iterator iter = bst.begin(); iter != bst.end(); iter++)
 		std::cout << "value: " << iter->first << ", " << iter->second << std::endl;
-*/
+	std::cout << "bst size: " << bst.getSize() << std::endl;
+
 
 /*	for (ft::binarySearchTree<std::string, int>::const_iterator it = bst.begin(); it != bst.end(); it++)
 		std::cout << "value: " << it->first << ", " << (*it).second << std::endl;

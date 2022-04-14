@@ -600,32 +600,34 @@ int main()
 	std::cout << "ft_pair.first, ft_pair.second: " << ft_pair.first << ", " << ft_pair.second <<std::endl;
 	
 
-	ft::vector<int> const vect;
-	ft::vector<int>::const_iterator iter = vect.begin();
+	//ft::vector<int> const vect;
+	//ft::vector<int>::const_iterator iter = vect.begin();
 	//ft::vector<int>::iterator iter2(iter);
 
-	/*std::cout << "\n-----MAP-----" << std::endl;
+	std::cout << "\n-----MAP-----" << std::endl;
 	std::map<int, std::string> std_map;
 	std_map.insert(std_pair);
 	std_map.insert(std::pair<int, std::string>(2, "que"));
-	std_map.insert(std::pair<int, std::string>(3, "tal"));
-	std_map.insert(std::pair<int, std::string>(4, "bien"));
-
- 	std::map<int, std::string>::iterator itr;
+	std_map.insert(std::pair<int, std::string>(4, "tal"));
+	std_map.insert(std::pair<int, std::string>(3, "bien"));
     std::cout << "The map std_map is : \n";
     std::cout << "\tKEY\tELEMENT\n";
-    for (itr = std_map.begin(); itr != std_map.end(); ++itr) {
-    	std::cout << '\t' << itr->first << '\t' << itr->second << '\n';
-    }
-	std::cout << "std_map[2]: " << std_map[2] << std::endl;
+    for (std::map<int, std::string>::iterator itr = std_map.begin(); itr != std_map.end(); ++itr)
+    	std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
 
 	ft::map<int, std::string> ft_map;
-	ft_map.fake_insert(ft_pair);
-	ft_map.fake_insert(ft::pair<int, std::string>(2, "que"));
-	ft_map.fake_insert(ft::pair<int, std::string>(3, "tal"));
-	ft_map.fake_insert(ft::pair<int, std::string>(4, "bien"));
-*/
+	ft_map.insert(ft_pair);
+	ft_map.insert(ft::pair<int, std::string>(2, "que"));
+	ft_map.insert(ft::pair<int, std::string>(4, "tal"));
+	ft_map.insert(ft::pair<int, std::string>(3, "bien"));
+    std::cout << "The map ft_map is : \n";
+    std::cout << "\tKEY\tELEMENT\n";
+    for (ft::map<int, std::string>::iterator itr = ft_map.begin(); itr != ft_map.end(); ++itr)
+    	std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
 
+	//std::cout << "std_map[2]: " << std_map[2] << std::endl;
+
+	//std::cout << "std_map[2]: " << std_map[2] << std::endl;
 
 
 	/*ft::map<int, std::string>::iterator itr;

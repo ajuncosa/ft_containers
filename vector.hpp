@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <stdexcept>
+#include "iterator"
 #include "randomAccessIterator.hpp"
 #include "iteratorTraits.hpp"
 #include "enable_if.hpp"

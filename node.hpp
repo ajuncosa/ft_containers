@@ -7,9 +7,9 @@ namespace ft
 	{
 		typedef	T value_type;
 
+		Node		*parent;
 		Node		*left;
 		Node		*right;
-		Node		*parent;
 		value_type	value;
 
 		Node() : parent(NULL), left(NULL), right(NULL), value() {}

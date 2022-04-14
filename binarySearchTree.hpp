@@ -46,7 +46,7 @@ namespace ft
 				this->_deleteNode(this->_sentinel);
 			}
 
-			node_type *find(const key_type &k)
+			iterator find(const key_type &k)
 			{
 				node_type *finder = this->_root;
 
@@ -57,7 +57,21 @@ namespace ft
 					else
 						finder = finder->right;
 				}
-				return finder;
+				return iterator(finder, this->_sentinel);
+			}
+
+			const_iterator find(const key_type &k) const
+			{
+				node_type *finder = this->_root;
+
+				while (finder != this->_sentinel && finder->value.first != k)
+				{
+					if (this->_comp(k, finder->value.first) == true)
+						finder = finder->left;
+					else
+						finder = finder->right;
+				}
+				return const_iterator(finder, this->_sentinel);
 			}
 
 			node_type *min(node_type *root)
@@ -76,21 +90,24 @@ namespace ft
 				return finder;
 			}
 
-			void insert(const value_type &newData)
+			pair<iterator, bool> insert(const value_type &newData)
 			{
-				node_type *tmp;
-				node_type *finder;
+				node_type 	*tmp;
+				node_type 	*finder;
+				iterator	return_iter;
 
 				if (this->_root == this->_sentinel)
 				{
 					this->_root = this->_nodeAlloc.allocate(1);
 					this->_nodeAlloc.construct(this->_root, node_type(this->_sentinel, this->_sentinel, this->_sentinel, newData));
 					this->_sentinel->right = this->_root;
+					return_iter = iterator(this->_root, this->_sentinel);
 				}
 				else
 				{
-					if (find(newData.first) != this->_sentinel)
-						return ;
+					return_iter = find(newData.first);
+					if (return_iter != this->end())
+						return ft::make_pair<iterator, bool>(return_iter, false);
 					finder = this->_root;
 					while (finder->left != this->_sentinel || finder->right != this->_sentinel)
 					{
@@ -109,8 +126,10 @@ namespace ft
 					this->_nodeAlloc.construct(tmp, node_type(finder, this->_sentinel, this->_sentinel, newData));
 					if (tmp == this->max(this->_root))
 						this->_sentinel->left = tmp;
+					return_iter = iterator(tmp, this->_sentinel);
 				}
 				this->_size++;
+				return ft::make_pair<iterator, bool>(return_iter, true);
 			}
 
 			void eraseNode(node_type *node)
@@ -155,30 +174,29 @@ namespace ft
 
 			iterator end()
 			{
-				node_type *finder = this->_root;
-				while (finder != this->_sentinel)
-					finder = finder->right;
-				return iterator(finder, this->_sentinel);
+				return iterator(this->_sentinel, this->_sentinel);
 			}
 
 			const_iterator end() const
 			{
-				node_type *finder = this->_root;
-				while (finder != this->_sentinel)
-					finder = finder->right;
-				return const_iterator(finder, this->_sentinel);
+				return const_iterator(this->_sentinel, this->_sentinel);
+			}
+
+			size_type getSize() const
+			{
+				return this->_size;
 			}
 
 		protected:
 			typedef	typename allocator_type::template rebind<node_type>::other node_alloc_type;
 
-			node_type		*_root;
-			node_type		*_sentinel;
 			size_type		_size;
+			key_compare		_comp;
 			allocator_type	_alloc;
 			node_alloc_type	_nodeAlloc;
-			key_compare		_comp;
-
+			node_type		*_root;
+			node_type		*_sentinel;
+		
 			void _deleteNode(node_type *node)
 			{
 				this->_nodeAlloc.destroy(node);
