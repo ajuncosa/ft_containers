@@ -30,16 +30,16 @@ namespace ft
 			typedef typename iterator_traits<iterator>::difference_type difference_type;
 			typedef size_t size_type;
 
-			explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _tree(comp, alloc) {}
+			explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _tree(comp, alloc), _alloc(alloc) {}
 
 			template <class InputIterator>
-			map(InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _tree(comp, alloc)
+			map(InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _tree(comp, alloc), _alloc(alloc)
 			{
 				for (InputIterator it = first; it != last; it++)
 					this->_tree.insert(*it);
 			}
 
-			map(const map &x) : _tree(x._tree) {}
+			map(const map &x) : _tree(x._tree), _alloc(x.get_allocator()) {}
 
 			~map() {}
 
@@ -90,7 +90,23 @@ namespace ft
 				return this->_tree.end();
 			}
 
+			allocator_type get_allocator() const
+			{
+				return this->_alloc;
+			}
+
+			size_type size() const
+			{
+				return this->_tree.getSize();
+			}
+
+			size_type max_size() const
+			{
+				return this->_alloc.max_size();
+			}
+
 		private:
-			tree_type _tree;
+			tree_type		_tree;
+			allocator_type	_alloc;
 	};
 }

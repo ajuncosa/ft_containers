@@ -689,6 +689,29 @@ int main()
 	for (ft::map<int, std::string>::iterator itr = ft_map.begin(); itr != ft_map.end(); ++itr)
 		std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
 
+	std::map<int, std::string> stdEmptyMap;
+	stdEmptyMap.insert(stdEmptyMap.begin(), std::pair<int, std::string>(10, "hinting"));
+	stdEmptyMap.insert(stdEmptyMap.begin(), std::pair<int, std::string>(15, "aaa"));
+	stdEmptyMap.insert(stdEmptyMap.begin(), std::pair<int, std::string>(5, "bbb"));
+	stdEmptyMap.insert(stdEmptyMap.end(), std::pair<int, std::string>(8, "ccc"));
+	stdEmptyMap.insert(stdEmptyMap.find(10), std::pair<int, std::string>(12, "ddd"));
+	std::cout << "The map stdEmptyMap is : \n";
+    std::cout << "\tKEY\tELEMENT\n";
+    for (std::map<int, std::string>::iterator itr = stdEmptyMap.begin(); itr != stdEmptyMap.end(); ++itr)
+    	std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+
+	ft::map<int, std::string> ftEmptyMap;
+	ftEmptyMap.insert(ftEmptyMap.begin(), ft::pair<int, std::string>(10, "hinting"));
+	ftEmptyMap.insert(ftEmptyMap.begin(), ft::pair<int, std::string>(15, "aaa"));
+	ftEmptyMap.insert(ftEmptyMap.begin(), ft::pair<int, std::string>(5, "bbb"));
+	ftEmptyMap.insert(ftEmptyMap.end(), ft::pair<int, std::string>(8, "ccc"));
+	ftEmptyMap.insert(ftEmptyMap.find(10), ft::pair<int, std::string>(12, "ddd"));
+	std::cout << "The map ftEmptyMap is : \n";
+	std::cout << "\tKEY\tELEMENT\n";
+	for (ft::map<int, std::string>::iterator itr = ftEmptyMap.begin(); itr != ftEmptyMap.end(); ++itr)
+		std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+
+
 
 	//std::cout << "std_map[2]: " << std_map[2] << std::endl;
 
