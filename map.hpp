@@ -58,6 +58,18 @@ namespace ft
 				return this->_tree.insert(val);
 			}
 
+			iterator insert(iterator hint, const value_type &val)
+			{
+				return this->_tree.insert(hint, val);
+			}
+
+			template <class InputIterator>
+			void insert(InputIterator first, InputIterator last)
+			{
+				for (InputIterator it = first; it != last; it++)
+					this->_tree.insert(*it);
+			}
+
 			iterator begin()
 			{
 				return this->_tree.begin();

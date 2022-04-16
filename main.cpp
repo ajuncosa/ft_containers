@@ -604,7 +604,7 @@ int main()
 	//ft::vector<int>::const_iterator iter = vect.begin();
 	//ft::vector<int>::iterator iter2(iter);
 
-	std::cout << "\n-----MAP-----" << std::endl;
+	std::cout << "\n-----MAP INSERT-----" << std::endl;
 	std::map<int, std::string> std_map;
 	std_map.insert(std_pair);
 	std_map.insert(std::pair<int, std::string>(2, "que"));
@@ -625,12 +625,14 @@ int main()
     for (ft::map<int, std::string>::iterator itr = ft_map.begin(); itr != ft_map.end(); ++itr)
     	std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
 
-	std::pair<int, std::string> pair_arr[] = {std::make_pair(1, "a"), std::make_pair(2, "b"), std::make_pair(3, "c")};
+
+	std::cout << "\n-----MAP RANGE CONSTRUCTOR-----" << std::endl;
+	std::pair<int, std::string> pair_arr[] = {std::make_pair(42, "a"), std::make_pair(43, "b"), std::make_pair(44, "c")};
 	//std::map<int, std::string>::iterator sb = std_map.begin();
 	//std::map<int, std::string>::iterator se = std_map.end();
 	std::map<int, std::string> smap(&pair_arr[0], &pair_arr[3]);
 
-	ft::pair<int, std::string> ftpair_arr[] = {ft::make_pair(1, "a"), ft::make_pair(2, "b"), ft::make_pair(3, "c")};
+	ft::pair<int, std::string> ftpair_arr[] = {ft::make_pair(42, "a"), ft::make_pair(43, "b"), ft::make_pair(44, "c")};
 //	ft::map<int, std::string>::iterator ftb = ft_map.begin();
 //	ft::map<int, std::string>::iterator fte = ftb++;//ft_map.end();
 	ft::map<int, std::string> ftmap(&ftpair_arr[0], &ftpair_arr[3]);
@@ -644,6 +646,7 @@ int main()
     for (ft::map<int, std::string>::iterator itr = ftmap.begin(); itr != ftmap.end(); ++itr)
     	std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
 	
+	std::cout << "\n-----MAP COPY CONSTRUCTOR-----" << std::endl;
 	std::map<int, std::string> scopy(std_map);
 	std::cout << "The map scopy is : \n";
 	std::cout << "\tKEY\tELEMENT\n";
@@ -655,7 +658,37 @@ int main()
 	std::cout << "\tKEY\tELEMENT\n";
 	for (ft::map<int, std::string>::iterator itr = ftcopy.begin(); itr != ftcopy.end(); ++itr)
 		std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
-	
+
+	std::cout << "\n-----MAP RANGE INSERT-----" << std::endl;
+	std_map.insert(smap.begin(), smap.end());
+//	std_map.insert(&pair_arr[0], &pair_arr[3]);
+	std::cout << "The map std_map is : \n";
+    std::cout << "\tKEY\tELEMENT\n";
+    for (std::map<int, std::string>::iterator itr = std_map.begin(); itr != std_map.end(); ++itr)
+    	std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+
+	ft_map.insert(ftmap.begin(), ftmap.end());
+//	ft_map.insert(&ftpair_arr[0], &ftpair_arr[3]);
+	std::cout << "The map ft_map is : \n";
+	std::cout << "\tKEY\tELEMENT\n";
+	for (ft::map<int, std::string>::iterator itr = ft_map.begin(); itr != ft_map.end(); ++itr)
+		std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+
+	std::cout << "\n-----MAP HINT INSERT-----" << std::endl;
+	std::map<int, std::string>::iterator sHint = std_map.find(42);
+	std_map.insert(sHint, std::pair<int, std::string>(10, "hinting"));
+	std::cout << "The map std_map is : \n";
+    std::cout << "\tKEY\tELEMENT\n";
+    for (std::map<int, std::string>::iterator itr = std_map.begin(); itr != std_map.end(); ++itr)
+    	std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+
+	ft::map<int, std::string>::iterator ftHint = ft_map.find(4);
+	ft_map.insert(ftHint, ft::pair<int, std::string>(10, "hinting"));
+	std::cout << "The map ft_map is : \n";
+	std::cout << "\tKEY\tELEMENT\n";
+	for (ft::map<int, std::string>::iterator itr = ft_map.begin(); itr != ft_map.end(); ++itr)
+		std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+
 
 	//std::cout << "std_map[2]: " << std_map[2] << std::endl;
 

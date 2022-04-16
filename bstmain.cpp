@@ -72,6 +72,12 @@ int main()
 		std::cout << "value: " << iter->first << ", " << iter->second << std::endl;
 	std::cout << "bstcopy size: " << bstcopy.getSize() << std::endl;
 
+	ft::binarySearchTree<int, std::string>::iterator ftHint = bst.find(5);
+	bst.insert(ftHint, ft::pair<int, std::string>(10, "hinting"));
+	for (ft::binarySearchTree<int, std::string>::iterator iter = bst.begin(); iter != bst.end(); iter++)
+		std::cout << "value: " << iter->first << ", " << iter->second << std::endl;
+	std::cout << "bstcopy size: " << bst.getSize() << std::endl;
+
 /*	std::map<std::string, int> map;
 
 	map.insert(std::pair<std::string, int>("edad", 10));

@@ -31,14 +31,14 @@ namespace ft
 
 			binarySearchTree(const key_compare& comp = key_compare(),
 				const allocator_type& alloc = allocator_type())
-				: _size(0), _comp(comp), _alloc(alloc), _nodeAlloc(node_alloc_type())
+				: _size(0), _comp(comp), _alloc(alloc), _nodeAlloc()
 			{
 				this->_sentinel = this->_nodeAlloc.allocate(1);
 				this->_nodeAlloc.construct(this->_sentinel, node_type());
 				this->_root = this->_sentinel;
 			}
 
-			binarySearchTree(const binarySearchTree &src) : _size(0), _comp(src.getComp()), _alloc(src.getAlloc()), _nodeAlloc(node_alloc_type())
+			binarySearchTree(const binarySearchTree &src) : _size(0), _comp(src.getComp()), _alloc(src.getAlloc()), _nodeAlloc()
 			{
 				this->_sentinel = this->_nodeAlloc.allocate(1);
 				this->_nodeAlloc.construct(this->_sentinel, node_type());
@@ -101,8 +101,6 @@ namespace ft
 
 			pair<iterator, bool> insert(const value_type &newData)
 			{
-				node_type 	*tmp;
-				node_type 	*finder;
 				iterator	return_iter;
 
 				if (this->_root == this->_sentinel)
@@ -114,31 +112,33 @@ namespace ft
 				}
 				else
 				{
-					return_iter = find(newData.first);
+					return_iter = this->find(newData.first);
 					if (return_iter != this->end())
 						return ft::make_pair<iterator, bool>(return_iter, false);
-					finder = this->_root;
-					while (finder->left != this->_sentinel || finder->right != this->_sentinel)
-					{
-						if (this->_comp(newData.first, finder->value.first) && finder->left != this->_sentinel)
-							finder = finder->left;
-						else if (this->_comp(finder->value.first, newData.first) && finder->right != this->_sentinel)
-							finder = finder->right;
-						else
-							break;
-					}
-					tmp = this->_nodeAlloc.allocate(1);
-					if (this->_comp(newData.first, finder->value.first))
-						finder->left = tmp;
-					else
-						finder->right = tmp;
-					this->_nodeAlloc.construct(tmp, node_type(finder, this->_sentinel, this->_sentinel, newData));
-					if (tmp == this->max(this->_root))
-						this->_sentinel->left = tmp;
-					return_iter = iterator(tmp, this->_sentinel);
+					return_iter = this->insertNodeIntoSubtree(this->_root, newData);
 				}
 				this->_size++;
 				return ft::make_pair<iterator, bool>(return_iter, true);
+			}
+
+			iterator insert(iterator hint, const value_type &newData)
+			{
+				iterator ret;
+				iterator tmp = hint;
+				iterator hintNext = ++hint;
+				hint = tmp;
+				
+				ret = this->find(newData.first);
+				if (ret != this->end())
+					return ret;
+				if ((hint != this->end()) && this->_comp(hint->first, newData.first) && ((hintNext == this->end()) || this->_comp(newData.first, hintNext->first)))
+				{
+					ret = insertNodeIntoSubtree(hint.getData(), newData);
+					this->_size++;
+				}
+				else
+					ret = insert(newData).first;
+				return ret;
 			}
 
 			void eraseNode(node_type *node)
@@ -251,6 +251,32 @@ namespace ft
 					oldNode->parent->right = newNode;
 				if (newNode != this->_sentinel)
 					newNode->parent = oldNode->parent;
+			}
+
+			iterator insertNodeIntoSubtree(node_type *root, const value_type &newData)
+			{
+				node_type *finder;
+				node_type *tmp;
+
+				finder = root;
+				while (finder->left != this->_sentinel || finder->right != this->_sentinel)
+				{
+					if (this->_comp(newData.first, finder->value.first) && finder->left != this->_sentinel)
+						finder = finder->left;
+					else if (this->_comp(finder->value.first, newData.first) && finder->right != this->_sentinel)
+						finder = finder->right;
+					else
+						break;
+				}
+				tmp = this->_nodeAlloc.allocate(1);
+				if (this->_comp(newData.first, finder->value.first))
+					finder->left = tmp;
+				else
+					finder->right = tmp;
+				this->_nodeAlloc.construct(tmp, node_type(finder, this->_sentinel, this->_sentinel, newData));
+				if (tmp == this->max(this->_root))
+					this->_sentinel->left = tmp;
+				return iterator(tmp, this->_sentinel);
 			}
 	};
 }
