@@ -731,6 +731,29 @@ int main()
 	std::cout << "std_map upper_bound of key 5: " << std_map.upper_bound(5)->first << ", " << std_map.upper_bound(5)->second << std::endl;
 	std::cout << "ft_map upper_bound of key 5: " << ft_map.upper_bound(5)->first << ", " << ft_map.upper_bound(5)->second  << std::endl;
 	
+	std::cout << "\n-----MAP EQUAL_RANGE-----" << std::endl;
+	std::pair<std::map<int, std::string>::iterator, std::map<int, std::string>::iterator> std_equal = std_map.equal_range(4);
+	ft::pair<ft::map<int, std::string>::iterator, ft::map<int, std::string>::iterator> ft_equal = ft_map.equal_range(4);
+	
+	std::cout << "std_map equal_range of key 4: ";
+	while (std_equal.first != std_equal.second)
+	{
+		std::cout << std_equal.first->first << ", " << std_equal.first->second << "; ";
+		std_equal.first++;
+	}
+	std::cout << std::endl;
+	
+	std::cout << "ft_map equal_range of key 4: ";
+	while (ft_equal.first != ft_equal.second)
+	{
+		std::cout << ft_equal.first->first << ", " << ft_equal.first->second << "; ";
+		ft_equal.first++;
+	}
+	std::cout << std::endl;
+
+	
+		
+
 	//std::cout << "std_map[2]: " << std_map[2] << std::endl;
 
 	//std::cout << "std_map[2]: " << std_map[2] << std::endl;

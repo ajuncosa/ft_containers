@@ -93,6 +93,16 @@ namespace ft
 				return this->_tree.upper_bound(k);
 			}
 
+			pair<const_iterator, const_iterator> equal_range(const key_type &k) const
+			{
+				return this->_tree.equal_range(k);
+			}
+
+			pair<iterator, iterator> equal_range(const key_type &k)
+			{
+				return this->_tree.equal_range(k);
+			}
+
 			pair<iterator, bool> insert(const value_type &val)
 			{
 				return this->_tree.insert(val);
