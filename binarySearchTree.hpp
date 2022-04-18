@@ -103,58 +103,6 @@ namespace ft
 				return 0;
 			}
 
-			iterator lower_bound(const key_type &k)
-			{
-				iterator	it = this->begin();
-
-				while (it != this->end() && this->_comp(it->first, k))
-					it++;
-				return it;
-			}
-
-			const_iterator lower_bound(const key_type &k) const
-			{
-				const_iterator	it = this->begin();
-
-				while (it != this->end() && this->_comp(it->first, k))
-					it++;
-				return it;
-			}
-
-			iterator upper_bound(const key_type &k)
-			{
-				iterator	it = this->begin();
-
-				while (it != this->end() && !this->_comp(k, it->first))
-					it++;
-				return it;
-			}
-			
-			const_iterator upper_bound(const key_type &k) const
-			{
-				const_iterator	it = this->begin();
-
-				while (it != this->end() && !this->_comp(k, it->first))
-					it++;
-				return it;
-			}
-
-			pair<const_iterator, const_iterator> equal_range(const key_type &k) const
-			{
-				const_iterator lowerB = this->lower_bound(k);
-				const_iterator upperB = this->upper_bound(k);
-
-				return ft::make_pair<const_iterator, const_iterator>(lowerB, upperB);
-			}
-
-			pair<iterator, iterator> equal_range(const key_type &k)
-			{
-				iterator lowerB = this->lower_bound(k);
-				iterator upperB = this->upper_bound(k);
-
-				return ft::make_pair<iterator, iterator>(lowerB, upperB);
-			}
-
 			node_type *min(node_type *root) const
 			{
 				node_type *finder = root;

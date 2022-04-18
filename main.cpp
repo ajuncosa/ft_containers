@@ -751,8 +751,15 @@ int main()
 	}
 	std::cout << std::endl;
 
-	
-		
+	std::cout << "\n-----MAP VALUE_COMPARE-----" << std::endl;
+	std::map<int, std::string>::value_compare std_comp_func = std_map.value_comp();
+	ft::map<int, std::string>::value_compare ft_comp_func = ft_map.value_comp();
+	std::pair<int,std::string> spair = std::make_pair(6, "hola");
+	ft::pair<int,std::string> ftpair = ft::make_pair(6, "hola");
+	std::cout << std::boolalpha << "std_comp_func(begin, spair): " << std_comp_func(*std_map.begin(), spair) << std::endl;
+	std::cout << std::boolalpha << "ft_comp_func(begin, ftpair): " << ft_comp_func(*ft_map.begin(), ftpair) << std::endl;
+	std::cout << std::boolalpha << "std_comp_func(spair, begin): " << std_comp_func(spair, *std_map.begin()) << std::endl;
+	std::cout << std::boolalpha << "ft_comp_func(ftpair, begin): " << ft_comp_func(ftpair, *ft_map.begin()) << std::endl;
 
 	//std::cout << "std_map[2]: " << std_map[2] << std::endl;
 

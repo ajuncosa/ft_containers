@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <functional>
 #include "iterator.hpp"
 #include "bstIterator.hpp"
 #include "iteratorTraits.hpp"
@@ -16,7 +17,6 @@ namespace ft
 			typedef T mapped_type;
 			typedef pair<const key_type, mapped_type> value_type;
 			typedef Compare key_compare;
-			//typedef value_compare;
 			typedef Alloc allocator_type;
 			typedef typename allocator_type::reference reference;
 			typedef typename allocator_type::const_reference const_reference;
@@ -30,16 +30,33 @@ namespace ft
 			typedef typename iterator_traits<iterator>::difference_type difference_type;
 			typedef size_t size_type;
 
-			explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _tree(comp, alloc), _alloc(alloc) {}
+			class value_compare : public std::binary_function<value_type, value_type, bool>
+			{
+				protected:
+					friend class map; //TODO: quitar friend?
+					Compare comp;
+					value_compare(Compare c) : comp(c) {}
+
+				public:
+					typedef bool result_type;
+					typedef value_type first_argument_type;
+					typedef value_type second_argument_type;
+					bool operator()(const first_argument_type &x, const second_argument_type &y) const
+					{
+						return comp(x.first, y.first);
+					}
+			};
+
+			explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _tree(comp, alloc), _alloc(alloc), _comp(comp) {}
 
 			template <class InputIterator>
-			map(InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _tree(comp, alloc), _alloc(alloc)
+			map(InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _tree(comp, alloc), _alloc(alloc), _comp(comp)
 			{
 				for (InputIterator it = first; it != last; it++)
 					this->_tree.insert(*it);
 			}
 
-			map(const map &x) : _tree(x._tree), _alloc(x.get_allocator()) {}
+			map(const map &x) : _tree(x._tree), _alloc(x.get_allocator()), _comp(x.key_comp()) {}
 
 			~map() {}
 
@@ -75,32 +92,54 @@ namespace ft
 
 			iterator lower_bound(const key_type &k)
 			{
-				return this->_tree.lower_bound(k);
+				iterator	it = this->begin();
+
+				while (it != this->end() && this->_comp(it->first, k))
+					it++;
+				return it;
 			}
 
 			const_iterator lower_bound(const key_type &k) const
 			{
-				return this->_tree.lower_bound(k);
+				const_iterator	it = this->begin();
+
+				while (it != this->end() && this->_comp(it->first, k))
+					it++;
+				return it;
 			}
 
 			iterator upper_bound(const key_type &k)
 			{
-				return this->_tree.upper_bound(k);
+				iterator	it = this->begin();
+
+				while (it != this->end() && !this->_comp(k, it->first))
+					it++;
+				return it;
 			}
 
 			const_iterator upper_bound(const key_type &k) const
 			{
-				return this->_tree.upper_bound(k);
+				const_iterator	it = this->begin();
+
+				while (it != this->end() && !this->_comp(k, it->first))
+					it++;
+				return it;
 			}
 
 			pair<const_iterator, const_iterator> equal_range(const key_type &k) const
 			{
-				return this->_tree.equal_range(k);
+				const_iterator lowerB = this->lower_bound(k);
+				const_iterator upperB = this->upper_bound(k);
+
+				return ft::make_pair<const_iterator, const_iterator>(lowerB, upperB);
 			}
 
 			pair<iterator, iterator> equal_range(const key_type &k)
 			{
-				return this->_tree.equal_range(k);
+				iterator lowerB = this->lower_bound(k);
+				iterator upperB = this->upper_bound(k);
+
+				return ft::make_pair<iterator, iterator>(lowerB, upperB);
 			}
 
 			pair<iterator, bool> insert(const value_type &val)
@@ -145,8 +184,19 @@ namespace ft
 				return this->_alloc;
 			}
 
+			key_compare key_comp() const
+			{
+				return this->_comp;
+			}
+
+			value_compare value_comp() const
+			{
+				return value_compare(this->_comp);
+			}
+
 		private:
 			tree_type		_tree;
 			allocator_type	_alloc;
+			key_compare		_comp;
 	};
 }
