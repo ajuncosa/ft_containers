@@ -103,6 +103,42 @@ namespace ft
 				return 0;
 			}
 
+			iterator lower_bound(const key_type &k)
+			{
+				iterator	it = this->begin();
+
+				while (it != this->end() && this->_comp(it->first, k))
+					it++;
+				return it;
+			}
+
+			const_iterator lower_bound(const key_type &k) const
+			{
+				const iterator	it = this->begin();
+
+				while (it != this->end() && this->_comp(it->first, k))
+					it++;
+				return it;
+			}
+
+			iterator upper_bound(const key_type &k)
+			{
+				iterator	it = this->begin();
+
+				while (it != this->end() && !this->_comp(k, it->first))
+					it++;
+				return it;
+			}
+			
+			const_iterator upper_bound(const key_type &k) const
+			{
+				const iterator	it = this->begin();
+
+				while (it != this->end() && !this->_comp(k, it->first))
+					it++;
+				return it;
+			}
+
 			node_type *min(node_type *root) const
 			{
 				node_type *finder = root;

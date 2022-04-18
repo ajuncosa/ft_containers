@@ -721,6 +721,16 @@ int main()
 	std::cout << "stdEmptyMap count of key 13: " << stdEmptyMap.count(13) << std::endl;
 	std::cout << "ftEmptyMap count of key 13: " << ftEmptyMap.count(13) << std::endl;
 
+	std::cout << "\n-----MAP LOWER/UPPER_BOUND-----" << std::endl;
+	std::cout << "std_map lower_bound of key 4: " << std_map.lower_bound(4)->first << ", " << std_map.lower_bound(4)->second << std::endl;
+	std::cout << "ft_map lower_bound of key 4: " << ft_map.lower_bound(4)->first << ", " << ft_map.lower_bound(4)->second  << std::endl;
+	std::cout << "std_map lower_bound of key 5: " << std_map.lower_bound(5)->first << ", " << std_map.lower_bound(5)->second << std::endl;
+	std::cout << "ft_map lower_bound of key 5: " << ft_map.lower_bound(5)->first << ", " << ft_map.lower_bound(5)->second  << std::endl;
+	std::cout << "std_map upper_bound of key 4: " << std_map.upper_bound(4)->first << ", " << std_map.upper_bound(4)->second << std::endl;
+	std::cout << "ft_map upper_bound of key 4: " << ft_map.upper_bound(4)->first << ", " << ft_map.upper_bound(4)->second  << std::endl;
+	std::cout << "std_map upper_bound of key 5: " << std_map.upper_bound(5)->first << ", " << std_map.upper_bound(5)->second << std::endl;
+	std::cout << "ft_map upper_bound of key 5: " << ft_map.upper_bound(5)->first << ", " << ft_map.upper_bound(5)->second  << std::endl;
+	
 	//std::cout << "std_map[2]: " << std_map[2] << std::endl;
 
 	//std::cout << "std_map[2]: " << std_map[2] << std::endl;

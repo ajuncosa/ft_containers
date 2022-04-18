@@ -73,6 +73,26 @@ namespace ft
 				return this->_tree.count(k);
 			}
 
+			iterator lower_bound(const key_type &k)
+			{
+				return this->_tree.lower_bound(k);
+			}
+
+			const_iterator lower_bound(const key_type &k) const
+			{
+				return this->_tree.lower_bound(k);
+			}
+
+			iterator upper_bound(const key_type &k)
+			{
+				return this->_tree.upper_bound(k);
+			}
+
+			const_iterator upper_bound(const key_type &k) const
+			{
+				return this->_tree.upper_bound(k);
+			}
+
 			pair<iterator, bool> insert(const value_type &val)
 			{
 				return this->_tree.insert(val);
