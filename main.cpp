@@ -690,6 +690,7 @@ int main()
 		std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
 
 	std::map<int, std::string> stdEmptyMap;
+	std::cout << "stdEmptyMap is empty? " << stdEmptyMap.empty() << std::endl;
 	stdEmptyMap.insert(stdEmptyMap.begin(), std::pair<int, std::string>(10, "hinting"));
 	stdEmptyMap.insert(stdEmptyMap.begin(), std::pair<int, std::string>(15, "aaa"));
 	stdEmptyMap.insert(stdEmptyMap.begin(), std::pair<int, std::string>(5, "bbb"));
@@ -699,8 +700,10 @@ int main()
     std::cout << "\tKEY\tELEMENT\n";
     for (std::map<int, std::string>::iterator itr = stdEmptyMap.begin(); itr != stdEmptyMap.end(); ++itr)
     	std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+	std::cout << "stdEmptyMap is empty? " << stdEmptyMap.empty() << std::endl;
 
 	ft::map<int, std::string> ftEmptyMap;
+	std::cout << "ftEmptyMap is empty? " << ftEmptyMap.empty() << std::endl;
 	ftEmptyMap.insert(ftEmptyMap.begin(), ft::pair<int, std::string>(10, "hinting"));
 	ftEmptyMap.insert(ftEmptyMap.begin(), ft::pair<int, std::string>(15, "aaa"));
 	ftEmptyMap.insert(ftEmptyMap.begin(), ft::pair<int, std::string>(5, "bbb"));
@@ -710,8 +713,13 @@ int main()
 	std::cout << "\tKEY\tELEMENT\n";
 	for (ft::map<int, std::string>::iterator itr = ftEmptyMap.begin(); itr != ftEmptyMap.end(); ++itr)
 		std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+	std::cout << "ftEmptyMap is empty? " << ftEmptyMap.empty() << std::endl;
 
-
+	std::cout << "\n-----MAP COUNT-----" << std::endl;
+	std::cout << "stdEmptyMap count of key 12: " << stdEmptyMap.count(12) << std::endl;
+	std::cout << "ftEmptyMap count of key 12: " << ftEmptyMap.count(12) << std::endl;
+	std::cout << "stdEmptyMap count of key 13: " << stdEmptyMap.count(13) << std::endl;
+	std::cout << "ftEmptyMap count of key 13: " << ftEmptyMap.count(13) << std::endl;
 
 	//std::cout << "std_map[2]: " << std_map[2] << std::endl;
 

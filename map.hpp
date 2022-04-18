@@ -43,6 +43,21 @@ namespace ft
 
 			~map() {}
 
+			bool empty() const
+			{
+				return this->_tree.empty();
+			}
+			
+			size_type size() const
+			{
+				return this->_tree.getSize();
+			}
+
+			size_type max_size() const
+			{
+				return this->_alloc.max_size();
+			}
+
 			iterator find(const key_type &k)
 			{
 				return this->_tree.find(k);
@@ -51,6 +66,11 @@ namespace ft
 			const_iterator find(const key_type &k) const
 			{
 				return this->_tree.find(k);
+			}
+
+			size_type count(const key_type &k) const
+			{
+				return this->_tree.count(k);
 			}
 
 			pair<iterator, bool> insert(const value_type &val)
@@ -93,16 +113,6 @@ namespace ft
 			allocator_type get_allocator() const
 			{
 				return this->_alloc;
-			}
-
-			size_type size() const
-			{
-				return this->_tree.getSize();
-			}
-
-			size_type max_size() const
-			{
-				return this->_alloc.max_size();
 			}
 
 		private:

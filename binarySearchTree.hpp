@@ -59,12 +59,14 @@ namespace ft
 			{
 				node_type *finder = this->_root;
 
-				while (finder != this->_sentinel && finder->value.first != k)
+				while (finder != this->_sentinel)
 				{
 					if (this->_comp(k, finder->value.first) == true)
 						finder = finder->left;
-					else
+					else if (this->_comp(finder->value.first, k) == true)
 						finder = finder->right;
+					else
+						break;
 				}
 				return iterator(finder, this->_sentinel);
 			}
@@ -73,14 +75,32 @@ namespace ft
 			{
 				node_type *finder = this->_root;
 
-				while (finder != this->_sentinel && finder->value.first != k)
+				while (finder != this->_sentinel)
 				{
 					if (this->_comp(k, finder->value.first) == true)
 						finder = finder->left;
-					else
+					else if (this->_comp(finder->value.first, k) == true)
 						finder = finder->right;
+					else
+						break;
 				}
 				return const_iterator(finder, this->_sentinel);
+			}
+
+			size_type count(const key_type &k) const
+			{
+				node_type	*finder = this->_root;
+
+				while (finder != this->_sentinel)
+				{
+					if (this->_comp(k, finder->value.first) == true)
+						finder = finder->left;
+					else if (this->_comp(finder->value.first, k) == true)
+						finder = finder->right;
+					else
+						return 1;
+				}
+				return 0;
 			}
 
 			node_type *min(node_type *root) const
@@ -214,6 +234,11 @@ namespace ft
 			node_type *getSentinel() const
 			{
 				return this->_sentinel;
+			}
+
+			bool empty() const
+			{
+				return this->_size == 0;
 			}
 
 		protected:
