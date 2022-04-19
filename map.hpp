@@ -33,7 +33,6 @@ namespace ft
 			class value_compare : public std::binary_function<value_type, value_type, bool>
 			{
 				protected:
-					friend class map; //TODO: quitar friend?
 					Compare comp;
 					value_compare(Compare c) : comp(c) {}
 
@@ -44,6 +43,10 @@ namespace ft
 					bool operator()(const first_argument_type &x, const second_argument_type &y) const
 					{
 						return comp(x.first, y.first);
+					}
+					static value_compare constructObject(Compare c)
+					{
+						return value_compare(c);
 					}
 			};
 
@@ -191,7 +194,7 @@ namespace ft
 
 			value_compare value_comp() const
 			{
-				return value_compare(this->_comp);
+				return value_compare::constructObject(this->_comp);
 			}
 
 		private:
