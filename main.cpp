@@ -778,7 +778,7 @@ int main()
 	std::cout << "erasing key 10" << std::endl;
 	std_map.erase(10);
 	ft_map.erase(10);
-	std::cout << "erasing by range, 42-end" << std::endl;
+	std::cout << "erasing by range, 42 to end" << std::endl;
 	std_map.erase(std_map.find(42), std_map.end());
 	ft_map.erase(ft_map.find(42), ft_map.end());
 
@@ -786,11 +786,69 @@ int main()
     std::cout << "\tKEY\tELEMENT\n";
     for (std::map<int, std::string>::iterator itr = std_map.begin(); itr != std_map.end(); ++itr)
     	std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+	std::cout << "std_map size: " << std_map.size() << std::endl;
 	std::cout << "The map ft_map is : \n";
 	std::cout << "\tKEY\tELEMENT\n";
 	for (ft::map<int, std::string>::iterator itr = ft_map.begin(); itr != ft_map.end(); ++itr)
 		std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+	std::cout << "ft_map size: " << ft_map.size() << std::endl;
 
+	std::cout << "\n-----MAP SWAP-----" << std::endl;
+	std_map.swap(stdEmptyMap);
+	ft_map.swap(ftEmptyMap);
+
+	std::cout << "The map std_map is : \n";
+    std::cout << "\tKEY\tELEMENT\n";
+    for (std::map<int, std::string>::iterator itr = std_map.begin(); itr != std_map.end(); ++itr)
+    	std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+	std::cout << "std_map size: " << std_map.size() << std::endl;
+	std::cout << "The map ft_map is : \n";
+	std::cout << "\tKEY\tELEMENT\n";
+	for (ft::map<int, std::string>::iterator itr = ft_map.begin(); itr != ft_map.end(); ++itr)
+		std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+	std::cout << "ft_map size: " << ft_map.size() << std::endl;
+	std::cout << "The map stdEmptyMap is : \n";
+    std::cout << "\tKEY\tELEMENT\n";
+    for (std::map<int, std::string>::iterator itr = stdEmptyMap.begin(); itr != stdEmptyMap.end(); ++itr)
+    	std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+	std::cout << "std_map size: " << stdEmptyMap.size() << std::endl;
+	std::cout << "The map ftEmptyMap is : \n";
+	std::cout << "\tKEY\tELEMENT\n";
+	for (ft::map<int, std::string>::iterator itr = ftEmptyMap.begin(); itr != ftEmptyMap.end(); ++itr)
+		std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+	std::cout << "ft_map size: " << ftEmptyMap.size() << std::endl;
+
+
+	std::cout << "\n-----MAP CLEAR-----" << std::endl;
+	std_map.clear();
+	ft_map.clear();
+	std::cout << "The map std_map is : \n";
+    std::cout << "\tKEY\tELEMENT\n";
+    for (std::map<int, std::string>::iterator itr = std_map.begin(); itr != std_map.end(); ++itr)
+    	std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+	std::cout << "std_map size: " << std_map.size() << std::endl;
+	std::cout << "The map ft_map is : \n";
+	std::cout << "\tKEY\tELEMENT\n";
+	for (ft::map<int, std::string>::iterator itr = ft_map.begin(); itr != ft_map.end(); ++itr)
+		std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+	std::cout << "ft_map size: " << ft_map.size() << std::endl;
+
+	std_map.insert(std::pair<int, std::string>(10, "hola"));
+	std_map.insert(std::pair<int, std::string>(5, "que"));
+	std_map.insert(std::pair<int, std::string>(42, "tal"));
+	ft_map.insert(ft::pair<int, std::string>(10, "hola"));
+	ft_map.insert(ft::pair<int, std::string>(5, "que"));
+	ft_map.insert(ft::pair<int, std::string>(42, "tal"));
+   	std::cout << "The map std_map is : \n";
+    std::cout << "\tKEY\tELEMENT\n";
+    for (std::map<int, std::string>::iterator itr = std_map.begin(); itr != std_map.end(); ++itr)
+    	std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+	std::cout << "std_map size: " << std_map.size() << std::endl;
+	std::cout << "The map ft_map is : \n";
+	std::cout << "\tKEY\tELEMENT\n";
+	for (ft::map<int, std::string>::iterator itr = ft_map.begin(); itr != ft_map.end(); ++itr)
+		std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+	std::cout << "ft_map size: " << ft_map.size() << std::endl;
 
 	//std::cout << "std_map[2]: " << std_map[2] << std::endl;
 

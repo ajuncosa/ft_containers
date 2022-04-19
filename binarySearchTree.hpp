@@ -47,7 +47,24 @@ namespace ft
 					this->insert(*it);
 			}
 
-			//TODO: add assignment op
+			binarySearchTree &operator=(const binarySearchTree &src)
+			{
+				if (this != &src)
+				{
+					this->_deallocateTree(this->_root);
+					this->_deleteNode(this->_sentinel);
+					this->_size = 0;
+					this->_comp = src.getComp();
+					this->_alloc = src.getAlloc();
+					this->_nodeAlloc = node_alloc_type();
+					this->_sentinel = this->_nodeAlloc.allocate(1);
+					this->_nodeAlloc.construct(this->_sentinel, node_type());
+					this->_root = this->_sentinel;
+					for (iterator it = src.begin(); it != src.end(); it++)
+						this->insert(*it);
+				}
+				return *this;
+			}
 
 			~binarySearchTree()
 			{

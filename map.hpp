@@ -175,8 +175,34 @@ namespace ft
 
 			void erase(iterator first, iterator last)
 			{
-				for (iterator it = first; it != last; it++)
+				iterator it = first;
+				iterator tmp = first;
+				while (it != last)
+				{
+					tmp++;
 					this->erase(it);
+					it = tmp;
+				}
+			}
+
+			void swap(map &x)
+			{
+				tree_type tmpTree = this->_tree;
+				this->_tree = x._tree;
+				x._tree = tmpTree;
+
+				allocator_type tmpAlloc = this->_alloc;
+				this->_alloc = x._alloc;
+				x._alloc = tmpAlloc;
+
+				key_compare tmpComp = this->_comp;
+				this->_comp = x._comp;
+				x._comp = tmpComp;
+			}
+
+			void clear()
+			{
+				erase(this->begin(), this->end());
 			}
 
 			iterator begin()
