@@ -155,6 +155,12 @@ namespace ft
 				return ft::make_pair<iterator, iterator>(lowerB, upperB);
 			}
 
+			mapped_type &operator[](const key_type &k)
+			{
+				iterator kElement = this->insert(ft::make_pair(k, mapped_type())).first;
+				return kElement->second;
+			}
+
 			pair<iterator, bool> insert(const value_type &val)
 			{
 				return this->_tree.insert(val);
