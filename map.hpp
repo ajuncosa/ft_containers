@@ -162,6 +162,23 @@ namespace ft
 					this->_tree.insert(*it);
 			}
 
+			void erase(iterator position)
+			{
+				this->_tree.eraseNode(position.getData());
+			}
+
+			size_type erase(const key_type &k)
+			{
+				this->erase(this->find(k));
+				return 1;
+			}
+
+			void erase(iterator first, iterator last)
+			{
+				for (iterator it = first; it != last; it++)
+					this->erase(it);
+			}
+
 			iterator begin()
 			{
 				return this->_tree.begin();

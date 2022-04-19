@@ -761,6 +761,37 @@ int main()
 	std::cout << std::boolalpha << "std_comp_func(spair, begin): " << std_comp_func(spair, *std_map.begin()) << std::endl;
 	std::cout << std::boolalpha << "ft_comp_func(ftpair, begin): " << ft_comp_func(ftpair, *ft_map.begin()) << std::endl;
 
+
+	std::cout << "\n-----MAP ERASE-----" << std::endl;
+	std::cout << "The map std_map is : \n";
+    std::cout << "\tKEY\tELEMENT\n";
+    for (std::map<int, std::string>::iterator itr = std_map.begin(); itr != std_map.end(); ++itr)
+    	std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+	std::cout << "The map ft_map is : \n";
+	std::cout << "\tKEY\tELEMENT\n";
+	for (ft::map<int, std::string>::iterator itr = ft_map.begin(); itr != ft_map.end(); ++itr)
+		std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+
+	std::cout << "erasing iterator begin" << std::endl;
+	std_map.erase(std_map.begin());
+	ft_map.erase(ft_map.begin());
+	std::cout << "erasing key 10" << std::endl;
+	std_map.erase(10);
+	ft_map.erase(10);
+	std::cout << "erasing by range, 42-end" << std::endl;
+	std_map.erase(std_map.find(42), std_map.end());
+	ft_map.erase(ft_map.find(42), ft_map.end());
+
+	std::cout << "The map std_map is : \n";
+    std::cout << "\tKEY\tELEMENT\n";
+    for (std::map<int, std::string>::iterator itr = std_map.begin(); itr != std_map.end(); ++itr)
+    	std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+	std::cout << "The map ft_map is : \n";
+	std::cout << "\tKEY\tELEMENT\n";
+	for (ft::map<int, std::string>::iterator itr = ft_map.begin(); itr != ft_map.end(); ++itr)
+		std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+
+
 	//std::cout << "std_map[2]: " << std_map[2] << std::endl;
 
 	//std::cout << "std_map[2]: " << std_map[2] << std::endl;
