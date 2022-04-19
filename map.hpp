@@ -61,6 +61,16 @@ namespace ft
 
 			map(const map &x) : _tree(x._tree), _alloc(x.get_allocator()), _comp(x.key_comp()) {}
 
+			map &operator=(const map &x)
+			{
+				if (this != &x)
+				{
+					this->_tree = x._tree;
+					this->_comp = x.key_comp();
+				}
+				return *this;
+			}
+
 			~map() {}
 
 			bool empty() const

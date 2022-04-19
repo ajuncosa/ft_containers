@@ -850,6 +850,20 @@ int main()
 		std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
 	std::cout << "ft_map size: " << ft_map.size() << std::endl;
 
+	std::cout << "\n-----MAP ASSIGNMENT OPERATOR-----" << std::endl;
+	std_map = stdEmptyMap;
+	ft_map = ftEmptyMap;
+	std::cout << "The map std_map is : \n";
+    std::cout << "\tKEY\tELEMENT\n";
+    for (std::map<int, std::string>::iterator itr = std_map.begin(); itr != std_map.end(); ++itr)
+    	std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+	std::cout << "std_map size: " << std_map.size() << std::endl;
+	std::cout << "The map ft_map is : \n";
+	std::cout << "\tKEY\tELEMENT\n";
+	for (ft::map<int, std::string>::iterator itr = ft_map.begin(); itr != ft_map.end(); ++itr)
+		std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+	std::cout << "ft_map size: " << ft_map.size() << std::endl;
+
 	//std::cout << "std_map[2]: " << std_map[2] << std::endl;
 
 	//std::cout << "std_map[2]: " << std_map[2] << std::endl;
