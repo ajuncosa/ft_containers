@@ -28,7 +28,9 @@ namespace ft
 
 			reference operator*() const
 			{
-				return *(this->_base - 1);
+				iterator_type copy(this->_base);
+				--copy;
+				return *copy;
 			}
 
 			reverse_iterator operator+(difference_type n) const

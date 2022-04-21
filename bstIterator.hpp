@@ -4,7 +4,7 @@
 namespace ft
 {
 	//FIXME: construir iterator normal a partir de uno const, no deberia funcionar
-	template <class Node, class T, class Distance = ptrdiff_t, class Pointer = Node*, class Reference = Node&>
+	template <class Node, class T, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
 	class bstIterator : public iterator<std::bidirectional_iterator_tag, Node, Distance, Pointer, Reference>
 	{
 		public:
@@ -22,7 +22,7 @@ namespace ft
 			
 			bstIterator(const bstIterator &src) : _data(src.getData()), _sentinel(src.getSentinel()) {}
 
-			bstIterator(pointer node, pointer sentinel) : _data(node), _sentinel(sentinel) {}
+			bstIterator(Node *node, Node *sentinel) : _data(node), _sentinel(sentinel) {}
 
 			bstIterator &operator=(const bstIterator &src)
 			{
@@ -36,12 +36,12 @@ namespace ft
 			
 			~bstIterator() {};
 
-			value_type &operator*() const
+			reference operator*() const
 			{
 				return this->_data->value;
 			}
 
-			value_type *operator->()
+			pointer operator->()
 			{
 				return &this->_data->value;
 			}
@@ -122,12 +122,12 @@ namespace ft
 				return tmp;
 			}
 
-			pointer getData() const
+			Node *getData() const
 			{
 				return this->_data;
 			}
 
-			pointer getSentinel() const
+			Node *getSentinel() const
 			{
 				return this->_sentinel;
 			}
@@ -136,8 +136,8 @@ namespace ft
 			template <class U, class V, class W, class X>
 			friend bool operator==(const bstIterator<U, V> &lhs, const bstIterator<W, X> &rhs); 
 
-			pointer	_data;
-			pointer	_sentinel;
+			Node	*_data;
+			Node	*_sentinel;
 	};
 
 	template <class T, class U, class V, class W>

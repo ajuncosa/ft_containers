@@ -3,21 +3,13 @@
 #include "pair.hpp"
 #include "bstIterator.hpp"
 #include "node.hpp"
+#include "reverse_iterator.hpp"
 
 namespace ft
 {
 	template <class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<pair<const Key,T> > >
 	class binarySearchTree
 	{
-	/*	private:
-			struct Sentinel : public Node<pair<const Key, T> >
-			{
-				// variable to be able to improve find method using sentinel (bc pair key is const)
-				typedef Node<pair<const Key, T> > node_type;
-				Key key;
-				Sentinel() : node_type(), key() {}
-			};*/
-
 		public:
 			typedef Key key_type;
 			typedef T mapped_type;
@@ -28,6 +20,8 @@ namespace ft
 			typedef	Node<value_type> node_type;
 			typedef bstIterator<node_type, value_type> iterator;
 			typedef bstIterator<node_type, const value_type> const_iterator;
+			typedef reverse_iterator<const_iterator> const_reverse_iterator;
+			typedef reverse_iterator<iterator> reverse_iterator;
 
 			binarySearchTree(const key_compare& comp = key_compare(),
 				const allocator_type& alloc = allocator_type())
@@ -226,6 +220,26 @@ namespace ft
 			const_iterator end() const
 			{
 				return const_iterator(this->_sentinel, this->_sentinel);
+			}
+
+			reverse_iterator rbegin()
+			{
+				return reverse_iterator(this->end());
+			}
+
+			const_reverse_iterator rbegin() const
+			{
+				return const_reverse_iterator(this->end());
+			}
+
+			reverse_iterator rend()
+			{
+				return reverse_iterator(this->begin());
+			}
+			
+			const_reverse_iterator rend() const
+			{
+				return const_reverse_iterator(this->begin());
 			}
 
 			size_type getSize() const

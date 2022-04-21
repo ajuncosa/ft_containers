@@ -78,12 +78,12 @@ int main()
 		std::cout << "value: " << iter->first << ", " << iter->second << std::endl;
 	std::cout << "bstcopy size: " << bst.getSize() << std::endl;
 
-/*	std::map<std::string, int> map;
+	std::map<std::string, int> map;
 
 	map.insert(std::pair<std::string, int>("edad", 10));
 	map.insert(std::pair<std::string, int>("amigos", 2));
 	map.insert(std::pair<std::string, int>("novios", 4));
-	std::map<std::string, int>::iterator sit = map.begin();
+/*	std::map<std::string, int>::iterator sit = map.begin();
 	std::map<std::string, int>::iterator sit2(sit);
 	std::map<std::string, int>::iterator sit3 = ++sit;
 	std::cout << "sit " << sit->first <<std::endl;
@@ -109,4 +109,19 @@ int main()
 	for (std::map<std::string, int>::const_iterator it = map.begin(); it != map.end(); it++)
 		std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
 	*/
+
+
+	std::map<std::string, int>::reverse_iterator stdRevIt = map.rbegin();
+	ft::binarySearchTree<int, std::string>::reverse_iterator ftRevIt = bst.rbegin();
+	 
+	std::cout << "stdRevIT: " << (*stdRevIt).first << ", " << (*stdRevIt).second << std::endl;
+	stdRevIt++;
+	std::cout << "stdRevIT: " << (*stdRevIt).first << ", " << (*stdRevIt).second << std::endl;
+	//std::cout << "stdRev[42]: " << stdRevIt[42] << std::endl;
+	
+	std::cout << "ftRevIT: " << (*ftRevIt).first << ", " << (*ftRevIt).second << std::endl;
+	ftRevIt++;
+	std::cout << "ftRevIt: " << (*ftRevIt).first << ", " << (*ftRevIt).second << std::endl;
+	//std::cout << "ftRevIt[42]: " << ftRevIt[42] << std::endl;
+
 }

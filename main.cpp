@@ -884,7 +884,28 @@ int main()
 	ft_map[42] = "bye";
 	std::cout << "std_map[42]: " << std_map[42] << std::endl;
 	std::cout << "ft_map[42]: " << ft_map[42] << std::endl;
+	 
+	std::cout << "The map std_map in reverse is :" << std::endl;
+	for (std::map<int, std::string>::reverse_iterator stdRevIt = std_map.rbegin(); stdRevIt != std_map.rend(); stdRevIt++)
+		std::cout << "stdRevIT: " << (*stdRevIt).first << ", " << (*stdRevIt).second << std::endl;
 	
+	std::cout << "The map ft_map in reverse is : "<< std::endl;
+	for (ft::map<int, std::string>::reverse_iterator ftRevIt = ft_map.rbegin(); ftRevIt != ft_map.rend(); ftRevIt++)
+		std::cout << "ftRevIT: " << (*ftRevIt).first << ", " << (*ftRevIt).second << std::endl;
+	
+	std::map<int, std::string>::reverse_iterator stdRevIt = std_map.rend();
+	stdRevIt--;
+	std::cout << "rend--; stdRevIT: " << stdRevIt->first << ", " << stdRevIt->second << std::endl;
+	//std::cout << "stdRev[42]: " << stdRevIt[42] << std::endl;
+	//std::cout << "stdRev -= 1: " << (stdRevIt -= 1) << std::endl;
+	
+	ft::map<int, std::string>::reverse_iterator ftRevIt = ft_map.rend();
+	ftRevIt--;
+	std::cout << "rend--; ftRevIT: " << ftRevIt->first << ", " << ftRevIt->second << std::endl;
+	//std::cout << "ftRevIt[42]: " << ftRevIt[42] << std::endl;
+	//std::cout << "ftRev -= 1: " << (ftRevIt -= 1) << std::endl;
+	
+
 	/*ft::map<int, std::string>::iterator itr;
     std::cout << "The map std_map is : \n";
     std::cout << "\tKEY\tELEMENT\n";

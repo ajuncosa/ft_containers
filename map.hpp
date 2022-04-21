@@ -25,8 +25,8 @@ namespace ft
 			typedef	binarySearchTree<key_type, mapped_type, key_compare, allocator_type> tree_type;
 			typedef typename tree_type::iterator iterator;
 			typedef typename tree_type::const_iterator const_iterator;
-			//typedef reverse_iterator;
-			//typedef const_reverse_iterator;
+			typedef reverse_iterator<const_iterator> const_reverse_iterator;
+			typedef reverse_iterator<iterator> reverse_iterator;
 			typedef typename iterator_traits<iterator>::difference_type difference_type;
 			typedef size_t size_type;
 
@@ -239,6 +239,26 @@ namespace ft
 			const_iterator end() const
 			{
 				return this->_tree.end();
+			}
+
+			reverse_iterator rbegin()
+			{
+				return reverse_iterator(this->end());
+			}
+
+			const_reverse_iterator rbegin() const
+			{
+				return const_reverse_iterator(this->end());
+			}
+
+			reverse_iterator rend()
+			{
+				return reverse_iterator(this->begin());
+			}
+			
+			const_reverse_iterator rend() const
+			{
+				return const_reverse_iterator(this->begin());
 			}
 
 			allocator_type get_allocator() const
