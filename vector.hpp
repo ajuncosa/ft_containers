@@ -311,7 +311,10 @@ namespace ft
 				size_type	newCapacity;
 
 				if (position == this->end())
+				{
 					this->push_back(val);
+					position = this->end() - 1;
+				}
 				else
 				{
 					for (iterator it = position; it != this->end(); it++)
@@ -586,10 +589,15 @@ namespace ft
 
 			void swap(vector& x)
 			{
-				vector	tmp(*this);
-
-				*this = x;
-				x = tmp;
+				pointer tmpData = this->_data;
+				this->_data = x._data;
+				x._data = tmpData;
+				size_type tmpSize = this->_size;
+				this->_size = x._size;
+				x._size = tmpSize;
+				size_type tmpCap = this->_capacity;
+				this->_capacity = x._capacity;
+				x._capacity = tmpCap;
 			}
 
 			void clear()
