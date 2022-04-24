@@ -185,7 +185,11 @@ namespace ft
 
 			size_type erase(const key_type &k)
 			{
-				this->erase(this->find(k));
+				iterator found = this->find(k);
+
+				if (found == this->end())
+					return 0;
+				this->erase(found);
 				return 1;
 			}
 
