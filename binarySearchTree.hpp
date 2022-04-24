@@ -187,6 +187,8 @@ namespace ft
 			{
 				if (node == this->_sentinel)
 					return ;
+				if (node == this->max(this->_root))
+					this->_sentinel->left = (--iterator(node, this->_sentinel)).getData();
 				// case where node has no children || only a right child:
 				if (node->left == this->_sentinel)
 					this->_nodeTransplant(node, node->right);
