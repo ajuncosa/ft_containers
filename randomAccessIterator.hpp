@@ -63,7 +63,7 @@ namespace ft
 				return *this->_data;
 			}
 
-			pointer operator->()
+			pointer operator->() const
 			{
 				return this->_data;
 			}

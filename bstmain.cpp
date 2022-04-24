@@ -19,8 +19,24 @@ int main()
 	bst.insert(ft::pair<int, std::string>(4, "repe"));
 
 	std::cout << "bst size: " << bst.getSize() << std::endl;
-
 	
+	/*	ft::binarySearchTree<std::string, int>::iterator it = bst.begin();
+	std::cout << "cambiando: " << it->first << ", " << (*it).second << std::endl;
+	(*it).second = 8;
+	std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
+
+	std::map<std::string, int>::const_iterator cit = map.begin();
+	std::cout << "cambiando " << cit->first <<std::endl;
+	cit->second = 8;
+	for (std::map<std::string, int>::const_iterator it = map.begin(); it != map.end(); it++)
+		std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
+*/
+	std::map<int, std::string> stdmap;
+	stdmap.insert(std::pair<int, std::string>(0, "edad"));
+	stdmap.insert(std::pair<int, std::string>(2, "amigos"));
+	std::map<int, std::string>::const_iterator stdit = stdmap.begin();
+	std::map<int, std::string>::const_iterator stdit2(stdit);
+
 	ft::binarySearchTree<int, std::string>::const_iterator it = bst.begin();
 	ft::binarySearchTree<int, std::string>::iterator it2(it);
 	std::cout << "bst begin: " << it->first << ", " << it->second << std::endl;
@@ -28,6 +44,8 @@ int main()
 	*it++;
 	it2++;
 	std::cout << "it == it2? " << (it == it2) << std::endl;
+
+
 	/*while (it2 != bst.end())
 	{
 		std::cout << "value: " << it2->first << ", " << (*it2).second << std::endl;
@@ -56,15 +74,6 @@ int main()
 		std::cout << "value: " << iter->first << ", " << iter->second << std::endl;
 	std::cout << "bst size: " << bst.getSize() << std::endl;
 
-
-/*	for (ft::binarySearchTree<std::string, int>::const_iterator it = bst.begin(); it != bst.end(); it++)
-		std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
-	
-	ft::binarySearchTree<std::string, int>::iterator it = bst.begin();
-	std::cout << "cambiando: " << it->first << ", " << (*it).second << std::endl;
-	(*it).second = 8;
-	std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
-*/
 
 	ft::binarySearchTree<int, std::string> bstcopy(bst);
 	std::cout << "COPIED TREE:" << std::endl;
@@ -103,12 +112,6 @@ int main()
 	//sit--;
 	//std::cout << "sit " << sit->first << ", " << sit->second<<std::endl;
 */
-/*	std::map<std::string, int>::const_iterator cit = map.begin();
-	std::cout << "cambiando " << cit->first <<std::endl;
-	cit->second = 8;
-	for (std::map<std::string, int>::const_iterator it = map.begin(); it != map.end(); it++)
-		std::cout << "value: " << it->first << ", " << (*it).second << std::endl;
-	*/
 
 
 	std::map<std::string, int>::reverse_iterator stdRevIt = map.rbegin();

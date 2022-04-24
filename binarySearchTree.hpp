@@ -32,12 +32,22 @@ namespace ft
 				this->_root = this->_sentinel;
 			}
 
-			binarySearchTree(const binarySearchTree &src) : _size(0), _comp(src.getComp()), _alloc(src.getAlloc()), _nodeAlloc()
+		/*	template<class U, class V>
+			binarySearchTree(const binarySearchTree<U, V> &src) : _size(0), _comp(src.getComp()), _alloc(src.getAlloc()), _nodeAlloc()
 			{
 				this->_sentinel = this->_nodeAlloc.allocate(1);
 				this->_nodeAlloc.construct(this->_sentinel, node_type());
 				this->_root = this->_sentinel;
 				for (iterator it = src.begin(); it != src.end(); it++)
+					this->insert(*it);
+			}*/
+
+			binarySearchTree(const binarySearchTree &src) : _size(0), _comp(src.getComp()), _alloc(src.getAlloc()), _nodeAlloc()
+			{
+				this->_sentinel = this->_nodeAlloc.allocate(1);
+				this->_nodeAlloc.construct(this->_sentinel, node_type());
+				this->_root = this->_sentinel;
+				for (const_iterator it = src.begin(); it != src.end(); it++)
 					this->insert(*it);
 			}
 
@@ -54,7 +64,7 @@ namespace ft
 					this->_sentinel = this->_nodeAlloc.allocate(1);
 					this->_nodeAlloc.construct(this->_sentinel, node_type());
 					this->_root = this->_sentinel;
-					for (iterator it = src.begin(); it != src.end(); it++)
+					for (const_iterator it = src.begin(); it != src.end(); it++)
 						this->insert(*it);
 				}
 				return *this;
@@ -139,6 +149,7 @@ namespace ft
 					this->_root = this->_nodeAlloc.allocate(1);
 					this->_nodeAlloc.construct(this->_root, node_type(this->_sentinel, this->_sentinel, this->_sentinel, newData));
 					this->_sentinel->right = this->_root;
+					this->_sentinel->left = this->_root;
 					return_iter = iterator(this->_root, this->_sentinel);
 				}
 				else

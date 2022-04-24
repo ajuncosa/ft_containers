@@ -627,15 +627,17 @@ int main()
 
 
 	std::cout << "\n-----MAP RANGE CONSTRUCTOR-----" << std::endl;
-	std::pair<int, std::string> pair_arr[] = {std::make_pair(42, "a"), std::make_pair(43, "b"), std::make_pair(44, "c")};
-	//std::map<int, std::string>::iterator sb = std_map.begin();
-	//std::map<int, std::string>::iterator se = std_map.end();
-	std::map<int, std::string> smap(&pair_arr[0], &pair_arr[3]);
+	//std::pair<int, std::string> pair_arr[] = {std::make_pair(42, "a"), std::make_pair(43, "b"), std::make_pair(44, "c")};
+	std::map<int, std::string>::iterator sb = std_map.begin();
+	std::map<int, std::string>::iterator se = --(--std_map.end());
+	//std::map<int, std::string> smap(&pair_arr[0], &pair_arr[3]);
+	std::map<int, std::string> smap(sb, se);
 
-	ft::pair<int, std::string> ftpair_arr[] = {ft::make_pair(42, "a"), ft::make_pair(43, "b"), ft::make_pair(44, "c")};
-//	ft::map<int, std::string>::iterator ftb = ft_map.begin();
-//	ft::map<int, std::string>::iterator fte = ftb++;//ft_map.end();
-	ft::map<int, std::string> ftmap(&ftpair_arr[0], &ftpair_arr[3]);
+//	ft::pair<int, std::string> ftpair_arr[] = {ft::make_pair(42, "a"), ft::make_pair(43, "b"), ft::make_pair(44, "c")};
+	ft::map<int, std::string>::iterator ftb = ft_map.begin();
+	ft::map<int, std::string>::iterator fte = --(--ft_map.end());
+//	ft::map<int, std::string> ftmap(&ftpair_arr[0], &ftpair_arr[3]);
+	ft::map<int, std::string> ftmap(ftb, fte);
 
 	std::cout << "The map smap is : \n";
     std::cout << "\tKEY\tELEMENT\n";
@@ -905,16 +907,29 @@ int main()
 	//std::cout << "ftRevIt[42]: " << ftRevIt[42] << std::endl;
 	//std::cout << "ftRev -= 1: " << (ftRevIt -= 1) << std::endl;
 	
-
-	/*ft::map<int, std::string>::iterator itr;
-    std::cout << "The map std_map is : \n";
+	const std::map<int, std::string> constmap(std_map);
+	const ft::map<int,std::string> ftconstmap(ft_map);
+	/*std::cout << "The map std_map is : \n";
     std::cout << "\tKEY\tELEMENT\n";
-    for (itr = std_map.begin(); itr != std_map.end(); ++itr) {
-    	std::cout << '\t' << itr->first << '\t' << itr->second
-             << '\n';
-    }
-	std::cout << "std_map[2]: " << std_map[2] << std::endl;
-*/
+    for (std::map<int, std::string>::const_iterator itr = constmap.begin(); itr != constmap.end(); ++itr)
+    	std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+	std::cout << "std_map size: " << constmap.size() << std::endl;
+	
+	std::cout << "The map ft_map is : \n";
+	std::cout << "\tKEY\tELEMENT\n";
+	for (ft::map<int, std::string>::iterator itr = ftconstmap.begin(); itr != ftconstmap.end(); ++itr)
+		std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+	std::cout << "ft_map size: " << ftconstmap.size() << std::endl;
+	*/
+
+	std::map<int, std::string>::const_iterator itr;
+	itr = std_map.begin();
+	std::map<int, std::string>::const_iterator citr; 
+	citr = constmap.begin();
+	ft::map<int, std::string>::iterator ftitr;
+	ftitr = ft_map.begin();
+	ft::map<int, std::string>::const_iterator ftcitr;
+	ftcitr = ftconstmap.begin();
 
 	return 0;
 }
