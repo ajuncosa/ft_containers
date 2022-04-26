@@ -6,6 +6,8 @@
 #include "iteratorTraits.hpp"
 #include "pair.hpp"
 #include "binarySearchTree.hpp"
+#include "equal.hpp"
+#include "lexicographical_compare.hpp"
 
 namespace ft
 {
@@ -285,4 +287,42 @@ namespace ft
 			allocator_type	_alloc;
 			key_compare		_comp;
 	};
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator==(const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs)
+	{
+		if (!(lhs.size() == rhs.size()))
+			return false;
+		return ft::equal(lhs.begin(), lhs.end(), rhs.begin());
+	}
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator!=(const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs)
+	{
+		return !(lhs == rhs);
+	}
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator<(const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs)
+	{
+		return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+	}
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator<=(const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs)
+	{
+		return !(rhs < lhs);
+	}
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator>(const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs)
+	{
+		return rhs < lhs;
+	}
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator>=(const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs)
+	{
+		return !(lhs < rhs);
+	}
 }
