@@ -18,8 +18,8 @@ namespace ft
 			typedef Alloc allocator_type;
 			typedef size_t size_type;
 			typedef	Node<value_type> node_type;
-			typedef bstIterator<node_type, value_type> iterator;
-			typedef bstIterator<node_type, const value_type> const_iterator;
+			typedef bstIterator<node_type, value_type, false> iterator;
+			typedef bstIterator<node_type, const value_type, true> const_iterator;
 			typedef reverse_iterator<const_iterator> const_reverse_iterator;
 			typedef reverse_iterator<iterator> reverse_iterator;
 

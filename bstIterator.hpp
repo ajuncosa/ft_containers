@@ -1,10 +1,11 @@
 #pragma once
 #include "iterator.hpp"
+#include "enable_if.hpp"
 
 namespace ft
 {
 	//FIXME: construir iterator normal a partir de uno const, no deberia funcionar
-	template <class Node, class T, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
+	template <class Node, class T, bool Const, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
 	class bstIterator : public iterator<std::bidirectional_iterator_tag, Node, Distance, Pointer, Reference>
 	{
 		public:
@@ -17,8 +18,8 @@ namespace ft
 
 			bstIterator() : _data(NULL), _sentinel(NULL) {}
 
-			template <class U, class V>
-			bstIterator(const bstIterator<U, V> &src) : _data(src.getData()), _sentinel(src.getSentinel()) {}
+			template <class U, class V, bool W>
+			bstIterator(const typename ft::enable_if<!W, bstIterator<U, V, W> >::type &src) : _data(src.getData()), _sentinel(src.getSentinel()) {}
 			
 			bstIterator(const bstIterator &src) : _data(src.getData()), _sentinel(src.getSentinel()) {}
 
@@ -133,21 +134,21 @@ namespace ft
 			}
 
 		private:
-			template <class U, class V, class W, class X>
-			friend bool operator==(const bstIterator<U, V> &lhs, const bstIterator<W, X> &rhs); 
+			template <class U, class V, bool W, class X, class Y, bool Z>
+			friend bool operator==(const bstIterator<U, V, W> &lhs, const bstIterator<X, Y, Z> &rhs); 
 
 			Node	*_data;
 			Node	*_sentinel;
 	};
 
-	template <class T, class U, class V, class W>
-	bool operator==(const bstIterator<T, U> &lhs, const bstIterator<V, W> &rhs) 
+	template <class T, class U, bool V, class W, class X, bool Y>
+	bool operator==(const bstIterator<T, U, V> &lhs, const bstIterator<W, X, Y> &rhs) 
 	{
 		return lhs._data == rhs._data;
 	}
 
-	template <class T, class U, class V, class W>
-	bool operator!=(const bstIterator<T, U>& lhs, const bstIterator<V, W>& rhs)
+	template <class T, class U, bool V, class W, class X, bool Y>
+	bool operator!=(const bstIterator<T, U, V> &lhs, const bstIterator<W, X, Y> &rhs)
 	{
 		return !operator==(lhs, rhs);
 	}

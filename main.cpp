@@ -10,6 +10,16 @@
 #include "pair.hpp"
 #include "map.hpp"
 
+/*
+ft::vector<int>
+NS::vector<int>
+c++ -D NS=ft
+c++ -D NS=std
+./ft_containers > ft_out
+./ft_containers > std_out
+diff ft_out std_out
+*/
+
 bool mycomp(int a, int b)
 {
 	return a < b;
@@ -922,13 +932,13 @@ int main()
 	std::cout << "ft_map size: " << ftconstmap.size() << std::endl;
 	*/
 
-	std::map<int, std::string>::const_iterator itr;
+	std::map<int, std::string>::iterator itr;
 	itr = std_map.begin();
 	std::map<int, std::string>::const_iterator citr; 
 	citr = constmap.begin();
 	ft::map<int, std::string>::iterator ftitr;
 	ftitr = ft_map.begin();
-	ft::map<int, std::string>::const_iterator ftcitr;
+	ft::map<int, std::string>::iterator ftcitr;
 	ftcitr = ftconstmap.begin();
 
 	return 0;

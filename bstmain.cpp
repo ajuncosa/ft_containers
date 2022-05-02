@@ -38,7 +38,7 @@ int main()
 	std::map<int, std::string>::const_iterator stdit2(stdit);
 
 	ft::binarySearchTree<int, std::string>::const_iterator it = bst.begin();
-	ft::binarySearchTree<int, std::string>::iterator it2(it);
+	ft::binarySearchTree<int, std::string>::const_iterator it2(it);
 	std::cout << "bst begin: " << it->first << ", " << it->second << std::endl;
 	std::cout << "it == it2? " << (it == it2) << std::endl;
 	*it++;
