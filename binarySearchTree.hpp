@@ -275,6 +275,35 @@ namespace ft
 				return this->_size == 0;
 			}
 
+			void swap(binarySearchTree &src)
+			{
+				size_type		tmpSize;
+				key_compare		tmpComp;
+				allocator_type	tmpAlloc;
+				node_alloc_type	tmpNodeAlloc;
+				node_type		*tmpRoot;
+				node_type		*tmpSentinel;
+
+				tmpSize = this->_size;
+				tmpComp = this->_comp;
+				tmpAlloc = this->_alloc;
+				tmpNodeAlloc = this->_nodeAlloc;
+				tmpRoot = this->_root;
+				tmpSentinel = this->_sentinel;
+				this->_size = src._size;
+				this->_comp = src._comp;
+				this->_alloc = src._alloc;
+				this->_nodeAlloc = src._nodeAlloc;
+				this->_root = src._root;
+				this->_sentinel = src._sentinel;
+				src._size = tmpSize;
+				src._comp = tmpComp;
+				src._alloc = tmpAlloc;
+				src._nodeAlloc = tmpNodeAlloc;
+				src._root = tmpRoot;
+				src._sentinel = tmpSentinel;
+			}
+
 		protected:
 			typedef	typename allocator_type::template rebind<node_type>::other node_alloc_type;
 

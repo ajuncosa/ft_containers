@@ -209,17 +209,7 @@ namespace ft
 
 			void swap(map &x)
 			{
-				tree_type tmpTree = this->_tree;
-				this->_tree = x._tree;
-				x._tree = tmpTree;
-
-				allocator_type tmpAlloc = this->_alloc;
-				this->_alloc = x._alloc;
-				x._alloc = tmpAlloc;
-
-				key_compare tmpComp = this->_comp;
-				this->_comp = x._comp;
-				x._comp = tmpComp;
+				this->_tree.swap(x._tree);
 			}
 
 			void clear()
