@@ -4,7 +4,6 @@
 
 namespace ft
 {
-	//FIXME: construir iterator normal a partir de uno const, no deberia funcionar
 	template <class Node, class T, bool Const, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
 	class bstIterator : public iterator<std::bidirectional_iterator_tag, Node, Distance, Pointer, Reference>
 	{
@@ -18,14 +17,27 @@ namespace ft
 
 			bstIterator() : _data(NULL), _sentinel(NULL) {}
 
-			template <class U, class V, bool W>
-			bstIterator(const typename ft::enable_if<!W, bstIterator<U, V, W> >::type &src) : _data(src.getData()), _sentinel(src.getSentinel()) {}
+			template <class U, class V>
+			bstIterator(const bstIterator<U, V, false> &src) : _data(src.getData()), _sentinel(src.getSentinel()) {}
 			
 			bstIterator(const bstIterator &src) : _data(src.getData()), _sentinel(src.getSentinel()) {}
+			//bstIterator(const bstIterator &src) {}
 
 			bstIterator(Node *node, Node *sentinel) : _data(node), _sentinel(sentinel) {}
 
-			bstIterator &operator=(const bstIterator &src)
+	/*		template<class X, class Y, bool Z>
+			bstIterator &operator=(const bstIterator<X, Y, Z> &src)
+			{
+				std::cout << "TEMPLATE" << std::endl;
+				if (this != &src)
+				{
+					this->_data = src.getData();
+					this->_sentinel = src.getSentinel();
+				}
+				return *this;
+			}*/
+
+			bstIterator &operator=(const bstIterator &src) //FIXME: por que funciona bien al asignar const a no const y viceversa???????
 			{
 				if (this != &src)
 				{

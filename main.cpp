@@ -938,8 +938,10 @@ int main()
 	citr = constmap.begin();
 	ft::map<int, std::string>::iterator ftitr;
 	ftitr = ft_map.begin();
-	ft::map<int, std::string>::iterator ftcitr;
+	ft::map<int, std::string>::const_iterator ftcitr;
 	ftcitr = ftconstmap.begin();
+	citr = itr;
+	ftcitr = ftitr;
 
 	return 0;
 }

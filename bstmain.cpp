@@ -34,11 +34,14 @@ int main()
 	std::map<int, std::string> stdmap;
 	stdmap.insert(std::pair<int, std::string>(0, "edad"));
 	stdmap.insert(std::pair<int, std::string>(2, "amigos"));
-	std::map<int, std::string>::const_iterator stdit = stdmap.begin();
+	std::map<int, std::string>::iterator stdit = stdmap.begin();
 	std::map<int, std::string>::const_iterator stdit2(stdit);
 
-	ft::binarySearchTree<int, std::string>::const_iterator it = bst.begin();
+	ft::binarySearchTree<int, std::string>::iterator it = bst.begin();
 	ft::binarySearchTree<int, std::string>::const_iterator it2(it);
+
+	it = it2;
+
 	std::cout << "bst begin: " << it->first << ", " << it->second << std::endl;
 	std::cout << "it == it2? " << (it == it2) << std::endl;
 	*it++;
@@ -126,5 +129,7 @@ int main()
 	ftRevIt++;
 	std::cout << "ftRevIt: " << (*ftRevIt).first << ", " << (*ftRevIt).second << std::endl;
 	//std::cout << "ftRevIt[42]: " << ftRevIt[42] << std::endl;
+
+
 
 }
