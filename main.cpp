@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <vector>
 #include <stack>
@@ -830,6 +831,27 @@ int main()
 		std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
 	std::cout << "ft_map size: " << ftEmptyMap.size() << std::endl;
 
+	std::cout << "\n-----MAP NON-MEMBER SWAP-----" << std::endl;
+	std::swap(std_map, stdEmptyMap);
+	ft::swap(ft_map, ftEmptyMap);
+    for (std::map<int, std::string>::iterator itr = std_map.begin(); itr != std_map.end(); ++itr)
+    	std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+	std::cout << "std_map size: " << std_map.size() << std::endl;
+	std::cout << "The map ft_map is : \n";
+	std::cout << "\tKEY\tELEMENT\n";
+	for (ft::map<int, std::string>::iterator itr = ft_map.begin(); itr != ft_map.end(); ++itr)
+		std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+	std::cout << "ft_map size: " << ft_map.size() << std::endl;
+	std::cout << "The map stdEmptyMap is : \n";
+    std::cout << "\tKEY\tELEMENT\n";
+    for (std::map<int, std::string>::iterator itr = stdEmptyMap.begin(); itr != stdEmptyMap.end(); ++itr)
+    	std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+	std::cout << "std_map size: " << stdEmptyMap.size() << std::endl;
+	std::cout << "The map ftEmptyMap is : \n";
+	std::cout << "\tKEY\tELEMENT\n";
+	for (ft::map<int, std::string>::iterator itr = ftEmptyMap.begin(); itr != ftEmptyMap.end(); ++itr)
+		std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+	std::cout << "ft_map size: " << ftEmptyMap.size() << std::endl;
 
 	std::cout << "\n-----MAP CLEAR-----" << std::endl;
 	std_map.clear();
