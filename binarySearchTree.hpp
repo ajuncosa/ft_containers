@@ -150,6 +150,7 @@ namespace ft
 					return_iter = this->insertNodeIntoSubtree(this->_root, newData);
 				}
 				this->_size++;
+				balanceTree();
 				return ft::make_pair<iterator, bool>(return_iter, true);
 			}
 
@@ -365,6 +366,17 @@ namespace ft
 				if (tmp == this->max(this->_root))
 					this->_sentinel->left = tmp;
 				return iterator(tmp, this->_sentinel);
+			}
+
+			void balanceTree()
+			{
+				/*
+					1. Every node is either red or black.
+					2. Every leaf (NULL) is black.
+					3. If a node is red, then both its children are black.
+					4. Every simple path from a node to a descendant leaf contains the same number of black nodes.
+				*/
+				
 			}
 	};
 }

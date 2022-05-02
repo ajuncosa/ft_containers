@@ -7,19 +7,20 @@ namespace ft
 	{
 		typedef	T value_type;
 
-		Node		*parent;
-		Node		*left;
-		Node		*right;
-		value_type	value;
+		Node				*parent;
+		Node				*left;
+		Node				*right;
+		value_type			value;
+		enum {red, black}	colour;
 
-		Node() : parent(NULL), left(NULL), right(NULL), value() {}
+		Node() : parent(NULL), left(NULL), right(NULL), value(), colour(black) {}
 		
-		Node(Node *parent, Node *left, Node *right, value_type value) : parent(parent), left(left), right(right), value(value) {}
+		Node(Node *parent, Node *left, Node *right, value_type value) : parent(parent), left(left), right(right), value(value), colour(red) {}
 		
 		template <class U>
-		Node(const Node<U> &src) : parent(src.parent), left(src.left), right(src.right), value(src.value) {}
+		Node(const Node<U> &src) : parent(src.parent), left(src.left), right(src.right), value(src.value), colour(src.colour) {}
 		
-		Node(const Node &src) : parent(src.parent), left(src.left), right(src.right), value(src.value) {}
+		Node(const Node &src) : parent(src.parent), left(src.left), right(src.right), value(src.value), colour(src.colour) {}
 
 		Node &operator=(const Node &src)
 		{
@@ -29,6 +30,7 @@ namespace ft
 				this->right = src.right;
 				this->parent = src.parent;
 				this->value = src.value;
+				this->colour = src.colour;
 			}
 			return *this;
 		}
