@@ -21,23 +21,10 @@ namespace ft
 			bstIterator(const bstIterator<U, V, false> &src) : _data(src.getData()), _sentinel(src.getSentinel()) {}
 			
 			bstIterator(const bstIterator &src) : _data(src.getData()), _sentinel(src.getSentinel()) {}
-			//bstIterator(const bstIterator &src) {}
 
 			bstIterator(Node *node, Node *sentinel) : _data(node), _sentinel(sentinel) {}
 
-	/*		template<class X, class Y, bool Z>
-			bstIterator &operator=(const bstIterator<X, Y, Z> &src)
-			{
-				std::cout << "TEMPLATE" << std::endl;
-				if (this != &src)
-				{
-					this->_data = src.getData();
-					this->_sentinel = src.getSentinel();
-				}
-				return *this;
-			}*/
-
-			bstIterator &operator=(const bstIterator &src) //FIXME: por que funciona bien al asignar const a no const y viceversa???????
+			bstIterator &operator=(const bstIterator &src)
 			{
 				if (this != &src)
 				{
