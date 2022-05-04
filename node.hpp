@@ -11,11 +11,11 @@ namespace ft
 		Node				*left;
 		Node				*right;
 		value_type			value;
-		enum {red, black}	colour;
+		enum {RED, BLACK}	colour;
 
-		Node() : parent(NULL), left(NULL), right(NULL), value(), colour(black) {}
+		Node() : parent(NULL), left(NULL), right(NULL), value(), colour(BLACK) {}
 		
-		Node(Node *parent, Node *left, Node *right, value_type value) : parent(parent), left(left), right(right), value(value), colour(red) {}
+		Node(Node *parent, Node *left, Node *right, value_type value) : parent(parent), left(left), right(right), value(value), colour(RED) {}
 		
 		template <class U>
 		Node(const Node<U> &src) : parent(src.parent), left(src.left), right(src.right), value(src.value), colour(src.colour) {}
@@ -36,5 +36,10 @@ namespace ft
 		}
 
 		~Node() {}
+
+		void recolor()
+		{
+			this->colour = (this->colour == RED) ? BLACK : RED;
+		}
 	};
 }

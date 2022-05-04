@@ -305,6 +305,37 @@ namespace ft
 				src._sentinel = tmpSentinel;
 			}
 
+			void printTree() // FIXME: borrar
+			{
+				if (this->_root)
+					printTreeHelper(this->_root, "", true);
+			}
+
+			void printTreeHelper(node_type *root, std::string indent, bool last)
+			{
+				if (root != this->_sentinel)
+				{
+					std::cout<<indent;
+					if (last)
+					{
+						std::cout<<"R----";
+						indent += "     ";
+					}
+					else
+					{
+						std::cout<<"L----";
+						indent += "|    ";
+					}
+					if (!root->colour)
+						std::cout<< "\x1b[31m[" << root->value.first << "] => " << root->value.second << "\x1b[0m" <<std::endl;
+					else
+						std::cout<< "\x1b[32m[" << root->value.first << "] => " << root->value.second << "\x1b[0m"<<std::endl;
+					
+					printTreeHelper(root->left, indent, false);
+					printTreeHelper(root->right, indent, true);
+				}
+			}
+
 		protected:
 			typedef	typename allocator_type::template rebind<node_type>::other node_alloc_type;
 
@@ -333,7 +364,10 @@ namespace ft
 			void _nodeTransplant(node_type *oldNode, node_type *newNode)
 			{
 				if (oldNode->parent == this->_sentinel)
+				{
 					this->_root = newNode;
+					this->_sentinel->right = newNode;
+				}
 				else if (oldNode == oldNode->parent->left)
 					oldNode->parent->left = newNode;
 				else
@@ -373,17 +407,43 @@ namespace ft
 				node_type *parent = node->parent;
 				node_type *right = node->right;
 				
+				if (node == this->_sentinel || right == this->_sentinel)
+					return ;
 				if (node->parent == this->_sentinel)
-					this->_root = right; //FIXME: hay que poner el sentinel->right apuntando a root? hay que hacer tb eso en nodeTransplant?
+				{
+					this->_root = right;
+					this->_sentinel->right = right;
+				}
 				else if (node == parent->left)
 					parent->left = right;
 				else
-					parent->right = right;q
+					parent->right = right;
+				right->parent = node->parent;
 				node->right = right->left;
 				right->left = node;
 				node->parent = right;
-				//if (newNode != this->_sentinel)
-				//	newNode->parent = oldNode->parent;
+			}
+
+			void rightRotate(node_type *node)
+			{
+				node_type *parent = node->parent;
+				node_type *left = node->left;
+				
+				if (node == this->_sentinel || left == this->_sentinel)
+					return ;
+				if (node->parent == this->_sentinel)
+				{
+					this->_root = left;
+					this->_sentinel->right = left;
+				}
+				else if (node == parent->left)
+					parent->left = left;
+				else
+					parent->right = left;
+				left->parent = node->parent;
+				node->left = left->right;
+				left->right = node;
+				node->parent = left;
 			}
 
 			void balanceTree()
@@ -396,9 +456,6 @@ namespace ft
 					4. If a node is red, then both its children are black.
 					5. Every simple path from a node to a leaf contains the same number of black nodes.
 				*/
-
-
-				
 			}
 	};
 }
