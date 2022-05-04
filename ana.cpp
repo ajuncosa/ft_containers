@@ -27,5 +27,21 @@ int main()
 
 	//it2 = it;
 
+	/*for (int i = 0; i < 2000; i++)
+	{
+		if (i%2 == 0)
+			stdmap.insert(std::pair<int, std::string>(i/2, "par"));
+		else
+			stdmap.insert(std::pair<int, std::string>(i*2, "impar"));
+	}*/
+
+	/*for (int i = 0; i < 2000; i++)
+	{
+		if (i%2 == 0)
+			ftmap.insert(ft::pair<int, std::string>(i/2, "par"));
+		else
+			ftmap.insert(ft::pair<int, std::string>(i*2, "impar"));
+	}*/
+
 
 }

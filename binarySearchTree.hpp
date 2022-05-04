@@ -150,7 +150,7 @@ namespace ft
 					return_iter = this->insertNodeIntoSubtree(this->_root, newData);
 				}
 				this->_size++;
-				balanceTree();
+				this->balanceTree();
 				return ft::make_pair<iterator, bool>(return_iter, true);
 			}
 
@@ -368,14 +368,36 @@ namespace ft
 				return iterator(tmp, this->_sentinel);
 			}
 
+			void leftRotate(node_type *node)
+			{
+				node_type *parent = node->parent;
+				node_type *right = node->right;
+				
+				if (node->parent == this->_sentinel)
+					this->_root = right; //FIXME: hay que poner el sentinel->right apuntando a root? hay que hacer tb eso en nodeTransplant?
+				else if (node == parent->left)
+					parent->left = right;
+				else
+					parent->right = right;q
+				node->right = right->left;
+				right->left = node;
+				node->parent = right;
+				//if (newNode != this->_sentinel)
+				//	newNode->parent = oldNode->parent;
+			}
+
 			void balanceTree()
 			{
 				/*
+					Red-black properties:
 					1. Every node is either red or black.
-					2. Every leaf (NULL) is black.
-					3. If a node is red, then both its children are black.
-					4. Every simple path from a node to a descendant leaf contains the same number of black nodes.
+					2. The root node of the tree is black
+					3. Every leaf (NULL) node is black.
+					4. If a node is red, then both its children are black.
+					5. Every simple path from a node to a leaf contains the same number of black nodes.
 				*/
+
+
 				
 			}
 	};
