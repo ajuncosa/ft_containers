@@ -140,6 +140,7 @@ namespace ft
 					this->_nodeAlloc.construct(this->_root, node_type(this->_sentinel, this->_sentinel, this->_sentinel, newData));
 					this->_sentinel->right = this->_root;
 					this->_sentinel->left = this->_root;
+					this->_root->recolor();
 					return_iter = iterator(this->_root, this->_sentinel);
 				}
 				else
@@ -150,7 +151,6 @@ namespace ft
 					return_iter = this->insertNodeIntoSubtree(this->_root, newData);
 				}
 				this->_size++;
-				this->balanceTree();
 				return ft::make_pair<iterator, bool>(return_iter, true);
 			}
 
@@ -399,6 +399,7 @@ namespace ft
 				this->_nodeAlloc.construct(tmp, node_type(finder, this->_sentinel, this->_sentinel, newData));
 				if (tmp == this->max(this->_root))
 					this->_sentinel->left = tmp;
+				this->balanceTree(tmp);
 				return iterator(tmp, this->_sentinel);
 			}
 
@@ -446,8 +447,11 @@ namespace ft
 				node->parent = left;
 			}
 
-			void balanceTree()
+			void balanceTree(node_type *newNode)
 			{
+				node_type	*uncle;
+				node_type	*parent = newNode->parent;
+				node_type	*grandparent = parent->parent;
 				/*
 					Red-black properties:
 					1. Every node is either red or black.
@@ -456,6 +460,77 @@ namespace ft
 					4. If a node is red, then both its children are black.
 					5. Every simple path from a node to a leaf contains the same number of black nodes.
 				*/
+				while (!parent->colour)
+				{
+					uncle = (parent == grandparent->left) ? grandparent->right : grandparent->left;
+					if (!uncle->colour)
+					{
+						uncle->recolor();
+						parent->recolor();
+						if (grandparent != this->_root)
+							grandparent->recolor();
+						newNode = grandparent;
+					}
+					else
+					{
+						if (parent == grandparent->right)
+						{
+							/*if (newNode == parent->right)
+							{
+								this->leftRotate(grandparent);
+								grandparent->recolor();
+								parent->recolor();
+								newNode = parent;
+							}
+							else
+							{
+								this->rightRotate(parent);
+								this->leftRotate(grandparent);
+								grandparent->recolor();
+								newNode->recolor();
+								//newNode = parent;
+							}*/
+							if (newNode == parent->left)
+							{
+								newNode = parent;
+								this->rightRotate(newNode);
+							}
+							newNode->parent->recolor();
+							newNode->parent->parent->recolor();
+							this->leftRotate(newNode->parent->parent);
+						}
+						else
+						{
+							/*if (newNode == parent->left)
+							{
+								this->rightRotate(grandparent);
+								grandparent->recolor();
+								parent->recolor();
+								newNode = parent;
+							}
+							else
+							{
+								this->leftRotate(parent);
+								this->rightRotate(grandparent);
+								grandparent->recolor();
+								newNode->recolor();
+								//newNode = parent;
+							}*/
+							if (newNode == parent->right)
+							{
+								newNode = parent;
+								this->leftRotate(newNode);
+							}
+							newNode->parent->recolor();
+							newNode->parent->parent->recolor();
+							this->rightRotate(newNode->parent->parent);
+						}
+					}
+					parent = newNode->parent;
+					grandparent = parent->parent;
+					if (newNode == this->_root)
+						break ;
+				}
 			}
 	};
 }
