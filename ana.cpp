@@ -1,13 +1,14 @@
 #include <iostream>
 #include <map>
+#include <list>
 #include "map.hpp"
 #include "binarySearchTree.hpp"
 
 
 int main()
 {
-	/*std::map<int, std::string> stdmap;
-	stdmap.insert(std::pair<int, std::string>(20, "edad"));
+	//std::map<int, std::string> stdmap;
+	/*stdmap.insert(std::pair<int, std::string>(20, "edad"));
 	stdmap.insert(std::pair<int, std::string>(3, "amigos"));
 	stdmap.insert(std::pair<int, std::string>(30, "b"));
 	stdmap.insert(std::pair<int, std::string>(2, "c"));
@@ -24,8 +25,23 @@ int main()
 	for (std::map<int, std::string>::const_iterator it = stdmap.begin(); it != stdmap.end(); it++)
 		std::cout << "\t" << it->first << ", " << it->second << std::endl;
 */
+
+/*	typedef ft::map<int, int>::value_type T;
+	std::list<T> lst;
+	unsigned int lst_size = 10;
+	for (unsigned int i = 0; i < lst_size; ++i)
+		lst.push_back(T(i + 1, (i + 1) * 3));
+	ft::map<int, int> ftmap(lst.begin(), lst.end());
+
+	for (ft::map<int, int>::const_iterator it = ftmap.begin(); it != ftmap.end(); it++)
+		std::cout << "\t" << it->first << ", " << it->second << std::endl;
+
+	ft::map<int, int>::const_iterator last = --ftmap.end();
+	std::cout << "begin: " << ftmap.begin()->first << ", end - 1: " << last->first << std::endl;
+	*/
+
 	ft::map<int, std::string> ftmap;
-	ftmap.insert(ft::pair<int, std::string>(20, "edad"));
+	/*ftmap.insert(ft::pair<int, std::string>(20, "edad"));
 	ftmap.insert(ft::pair<int, std::string>(3, "amigos"));
 	ftmap.insert(ft::pair<int, std::string>(30, "b"));
 	ftmap.insert(ft::pair<int, std::string>(2, "c"));
@@ -40,8 +56,8 @@ int main()
 	std::cout << "ftmap contains:" <<std::endl;
 	for (ft::map<int, std::string>::const_iterator it = ftmap.begin(); it != ftmap.end(); it++)
 		std::cout << "\t" << it->first << ", " << it->second << std::endl;
-
-	ftmap.printMap();
+	*/
+	//ftmap.printMap();
 
 	//it2 = it;
 
@@ -53,13 +69,13 @@ int main()
 			stdmap.insert(std::pair<int, std::string>(i*2, "impar"));
 	}*/
 
-	/*for (int i = 0; i < 20000; i++)
+	for (int i = 0; i < 20000; i++)
 	{
 		if (i%2 == 0)
 			ftmap.insert(ft::pair<int, std::string>(i/2, "par"));
 		else
 			ftmap.insert(ft::pair<int, std::string>(i*2, "impar"));
-	}*/
+	}
 
 	/*ft::binarySearchTree<int, std::string> bst;
 	bst.insert(ft::pair<int, std::string>(0, "edad"));

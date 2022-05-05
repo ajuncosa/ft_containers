@@ -364,11 +364,8 @@ namespace ft
 			void _nodeTransplant(node_type *oldNode, node_type *newNode)
 			{
 				if (oldNode->parent == this->_sentinel)
-				{
 					this->_root = newNode;
-					this->_sentinel->right = newNode;
-				}
-				else if (oldNode == oldNode->parent->left)
+				if (oldNode == oldNode->parent->left)
 					oldNode->parent->left = newNode;
 				else
 					oldNode->parent->right = newNode;
@@ -405,22 +402,20 @@ namespace ft
 
 			void leftRotate(node_type *node)
 			{
-				node_type *parent = node->parent;
+				node_type *parent = node->parent; //TODO: can I use nodetransplant for the rotates?
 				node_type *right = node->right;
 				
 				if (node == this->_sentinel || right == this->_sentinel)
 					return ;
 				if (node->parent == this->_sentinel)
-				{
 					this->_root = right;
-					this->_sentinel->right = right;
-				}
-				else if (node == parent->left)
+				if (node == parent->left)
 					parent->left = right;
 				else
 					parent->right = right;
 				right->parent = node->parent;
 				node->right = right->left;
+				right->left->parent = node;
 				right->left = node;
 				node->parent = right;
 			}
@@ -433,16 +428,14 @@ namespace ft
 				if (node == this->_sentinel || left == this->_sentinel)
 					return ;
 				if (node->parent == this->_sentinel)
-				{
 					this->_root = left;
-					this->_sentinel->right = left;
-				}
-				else if (node == parent->left)
+				if (node == parent->left)
 					parent->left = left;
 				else
 					parent->right = left;
 				left->parent = node->parent;
 				node->left = left->right;
+				left->right->parent = node;
 				left->right = node;
 				node->parent = left;
 			}
@@ -460,6 +453,7 @@ namespace ft
 					4. If a node is red, then both its children are black.
 					5. Every simple path from a node to a leaf contains the same number of black nodes.
 				*/
+
 				while (!parent->colour)
 				{
 					uncle = (parent == grandparent->left) ? grandparent->right : grandparent->left;
@@ -475,12 +469,11 @@ namespace ft
 					{
 						if (parent == grandparent->right)
 						{
-							/*if (newNode == parent->right)
+							if (newNode == parent->right)
 							{
 								this->leftRotate(grandparent);
 								grandparent->recolor();
 								parent->recolor();
-								newNode = parent;
 							}
 							else
 							{
@@ -488,25 +481,15 @@ namespace ft
 								this->leftRotate(grandparent);
 								grandparent->recolor();
 								newNode->recolor();
-								//newNode = parent;
-							}*/
-							if (newNode == parent->left)
-							{
-								newNode = parent;
-								this->rightRotate(newNode);
 							}
-							newNode->parent->recolor();
-							newNode->parent->parent->recolor();
-							this->leftRotate(newNode->parent->parent);
 						}
 						else
 						{
-							/*if (newNode == parent->left)
+							if (newNode == parent->left)
 							{
 								this->rightRotate(grandparent);
 								grandparent->recolor();
 								parent->recolor();
-								newNode = parent;
 							}
 							else
 							{
@@ -514,16 +497,7 @@ namespace ft
 								this->rightRotate(grandparent);
 								grandparent->recolor();
 								newNode->recolor();
-								//newNode = parent;
-							}*/
-							if (newNode == parent->right)
-							{
-								newNode = parent;
-								this->leftRotate(newNode);
 							}
-							newNode->parent->recolor();
-							newNode->parent->parent->recolor();
-							this->rightRotate(newNode->parent->parent);
 						}
 					}
 					parent = newNode->parent;
@@ -531,6 +505,8 @@ namespace ft
 					if (newNode == this->_root)
 						break ;
 				}
+				if (!this->_root->colour)
+					this->_root->recolor();
 			}
 	};
 }

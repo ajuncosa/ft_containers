@@ -11,13 +11,13 @@
 
 namespace ft
 {
-	template <class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<pair<const Key,T> > >
+	template <class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<const Key,T> > >
 	class map
 	{
 		public:
 			typedef Key key_type;
 			typedef T mapped_type;
-			typedef pair<const key_type, mapped_type> value_type;
+			typedef ft::pair<const key_type, mapped_type> value_type;
 			typedef Compare key_compare;
 			typedef Alloc allocator_type;
 			typedef typename allocator_type::reference reference;
@@ -141,7 +141,7 @@ namespace ft
 				return it;
 			}
 
-			pair<const_iterator, const_iterator> equal_range(const key_type &k) const
+			ft::pair<const_iterator, const_iterator> equal_range(const key_type &k) const
 			{
 				const_iterator lowerB = this->lower_bound(k);
 				const_iterator upperB = this->upper_bound(k);
@@ -149,7 +149,7 @@ namespace ft
 				return ft::make_pair<const_iterator, const_iterator>(lowerB, upperB);
 			}
 
-			pair<iterator, iterator> equal_range(const key_type &k)
+			ft::pair<iterator, iterator> equal_range(const key_type &k)
 			{
 				iterator lowerB = this->lower_bound(k);
 				iterator upperB = this->upper_bound(k);
@@ -163,7 +163,7 @@ namespace ft
 				return kElement->second;
 			}
 
-			pair<iterator, bool> insert(const value_type &val)
+			ft::pair<iterator, bool> insert(const value_type &val)
 			{
 				return this->_tree.insert(val);
 			}
