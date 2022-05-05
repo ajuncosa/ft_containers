@@ -402,18 +402,11 @@ namespace ft
 
 			void leftRotate(node_type *node)
 			{
-				node_type *parent = node->parent; //TODO: can I use nodetransplant for the rotates?
 				node_type *right = node->right;
 				
 				if (node == this->_sentinel || right == this->_sentinel)
 					return ;
-				if (node->parent == this->_sentinel)
-					this->_root = right;
-				if (node == parent->left)
-					parent->left = right;
-				else
-					parent->right = right;
-				right->parent = node->parent;
+				this->_nodeTransplant(node, right);
 				node->right = right->left;
 				right->left->parent = node;
 				right->left = node;
@@ -422,18 +415,11 @@ namespace ft
 
 			void rightRotate(node_type *node)
 			{
-				node_type *parent = node->parent;
 				node_type *left = node->left;
 				
 				if (node == this->_sentinel || left == this->_sentinel)
 					return ;
-				if (node->parent == this->_sentinel)
-					this->_root = left;
-				if (node == parent->left)
-					parent->left = left;
-				else
-					parent->right = left;
-				left->parent = node->parent;
+				this->_nodeTransplant(node, left);
 				node->left = left->right;
 				left->right->parent = node;
 				left->right = node;

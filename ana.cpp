@@ -57,7 +57,7 @@ int main()
 	for (ft::map<int, std::string>::const_iterator it = ftmap.begin(); it != ftmap.end(); it++)
 		std::cout << "\t" << it->first << ", " << it->second << std::endl;
 	*/
-	//ftmap.printMap();
+	ftmap.printMap();
 
 	//it2 = it;
 
