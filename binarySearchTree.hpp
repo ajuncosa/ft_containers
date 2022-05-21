@@ -18,6 +18,7 @@ namespace ft
 			typedef Alloc allocator_type;
 			typedef size_t size_type;
 			typedef	Node<value_type> node_type;
+			typedef typename node_type::Colour node_colour_type;
 			typedef bstIterator<node_type, value_type, false> iterator;
 			typedef bstIterator<node_type, const value_type, true> const_iterator;
 			typedef reverse_iterator<const_iterator> const_reverse_iterator;
@@ -176,32 +177,53 @@ namespace ft
 
 			void eraseNode(node_type *node)
 			{
+				node_type			*substitute;
+				node_type			*substituteParent;
+				node_colour_type 	originalColour;
+
 				if (node == this->_sentinel)
 					return ;
 				if (node == this->max(this->_root))
 					this->_sentinel->left = (--iterator(node, this->_sentinel)).getData();
+				originalColour = node->colour;
 				// case where node has no children || only a right child:
 				if (node->left == this->_sentinel)
+				{
+					substitute = node->right;
+					substituteParent = node->parent;
 					this->_nodeTransplant(node, node->right);
+				}
 				// case where node has only a left child:
 				else if (node->right == this->_sentinel)
+				{
+					substitute = node->left;
+					substituteParent = node->parent;
 					this->_nodeTransplant(node, node->left);
+				}
 				// case where node has two children:
 				else
 				{
 					node_type *inOrderSuccessor = this->min(node->right);
+					substitute = inOrderSuccessor->right;
+					substituteParent = inOrderSuccessor;
 					if (inOrderSuccessor->parent != node)
 					{
+						substituteParent = inOrderSuccessor->parent;
 						this->_nodeTransplant(inOrderSuccessor, inOrderSuccessor->right);
 						inOrderSuccessor->right = node->right;
 						node->right->parent = inOrderSuccessor;
 					}
+					else
+						originalColour = inOrderSuccessor->colour;
 					this->_nodeTransplant(node, inOrderSuccessor);
 					inOrderSuccessor->left = node->left;
 					node->left->parent = inOrderSuccessor;
+					inOrderSuccessor->colour = node->colour;
 				}
 				this->_deleteNode(node);
 				this->_size--;
+				if (originalColour)
+					this->balanceTreeAfterDelete(substitute, substituteParent);
 			}
 
 			iterator begin()
@@ -396,7 +418,7 @@ namespace ft
 				this->_nodeAlloc.construct(tmp, node_type(finder, this->_sentinel, this->_sentinel, newData));
 				if (tmp == this->max(this->_root))
 					this->_sentinel->left = tmp;
-				this->balanceTree(tmp);
+				this->balanceTreeAfterInsert(tmp);
 				return iterator(tmp, this->_sentinel);
 			}
 
@@ -426,7 +448,7 @@ namespace ft
 				node->parent = left;
 			}
 
-			void balanceTree(node_type *newNode)
+			void balanceTreeAfterInsert(node_type *newNode)
 			{
 				node_type	*uncle;
 				node_type	*parent = newNode->parent;
@@ -493,6 +515,97 @@ namespace ft
 				}
 				if (!this->_root->colour)
 					this->_root->recolor();
+			}
+
+			void balanceTreeAfterDelete(node_type *x, node_type *parent) // x is the node that substitutes the recently deleted node
+			{
+				node_type *sibling;
+
+				if (!x->colour)
+				{
+					x->recolor();
+					return;
+				}
+				// x acts as placeholder
+				while (x != this->_root && x->colour)
+				{
+					if (x == parent->left)
+					{
+						sibling = parent->right;
+						if (!sibling->colour)
+						{
+							sibling->recolor();
+							if (parent->colour)
+								parent->recolor();
+							this->leftRotate(parent);
+							sibling = parent->right;
+						}
+						if (sibling != this->_sentinel && sibling->left->colour && sibling->right->colour)
+						{
+							sibling->recolor();
+							x = parent;
+						}
+						else
+						{
+							if (sibling != this->_sentinel && sibling->right->colour)
+							{
+								if (!sibling->left->colour)
+									sibling->left->recolor();
+								if (sibling->colour)
+									sibling->recolor();
+								this->rightRotate(sibling);
+								sibling = parent->right;
+							}
+							sibling->colour = parent->colour;
+							if (!parent->colour)
+								parent->recolor();
+							if (sibling != this->_sentinel && !sibling->right->colour)
+								sibling->right->recolor();
+							this->leftRotate(parent);
+							x = this->_root;
+						}
+					}
+					else
+					{
+						sibling = parent->left;
+						if (!sibling->colour)
+						{
+							sibling->recolor();
+							if (parent->colour)
+								parent->recolor();
+							this->rightRotate(parent);
+							sibling = parent->left;
+						}
+						if (sibling != this->_sentinel && sibling->right->colour && sibling->left->colour)
+						{
+							sibling->recolor();
+							x = parent;
+						}
+						else
+						{
+							if (sibling != this->_sentinel && sibling->left->colour)
+							{
+								if (!sibling->right->colour)
+									sibling->right->recolor();
+								if (sibling->colour)
+									sibling->recolor();
+								this->leftRotate(sibling);
+								sibling = parent->left;
+							}
+							sibling->colour = parent->colour;
+							if (!parent->colour)
+								parent->recolor();
+							if (sibling != this->_sentinel && !sibling->left->colour)
+								sibling->left->recolor();
+							this->rightRotate(parent);
+							x = this->_root;
+						}
+					}
+					
+					parent = x->parent;
+				}
+				if (!x->colour)
+						x->recolor();
 			}
 	};
 }

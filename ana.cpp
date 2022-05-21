@@ -7,8 +7,8 @@
 
 int main()
 {
-	//std::map<int, std::string> stdmap;
-	/*stdmap.insert(std::pair<int, std::string>(20, "edad"));
+/*	std::map<int, std::string> stdmap;
+	stdmap.insert(std::pair<int, std::string>(20, "edad"));
 	stdmap.insert(std::pair<int, std::string>(3, "amigos"));
 	stdmap.insert(std::pair<int, std::string>(30, "b"));
 	stdmap.insert(std::pair<int, std::string>(2, "c"));
@@ -17,8 +17,8 @@ int main()
 	stdmap.insert(std::pair<int, std::string>(42, "u"));
 	stdmap.insert(std::pair<int, std::string>(1, ">:p"));
 	stdmap.insert(std::pair<int, std::string>(100, "aaaa"));
-
-	std::map<int, std::string>::const_iterator stdit = stdmap.begin();
+*/
+/*	std::map<int, std::string>::const_iterator stdit = stdmap.begin();
 	std::map<int, std::string>::const_iterator stdit2(stdit);
 
 	std::cout << "stdmap contains:" <<std::endl;
@@ -41,7 +41,7 @@ int main()
 	*/
 
 	ft::map<int, std::string> ftmap;
-	/*ftmap.insert(ft::pair<int, std::string>(20, "edad"));
+	ftmap.insert(ft::pair<int, std::string>(20, "edad"));
 	ftmap.insert(ft::pair<int, std::string>(3, "amigos"));
 	ftmap.insert(ft::pair<int, std::string>(30, "b"));
 	ftmap.insert(ft::pair<int, std::string>(2, "c"));
@@ -50,7 +50,7 @@ int main()
 	ftmap.insert(ft::pair<int, std::string>(42, "u"));
 	ftmap.insert(ft::pair<int, std::string>(1, ">:p"));
 	ftmap.insert(ft::pair<int, std::string>(100, "aaaa"));
-	ft::map<int, std::string>::const_iterator it = ftmap.begin();
+/*	ft::map<int, std::string>::const_iterator it = ftmap.begin();
 	ft::map<int, std::string>::const_iterator it2(it);
 
 	std::cout << "ftmap contains:" <<std::endl;
@@ -58,6 +58,15 @@ int main()
 		std::cout << "\t" << it->first << ", " << it->second << std::endl;
 	*/
 	ftmap.printMap();
+	ftmap.erase(20);
+	ftmap.erase(100);
+	ftmap.erase(2);
+	ftmap.erase(3);
+	ftmap.erase(35);
+	ftmap.erase(30);
+
+	ftmap.printMap();
+
 
 	//it2 = it;
 
@@ -67,15 +76,25 @@ int main()
 			stdmap.insert(std::pair<int, std::string>(i/2, "par"));
 		else
 			stdmap.insert(std::pair<int, std::string>(i*2, "impar"));
-	}*/
+	}
+	for (int i = 0; i < 20000; i++)
+	{
+		stdmap.erase(i);
+	}
+*/
+	for (int i = 0; i < 50000; i++)
+	{
+		ftmap.insert(ft::pair<int, std::string>(i, "par"));
+	}
 
 	for (int i = 0; i < 20000; i++)
 	{
-		if (i%2 == 0)
-			ftmap.insert(ft::pair<int, std::string>(i/2, "par"));
-		else
-			ftmap.insert(ft::pair<int, std::string>(i*2, "impar"));
+		ftmap.erase(i);
 	}
+	for (int i = 21000; i < 50000; i+=100)
+		ftmap.find(i);
+	//ftmap.printMap();
+
 
 	/*ft::binarySearchTree<int, std::string> bst;
 	bst.insert(ft::pair<int, std::string>(0, "edad"));

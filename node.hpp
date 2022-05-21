@@ -6,12 +6,13 @@ namespace ft
 	struct Node
 	{
 		typedef	T value_type;
+		enum Colour {RED, BLACK};
 
-		Node				*parent;
-		Node				*left;
-		Node				*right;
-		value_type			value;
-		enum {RED, BLACK}	colour;
+		Node		*parent;
+		Node		*left;
+		Node		*right;
+		value_type	value;
+		Colour		colour;
 
 		Node() : parent(NULL), left(NULL), right(NULL), value(), colour(BLACK) {}
 		
@@ -39,7 +40,8 @@ namespace ft
 
 		void recolor()
 		{
-			this->colour = (this->colour == RED) ? BLACK : RED;
+			if (this->parent != NULL) // FIXME: esto quiere decir que this es sentinel no???
+				this->colour = (this->colour == RED) ? BLACK : RED;
 		}
 	};
 }
