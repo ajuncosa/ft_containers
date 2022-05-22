@@ -272,11 +272,6 @@ namespace ft
 				return value_compare::constructObject(this->_comp);
 			}
 
-			void printMap() //FIXME: borrar
-			{
-				_tree.printTree();
-			}
-
 		private:
 			tree_type		_tree;
 			allocator_type	_alloc;

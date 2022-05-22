@@ -335,37 +335,6 @@ namespace ft
 				src._sentinel = tmpSentinel;
 			}
 
-			void printTree() // FIXME: borrar
-			{
-				if (this->_root)
-					printTreeHelper(this->_root, "", true);
-			}
-
-			void printTreeHelper(node_type *root, std::string indent, bool last)
-			{
-				if (root != this->_sentinel)
-				{
-					std::cout<<indent;
-					if (last)
-					{
-						std::cout<<"R----";
-						indent += "     ";
-					}
-					else
-					{
-						std::cout<<"L----";
-						indent += "|    ";
-					}
-					if (!root->colour)
-						std::cout<< "\x1b[31m[" << root->value.first << "] => " << root->value.second << "\x1b[0m" <<std::endl;
-					else
-						std::cout<< "\x1b[32m[" << root->value.first << "] => " << root->value.second << "\x1b[0m"<<std::endl;
-					
-					printTreeHelper(root->left, indent, false);
-					printTreeHelper(root->right, indent, true);
-				}
-			}
-
 		protected:
 			typedef	typename allocator_type::template rebind<node_type>::other node_alloc_type;
 
@@ -610,11 +579,10 @@ namespace ft
 							x = this->_root;
 						}
 					}
-					
 					parent = x->parent;
 				}
 				if (!x->colour)
-						x->recolor();
+					x->recolor();
 			}
 	};
 }

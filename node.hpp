@@ -40,7 +40,7 @@ namespace ft
 
 		void recolor()
 		{
-			if (this->parent != NULL) // FIXME: esto quiere decir que this es sentinel no???
+			if (this->parent != NULL)
 				this->colour = (this->colour == RED) ? BLACK : RED;
 		}
 	};
