@@ -205,6 +205,15 @@ namespace ft
 				{
 					node_type *inOrderSuccessor = this->min(node->right);
 					substitute = inOrderSuccessor->right;
+					/*
+						"substitute" is the node that substitutes the recently deleted node.
+						In my implementation, to avoid invalidation of pointers and iterators, the
+						deleted node is fully substituted with another one, even if it has two children.
+						However, for theoretical purposes, we assume that the deleted node is actually
+						inOrderSuccessor (as if we replaced node's contents with IOS's contents,
+						and then deleted IOS, because we "can only delete leaf nodes"), thus
+						"substitute" is the node that substitutes IOS.
+					*/
 					substituteParent = inOrderSuccessor;
 					if (inOrderSuccessor->parent != node)
 					{
@@ -213,12 +222,11 @@ namespace ft
 						inOrderSuccessor->right = node->right;
 						node->right->parent = inOrderSuccessor;
 					}
-					else
-						originalColour = inOrderSuccessor->colour;
+					originalColour = inOrderSuccessor->colour; //colour of the "theorically" deleted node, i.e. IOS, in this case.
 					this->_nodeTransplant(node, inOrderSuccessor);
 					inOrderSuccessor->left = node->left;
 					node->left->parent = inOrderSuccessor;
-					inOrderSuccessor->colour = node->colour;
+					inOrderSuccessor->colour = node->colour; // as if we were simply replacing the contents of the node, IOS keeps node's colour.
 				}
 				this->_deleteNode(node);
 				this->_size--;
@@ -517,7 +525,8 @@ namespace ft
 					this->_root->recolor();
 			}
 
-			void balanceTreeAfterDelete(node_type *x, node_type *parent) // x is the node that substitutes the recently deleted node
+ 			// x is the node that substitutes the recently deleted node
+			void balanceTreeAfterDelete(node_type *x, node_type *parent)
 			{
 				node_type *sibling;
 
