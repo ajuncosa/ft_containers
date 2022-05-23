@@ -7,17 +7,25 @@ NC='\033[0m'
 make std > /dev/null
 ./containers > std_out
 
-make ft > /dev/null
+rm containers
+
+make ft > /dev/null 2>&1
 ./containers > ft_out
 
-echo "-----Outputs test-----"
-DIFF=$(diff ft_out std_out)
-if [ "${DIFF}" != "" ]
+FILE=containers
+if [ ! -f "${FILE}" ]
 then
-	echo "${RED}DIFF KO${NC}"
-	diff ft_out std_out
+    echo "${RED}Compilation error. Your programme should compile at this stage. Check the main.c tests.${NC}"
 else
-	echo "${GREEN}DIFF OK${NC}"
+	echo "-----Outputs test-----"
+	DIFF=$(diff ft_out std_out)
+	if [ "${DIFF}" != "" ]
+	then
+		echo "${RED}DIFF KO${NC}"
+		diff ft_out std_out
+	else
+		echo "${GREEN}DIFF OK${NC}"
+	fi
 fi
 
 echo "\n-----Compilation tests-----"

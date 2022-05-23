@@ -504,7 +504,7 @@ void mapTests()
 	citr = constmap.begin();
 	std::cout << "iterator to const_iterator" << std::endl;
 	citr = itr;
-	std::cout << "const_iterator to iterator" << std::endl;
+	//std::cout << "const_iterator to iterator" << std::endl;
 	//itr = citr; // should not compile
 
 	std::cout << "\n-----EQUAL-----" << std::endl;
