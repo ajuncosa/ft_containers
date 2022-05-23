@@ -20,7 +20,7 @@ else
 	echo "${GREEN}DIFF OK${NC}"
 fi
 
-echo "-----Compilation tests-----"
+echo "\n-----Compilation tests-----"
 c++ -D NS=ft no_compile_1.cpp -o no_compile_test 2> /dev/null
 FILE=no_compile_test
 if [ -f "${FILE}" ]

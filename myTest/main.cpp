@@ -1,5 +1,5 @@
-
 #include <iostream>
+#include <string>
 #include <vector>
 #include <stack>
 #include <map>
@@ -14,7 +14,36 @@
 #define TYPE1 int
 #define TYPE2 std::string
 
-// TODO: probar pasandoles otros tipos complejos aparte de int y string, y algo como el main que venia en el subject
+#include <stdlib.h>
+
+#define MAX_RAM 4294967296
+#define BUFFER_SIZE 4096
+struct Buffer
+{
+	int idx;
+	char buff[BUFFER_SIZE];
+};
+
+#define COUNT (MAX_RAM / (int)sizeof(Buffer))
+
+template<typename T>
+class MutantStack : public NS::stack<T>
+{
+	public:
+		MutantStack() {}
+		MutantStack(const MutantStack<T>& src) { *this = src; }
+		MutantStack<T>& operator=(const MutantStack<T>& rhs) 
+		{
+			this->c = rhs.c;
+			return *this;
+		}
+		~MutantStack() {}
+
+		typedef typename NS::stack<T>::container_type::iterator iterator;
+
+		iterator begin() { return this->c.begin(); }
+		iterator end() { return this->c.end(); }
+};
 
 bool mycomp(TYPE1 a, TYPE1 b)
 {
@@ -158,15 +187,14 @@ void vectorTests()
 	printVector(v, "v");
 	printVector(v4, "v4");
 
-	// TODO: comprobar EQUAL y LEXICOGRAPHICAL con otros tipos de contenedores?
 	std::cout << "\n-----EQUAL-----" << std::endl;
 	std::cout << "v equal v4? " << NS::equal(v.begin(), v.end(), v4.begin()) << std::endl;
 
 	std::cout << "\n-----LEXICOGRAPHICAL_COMPARE-----" << std::endl;
-	std::cout << "v < v4? " << std::lexicographical_compare(v.begin(), v.end(), v4.begin(), v4.end()) << std::endl;
-	std::cout << "v4 < v? " << std::lexicographical_compare(v4.begin(), v4.end(), v.begin(), v.end()) << std::endl;
-	std::cout << "v < v4? (comp) " << std::lexicographical_compare(v.begin(), v.end(), v4.begin(), v4.end(), mycomp) << std::endl;
-	std::cout << "v4 < v? (comp) " << std::lexicographical_compare(v4.begin(), v4.end(), v.begin(), v.end(), mycomp) << std::endl;
+	std::cout << "v < v4? " << NS::lexicographical_compare(v.begin(), v.end(), v4.begin(), v4.end()) << std::endl;
+	std::cout << "v4 < v? " << NS::lexicographical_compare(v4.begin(), v4.end(), v.begin(), v.end()) << std::endl;
+	std::cout << "v < v4? (comp) " << NS::lexicographical_compare(v.begin(), v.end(), v4.begin(), v4.end(), mycomp) << std::endl;
+	std::cout << "v4 < v? (comp) " << NS::lexicographical_compare(v4.begin(), v4.end(), v.begin(), v.end(), mycomp) << std::endl;
 
 	std::cout << "\n-----ELEMENT ACCESS-----" << std::endl;
 	std::cout << "v[1]: " << v[1] << std::endl;
@@ -223,11 +251,32 @@ void vectorTests()
 	std::cout << "rev_it >= rev_it2? " << (rev_it >= rev_it2) << std::endl;
 	std::cout << "rev_it2 > rev_it? " << (rev_it2 > rev_it) << std::endl;
 
-	std::cout << "\n-----CONST ITERATOR TESTS-----" << std::endl;
-	std::cout << "should not compile" << std::endl;
-	//NS::vector<TYPE1> const vect;
-	//NS::vector<TYPE1>::const_iterator iter = vect.begin();
-	//NS::vector<TYPE1>::iterator iter2(iter);
+	std::cout << "\n-----SUBJECT MAIN TESTS-----" << std::endl;
+	NS::vector<std::string> vector_str;
+	NS::vector<int> vector_int;
+	NS::vector<Buffer> vector_buffer;
+	srand(5);
+	for (int i = 0; i < COUNT; i++)
+		vector_buffer.push_back(Buffer());
+	for (int i = 0; i < COUNT; i++)
+	{
+		const int idx = rand() % COUNT;
+		vector_buffer[idx].idx = 5;
+	}
+	NS::vector<Buffer>().swap(vector_buffer);
+	try
+	{
+		for (int i = 0; i < COUNT; i++)
+		{
+			const int idx = rand() % COUNT;
+			vector_buffer.at(idx);
+			std::cerr << "Error: THIS VECTOR SHOULD BE EMPTY!!" <<std::endl;
+		}
+	}
+	catch(const std::exception& e)
+	{
+		//NORMAL ! :P
+	}
 
 	std::cout << "\n\n";
 }
@@ -262,17 +311,28 @@ void stackTests()
 	std::cout << "s <= s1? " << (s <= s1) << std::endl;
 	std::cout << "s > s1? " << (s > s1) << std::endl;
 	std::cout << "s >= s1? " << (s >= s1) << std::endl;
+
+	std::cout << "\n-----SUBJECT MAIN TESTS-----" << std::endl;
+	NS::stack<int> stack_int;
+	NS::stack<Buffer, std::deque<Buffer> > stack_deq_buffer;
+	MutantStack<char> iterable_stack;
+	for (char letter = 'a'; letter <= 'z'; letter++)
+		iterable_stack.push(letter);
+	for (MutantStack<char>::iterator it = iterable_stack.begin(); it != iterable_stack.end(); it++)
+		std::cout << *it;
+	std::cout << std::endl;
+
 	std::cout << "\n\n";
 }
 
-void printMap(NS::map<TYPE1, TYPE2> map, std::string name)
+template <class T1, class T2>
+void printMap(NS::map<T1, T2> map, std::string name)
 {
     std::cout << name << " contains: \n";
     std::cout << "\tKEY\tELEMENT\n";
-    for (NS::map<TYPE1, TYPE2>::iterator itr = map.begin(); itr != map.end(); ++itr)
+    for (typename NS::map<T1, T2>::iterator itr = map.begin(); itr != map.end(); ++itr)
     	std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
 	std::cout << name << " size: " << map.size() << std::endl;
-
 }
 
 void mapTests()
@@ -301,10 +361,21 @@ void mapTests()
 	NS::pair<TYPE1, TYPE2> pair_arr[] = {NS::make_pair(42, "a"), NS::make_pair(43, "b"), NS::make_pair(44, "c")};
 	NS::map<TYPE1, TYPE2> m2(&pair_arr[0], &pair_arr[3]);
 	printMap(m2, "m2");
-
+	
 	std::cout << "\n-----MAP COPY CONSTRUCTOR-----" << std::endl;
 	NS::map<TYPE1, TYPE2> copy(m);
+	NS::map<TYPE1, TYPE2> copy2 = m;
 	printMap(copy, "copy");
+	printMap(copy2, "copy2");
+
+	std::cout << "\n-----CONSTRUCT MUTANTMAP AND INSERT OBJECT-----" << std::endl;
+	MutantStack<char> iterable_stack;
+	for (char letter = 'a'; letter <= 'z'; letter++)
+		iterable_stack.push(letter);
+	NS::pair<int, MutantStack<char> > mutantPair = NS::make_pair(1, iterable_stack);
+	NS::map<int, MutantStack<char> > mutantMap;
+	mutantMap.insert(mutantPair);
+	std::cout << "compiles ok, but cannot print MutantStacks" << std::endl;
 
 	std::cout << "\n-----MAP RANGE INSERT-----" << std::endl;
 	m.insert(map.begin(), map.end());
@@ -420,7 +491,6 @@ void mapTests()
 	//std::cout << "revIt -= 1: " << (revIt -= 1) << std::endl; // doesn't exist
 	
 	std::cout << "\n-----CONST TESTS-----" << std::endl;
-
 	std::cout << "constructing const from non-const map" << std::endl;
 	const NS::map<TYPE1, TYPE2> constmap(m);
 	std::cout << "construct non-const from const map" << std::endl;
@@ -436,6 +506,28 @@ void mapTests()
 	citr = itr;
 	std::cout << "const_iterator to iterator" << std::endl;
 	//itr = citr; // should not compile
+
+	std::cout << "\n-----EQUAL-----" << std::endl;
+	std::cout << "m equal emptyMap? " << NS::equal(m.begin(), m.end(), emptyMap.begin()) << std::endl;
+
+	std::cout << "\n-----LEXICOGRAPHICAL_COMPARE-----" << std::endl;
+	std::cout << "v < emptyMap? " << NS::lexicographical_compare(m.begin(), m.end(), emptyMap.begin(), emptyMap.end()) << std::endl;
+	std::cout << "emptyMap < m? " << NS::lexicographical_compare(emptyMap.begin(), emptyMap.end(), m.begin(), m.end()) << std::endl;
+	std::cout << "m < emptyMap? (comp) " << NS::lexicographical_compare(m.begin(), m.end(), emptyMap.begin(), emptyMap.end(), comp_func) << std::endl;
+	std::cout << "emptyMap < m? (comp) " << NS::lexicographical_compare(emptyMap.begin(), emptyMap.end(), m.begin(), m.end(), comp_func) << std::endl;
+
+	std::cout << "\n-----SUBJECT MAIN TESTS-----" << std::endl;
+	NS::map<int, int> map_int;
+	srand(1);
+	for (int i = 0; i < COUNT; ++i)
+		map_int.insert(NS::make_pair(rand()%COUNT, rand()%COUNT));
+	int sum = 0;
+	for (int i = 0; i < 10000; i++)
+	{
+		int access = rand()%COUNT;
+		sum += map_int[access]/100;
+	}
+	std::cout << "should be constant with the same seed: " << sum << std::endl;
 }
 
 int main()
@@ -445,121 +537,3 @@ int main()
 	mapTests();
 	return 0;
 }
-
-/*
-#include <iostream>
-#include <string>
-#include <deque>
-#if 0 //CREATE A REAL STL EXAMPLE
-	#include <map>
-	#include <stack>
-	#include <vector>
-	namespace ft = std;
-#else
-	#include "map.hpp"
-	#include "stack.hpp"
-	#include "vector.hpp"
-#endif
-
-#include <stdlib.h>
-
-#define MAX_RAM 4294967296
-#define BUFFER_SIZE 4096
-struct Buffer
-{
-	int idx;
-	char buff[BUFFER_SIZE];
-};
-
-
-#define COUNT (MAX_RAM / (int)sizeof(Buffer))
-
-template<typename T>
-class MutantStack : public ft::stack<T>
-{
-	public:
-		MutantStack() {}
-		MutantStack(const MutantStack<T>& src) { *this = src; }
-		MutantStack<T>& operator=(const MutantStack<T>& rhs) 
-		{
-			this->c = rhs.c;
-			return *this;
-		}
-		~MutantStack() {}
-
-		typedef typename ft::stack<T>::container_type::iterator iterator;
-
-		iterator begin() { return this->c.begin(); }
-		iterator end() { return this->c.end(); }
-};
-
-int main(int argc, char** argv) {
-	if (argc != 2)
-	{
-		std::cerr << "Usage: ./test seed" << std::endl;
-		std::cerr << "Provide a seed please" << std::endl;
-		std::cerr << "Count value:" << COUNT << std::endl;
-		return 1;
-	}
-	const int seed = atoi(argv[1]);
-	srand(seed);
-
-	ft::vector<std::string> vector_str;
-	ft::vector<int> vector_int;
-	ft::stack<int> stack_int;
-	ft::vector<Buffer> vector_buffer;
-	ft::stack<Buffer, std::deque<Buffer> > stack_deq_buffer;
-	ft::map<int, int> map_int;
-
-	for (int i = 0; i < COUNT; i++)
-	{
-		vector_buffer.push_back(Buffer());
-	}
-
-	for (int i = 0; i < COUNT; i++)
-	{
-		const int idx = rand() % COUNT;
-		vector_buffer[idx].idx = 5;
-	}
-	ft::vector<Buffer>().swap(vector_buffer);
-
-	try
-	{
-		for (int i = 0; i < COUNT; i++)
-		{
-			const int idx = rand() % COUNT;
-			vector_buffer.at(idx);
-			std::cerr << "Error: THIS VECTOR SHOULD BE EMPTY!!" <<std::endl;
-		}
-	}
-	catch(const std::exception& e)
-	{
-		//NORMAL ! :P
-	}
-	
-	for (int i = 0; i < COUNT; ++i)
-	{
-		map_int.insert(ft::make_pair(rand(), rand()));
-	}
-
-	int sum = 0;
-	for (int i = 0; i < 10000; i++)
-	{
-		int access = rand();
-		sum += map_int[access];
-	}
-	std::cout << "should be constant with the same seed: " << sum << std::endl;
-
-	{
-		ft::map<int, int> copy = map_int;
-	}
-	MutantStack<char> iterable_stack;
-	for (char letter = 'a'; letter <= 'z'; letter++)
-		iterable_stack.push(letter);
-	for (MutantStack<char>::iterator it = iterable_stack.begin(); it != iterable_stack.end(); it++)
-	{
-		std::cout << *it;
-	}
-	std::cout << std::endl;
-	return (0);
-}*/
