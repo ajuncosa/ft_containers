@@ -29,7 +29,7 @@ else
 fi
 
 echo "\n-----Compilation tests-----"
-c++ -D NS=ft no_compile_1.cpp -o no_compile_test 2> /dev/null
+clang++ -D NS=ft no_compile_1.cpp -o no_compile_test 2> /dev/null
 FILE=no_compile_test
 if [ -f "${FILE}" ]
 then
@@ -39,7 +39,7 @@ else
 	echo "${GREEN}${FILE} 1 ok.${NC}"
 fi
 
-c++ -D NS=ft no_compile_2.cpp -o no_compile_test 2> /dev/null
+clang++ -D NS=ft no_compile_2.cpp -o no_compile_test 2> /dev/null
 FILE=no_compile_test
 if [ -f "${FILE}" ]
 then
@@ -49,7 +49,7 @@ else
 	echo "${GREEN}${FILE} 2 ok.${NC}"
 fi
 
-c++ -D NS=ft no_compile_3.cpp -o no_compile_test 2> /dev/null
+clang++ -D NS=ft no_compile_3.cpp -o no_compile_test 2> /dev/null
 FILE=no_compile_test
 if [ -f "${FILE}" ]
 then
@@ -62,10 +62,10 @@ fi
 
 echo "\n-----Time test-----"
 echo "(ft can be up to 20 times slower)"
-c++ -D NS=std time_test.cpp -o time_test
+clang++ -D NS=std time_test.cpp -o time_test
 echo "std: "
 time ./time_test | grep real
-c++ -D NS=ft time_test.cpp -o time_test
+clang++ -D NS=ft time_test.cpp -o time_test
 echo "\nft: "
 time ./time_test | grep real
 
